@@ -1,0 +1,474 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --font-primary: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "Space Grotesk", monospace;
+
+  --color-primary: #8244b3;
+  --color-secondary: #a879e6;
+  --accent-teal: #2eeed0;
+  --accent-blue: #7c9bff;
+
+  --bg-color: #0b0b14;
+  --surface-color: #1a0f2e;
+  --surface-hover: #23143e;
+
+  --glass-bg: rgba(26, 15, 46, 0.65);
+  --glass-card-bg: rgba(255, 255, 255, 0.035);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-hover: rgba(168, 121, 230, 0.4);
+
+  --text-main: #ffffff;
+  --text-muted: #cbd5e1;
+  --text-dim: #94a3b8;
+
+  --purple-gradient: linear-gradient(135deg, #8244b3, #a879e6);
+  --teal-gradient: linear-gradient(135deg, #2eeed0, #7c9bff);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.alumni-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 58px 7vw 84px;
+  color: var(--text-main);
+  font-family: var(--font-primary);
+  background:
+    radial-gradient(circle at 8% 70%, rgba(130, 68, 179, 0.2), transparent 28rem),
+    radial-gradient(circle at 92% 18%, rgba(46, 238, 208, 0.09), transparent 25rem),
+    var(--bg-color);
+}
+
+/* Background decoration */
+
+.alumni-page__orb {
+  position: absolute;
+  z-index: -1;
+  border: 1px solid rgba(168, 121, 230, 0.15);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.alumni-page__orb--one {
+  width: 390px;
+  height: 390px;
+  top: 12%;
+  left: -250px;
+  box-shadow: 0 0 90px rgba(130, 68, 179, 0.12);
+}
+
+.alumni-page__orb--two {
+  width: 470px;
+  height: 470px;
+  right: -330px;
+  bottom: -120px;
+  border-color: rgba(46, 238, 208, 0.12);
+}
+
+/* Heading */
+
+.alumni-heading {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto 46px;
+  text-align: center;
+}
+
+.alumni-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 34px;
+  color: #eadcff;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.alumni-brand__moon {
+  color: var(--color-secondary);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.alumni-heading__eyebrow {
+  margin: 0 0 12px;
+  color: var(--accent-teal);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+}
+
+.alumni-heading h1 {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  letter-spacing: -0.06em;
+}
+
+.alumni-heading__subtitle {
+  max-width: 550px;
+  margin: 14px auto 0;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+/* Continuous vertical alumni layout */
+
+.alumni-slider {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.alumni-slider__track {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  padding: 12px 0 26px;
+}
+
+.alumni-slider__slide {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-bottom: 24px;
+}
+
+/* Desktop: 4 cards per row */
+
+.alumni-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Hide horizontal slider controls */
+
+.alumni-slider__controls {
+  display: none !important;
+}
+
+/* Alumni card */
+
+.alumni-card {
+  position: relative;
+  min-width: 0;
+  padding: 15px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  border-radius: 27px;
+  background: var(--glass-bg);
+  box-shadow: 0 22px 65px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  transition:
+    transform 240ms ease,
+    border-color 240ms ease,
+    background 240ms ease;
+}
+
+.alumni-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--glass-border-hover);
+  background: rgba(35, 20, 62, 0.78);
+}
+
+.alumni-card--teal {
+  box-shadow:
+    0 22px 65px rgba(0, 0, 0, 0.34),
+    inset 0 0 0 1px rgba(46, 238, 208, 0.025);
+}
+
+/* Photo */
+
+.alumni-card__photo-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 0.91;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  background: var(--surface-hover);
+}
+
+.alumni-card__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  transition: transform 350ms ease;
+}
+
+.alumni-card:hover .alumni-card__photo {
+  transform: scale(1.045);
+}
+
+/* Card content */
+
+.alumni-card__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 17px 5px 4px;
+}
+
+.alumni-card__info {
+  min-width: 0;
+}
+
+.alumni-card__company {
+  margin: 3px 0 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.alumni-card__linkedin {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  color: #fff;
+  background: #0a66c2;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.alumni-card__linkedin:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+.alumni-card__name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.alumni-card__name {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 1.18rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.alumni-card__verified {
+  display: inline-grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  color: #0b0b14;
+  background: var(--teal-gradient);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.alumni-card__role {
+  margin: 5px 0 0;
+  color: var(--color-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.alumni-card__bio {
+  min-height: 48px;
+  margin: 9px 0 18px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.65;
+}
+
+/* Footer and stats */
+
+.alumni-card__footer,
+.alumni-card__stats,
+.alumni-stat {
+  display: flex;
+  align-items: center;
+}
+
+.alumni-card__footer {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.alumni-card__stats {
+  gap: 13px;
+}
+
+.alumni-stat {
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  color: var(--text-muted);
+  background: transparent;
+  font: 600 0.76rem var(--font-primary);
+  white-space: nowrap;
+}
+
+button.alumni-stat {
+  cursor: pointer;
+}
+
+.alumni-stat__icon {
+  color: #ff7d9d;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.alumni-stat__icon--people {
+  color: var(--accent-teal);
+}
+
+.alumni-stat--like.is-liked .alumni-stat__icon {
+  color: #ff477e;
+  transform: scale(1.15);
+}
+
+/* Follow button */
+
+.alumni-card__action {
+  min-width: 96px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 999px;
+  color: white;
+  background: var(--purple-gradient);
+  box-shadow: 0 7px 22px rgba(130, 68, 179, 0.25);
+  font: 700 0.72rem var(--font-primary);
+  cursor: pointer;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.alumni-card--teal .alumni-card__action {
+  color: #071b1c;
+  background: var(--teal-gradient);
+  box-shadow: 0 7px 22px rgba(46, 238, 208, 0.14);
+}
+
+.alumni-card__action:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.alumni-card__action.is-following {
+  color: var(--text-main);
+  border: 1px solid var(--glass-border-hover);
+  background: var(--surface-hover);
+  box-shadow: none;
+}
+
+/* Tablet: 2 cards per row */
+
+@media (max-width: 1023px) {
+  .alumni-page {
+    padding: 48px 5vw 72px;
+  }
+
+  .alumni-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+}
+
+/* Mobile: 1 card per row */
+
+@media (max-width: 639px) {
+  .alumni-page {
+    padding: 36px 16px 56px;
+  }
+
+  .alumni-heading {
+    margin-bottom: 24px;
+  }
+
+  .alumni-brand {
+    margin-bottom: 22px;
+  }
+
+  .alumni-slider__track {
+    padding: 12px 0 26px;
+  }
+
+  .alumni-slider__slide {
+    margin-bottom: 20px;
+  }
+
+  .alumni-grid {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 380px;
+    margin: 0 auto;
+    padding: 0 2px;
+    gap: 20px;
+  }
+
+  .alumni-card {
+    padding: 14px;
+  }
+
+  .alumni-card__photo-wrap {
+    aspect-ratio: 1 / 0.8;
+  }
+
+  .alumni-card:hover {
+    transform: none;
+  }
+
+  .alumni-card__bio {
+    min-height: 0;
+  }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* Passout year */
+.alumni-card__year {
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 8px;
+  opacity: 0.75;
+  letter-spacing: 0.5px;
+}
+
+/* Continuous vertical alumni layout */
+.alumni-slider__track {
+  display: block;
+  overflow: visible;
+  width: 100%;
+}
+
+.alumni-slider__slide {
+  display: block;
+  width: 100%;
+  flex: none;
+}
+
+.alumni-slider__controls {
+  display: none !important;
+}
