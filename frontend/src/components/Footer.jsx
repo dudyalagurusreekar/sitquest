@@ -1,5 +1,4 @@
 import { Link, useInRouterContext } from 'react-router-dom';
-import CampusBuildingIllustration from './CampusBuildingIllustration';
 
 /**
  * SafeLink helper component:
@@ -146,18 +145,12 @@ const DEFAULT_SOCIALS = {
  * QUEST Website Footer Component
  * 
  * Recreated following exact client requirements:
- * - Color scheme: deep cosmic dark violet #0C0816 / #0B0B14 from Image 1.
- * - 100% coded SVG vector lighting at top-left & bottom-right (zero bitmap images).
- * - Three main content sections:
- *   1. LEFT: QUEST Identity (Logo with white border + QUEST wordmark + A SEARCH WITHIN. + description + purple line + Join QUEST button)
- *   2. MIDDLE: Our Events (Glassmorphism interactive capsules with dedicated event SVG icons & arrow indicator)
- *   3. RIGHT: Connect With Us (Frosted glass social icon buttons + direct Gmail redirect + SIT address with Google Maps link)
- * - Lower-Right Campus View: Hand-coded SVG line art of the Siddaganga Institute of Technology Administrative Block from Image 2
- * - Bottom Footer Strip:
- *   - Left: Official SIT emblem + SIDDAGANGA INSTITUTE OF TECHNOLOGY + Tumakuru, Karnataka
- *   - Middle: © 2026 QUEST. Under the Placement & Training Department, SIT.
- *   - Right: Home, About, Events, Contact navigation links
- * - CSS Flexbox only, fully responsive.
+ * 1. Left side: QUEST Logo at 1.5x size (h-14 sm:h-16 md:h-[72px]), with the text beside it removed.
+ * 2. Middle: Our Events with side-by-side interactive glassmorphic rows (icon + event name + arrow snug together).
+ * 3. Right: Connect With Us with frosted glass social icon buttons.
+ * 4. College illustration removed from right bottom; replaced with matching shining neon beam lighting at bottom-right.
+ * 5. Full-width thin divider and centered copyright @2026 All rights are reserved.
+ * 6. Pure Tailwind CSS directly in JSX with Flexbox only.
  */
 const Footer = ({
   events = DEFAULT_EVENTS,
@@ -203,9 +196,9 @@ const Footer = ({
       className={`w-full bg-[#0C0816] text-[#CBD5E1] border-t border-white/[0.08] relative overflow-hidden font-sans select-none ${className}`}
       role="contentinfo"
     >
-      {/* ----------------- 100% PURE CODED VECTOR BACKGROUND (NO BITMAP IMAGES) ----------------- */}
+      {/* ----------------- 100% PURE CODED VECTOR LIGHTING (TOP-LEFT & BOTTOM-RIGHT) ----------------- */}
 
-      {/* 1. Top-Left Coded Vector Neon Beam (From Image 1) */}
+      {/* 1. Top-Left Shining Neon Beam */}
       <svg
         className="absolute -top-4 -left-4 w-[380px] sm:w-[480px] md:w-[560px] h-[190px] sm:h-[230px] pointer-events-none select-none z-0 overflow-visible"
         viewBox="0 0 560 230"
@@ -278,7 +271,80 @@ const Footer = ({
         />
       </svg>
 
-      {/* 2. Top-Right Atmospheric Cyan Haze (Pure CSS) */}
+      {/* 2. Bottom-Right Shining Neon Beam (Replaces the college photo) */}
+      <svg
+        className="absolute -bottom-8 -right-8 w-[380px] sm:w-[500px] md:w-[600px] h-[190px] sm:h-[240px] pointer-events-none select-none z-0 overflow-visible"
+        viewBox="0 0 600 240"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <defs>
+          <filter id="bottomRightWideBlur" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="30" />
+          </filter>
+          <filter id="bottomRightMidBlur" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="12" />
+          </filter>
+          <filter id="bottomRightTightBlur" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" />
+          </filter>
+
+          <linearGradient id="bottomRightAuraGrad" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#7E22CE" stopOpacity="0.8" />
+            <stop offset="40%" stopColor="#A855F7" stopOpacity="0.65" />
+            <stop offset="75%" stopColor="#C084FC" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#2EEED0" stopOpacity="0" />
+          </linearGradient>
+
+          <linearGradient id="bottomRightCoreGrad" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#9333EA" stopOpacity="0.2" />
+            <stop offset="35%" stopColor="#F5D0FE" stopOpacity="0.95" />
+            <stop offset="55%" stopColor="#FFFFFF" stopOpacity="1" />
+            <stop offset="78%" stopColor="#E9D5FF" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#C084FC" stopOpacity="0" />
+          </linearGradient>
+
+          <linearGradient id="bottomRightSheetFill" x1="1" y1="1" x2="0.3" y2="0">
+            <stop offset="0%" stopColor="#9333EA" stopOpacity="0.4" />
+            <stop offset="50%" stopColor="#581C87" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#0C0816" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+
+        <path
+          d="M 620 50 Q 520 110, 390 165 T 190 250 L 310 270 Q 510 180, 640 130 Z"
+          fill="url(#bottomRightSheetFill)"
+          filter="url(#bottomRightWideBlur)"
+          opacity="0.85"
+        />
+        <path
+          d="M 630 85 Q 525 130, 400 175 T 210 250"
+          stroke="url(#bottomRightAuraGrad)"
+          strokeWidth="32"
+          strokeLinecap="round"
+          filter="url(#bottomRightWideBlur)"
+          opacity="0.85"
+        />
+        <path
+          d="M 630 85 Q 525 130, 400 175 T 210 250"
+          stroke="url(#bottomRightCoreGrad)"
+          strokeWidth="11"
+          strokeLinecap="round"
+          filter="url(#bottomRightMidBlur)"
+          opacity="0.95"
+        />
+        <path
+          d="M 630 85 Q 525 130, 400 175 T 210 250"
+          stroke="#FFFFFF"
+          strokeWidth="3"
+          strokeLinecap="round"
+          filter="url(#bottomRightTightBlur)"
+          opacity="0.95"
+        />
+      </svg>
+
+      {/* 3. Top-Right Atmospheric Cyan Haze (Pure CSS) */}
       <div
         className="absolute top-0 right-0 w-[360px] h-[180px] pointer-events-none opacity-50 z-0"
         style={{
@@ -286,14 +352,6 @@ const Footer = ({
         }}
         aria-hidden="true"
       />
-
-      {/* 3. Lower-Right Campus Building Line-Art Illustration (From Image 2) */}
-      <div
-        className="absolute bottom-12 right-0 sm:right-2 md:right-4 w-[340px] sm:w-[420px] md:w-[480px] lg:w-[540px] pointer-events-none select-none z-0 opacity-45 sm:opacity-55 md:opacity-65 lg:opacity-75 transition-opacity"
-        aria-hidden="true"
-      >
-        <CampusBuildingIllustration />
-      </div>
 
       {/* ----------------- COMPACT MAIN CONTENT CONTAINER (FLEXBOX ONLY) ----------------- */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 pt-9 pb-6">
@@ -305,30 +363,20 @@ const Footer = ({
           <div className="flex-1 md:max-w-sm flex flex-col items-start">
             <SafeLink
               to="/"
-              className="group inline-flex items-center gap-3.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A879E6] rounded transition-opacity"
+              className="group inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A879E6] rounded-xl transition-all duration-300"
               aria-label="QUEST - A Search Within Homepage"
             >
-              {/* Official QUEST logo with white stroke (pops cleanly from dark background) */}
+              {/* Official QUEST logo at 1.5x size (h-14 sm:h-16 md:h-[72px]) with NO text beside it */}
               {showLogo && logoSrc && (
                 <img
                   src={logoSrc}
                   alt="QUEST Logo"
-                  className="h-10 sm:h-12 w-auto object-contain filter drop-shadow-[0_0_10px_rgba(255,255,255,0.25)] shrink-0 transition-transform duration-200 group-hover:scale-105"
+                  className="h-14 sm:h-16 md:h-[72px] w-auto object-contain filter drop-shadow-[0_0_16px_rgba(168,121,230,0.45)] group-hover:drop-shadow-[0_0_24px_rgba(168,121,230,0.7)] shrink-0 transition-transform duration-300 group-hover:scale-105"
                 />
               )}
-
-              {/* Typographic Wordmark & Tagline matching reference photo */}
-              <div className="flex flex-col">
-                <span className="text-2xl sm:text-[26px] font-black tracking-[0.25em] text-white group-hover:text-[#A879E6] transition-colors duration-200 leading-tight">
-                  QUEST
-                </span>
-                <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.22em] text-[#AD89C6] uppercase mt-0.5">
-                  A SEARCH WITHIN.
-                </span>
-              </div>
             </SafeLink>
 
-            {/* Description (exact 3 lines wrapped cleanly matching the photo) */}
+            {/* Description wrapped cleanly */}
             <p className="mt-4 text-xs sm:text-[13px] text-[#CBD5E1] leading-relaxed max-w-[320px] sm:max-w-[340px]">
               A student community to explore opportunities, build skills, and grow together.
             </p>
