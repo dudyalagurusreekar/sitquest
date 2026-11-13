@@ -363,7 +363,7 @@ const Footer = ({
           <div className="flex-1 md:max-w-sm flex flex-col items-start">
             <SafeLink
               to="/"
-              className="group inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A879E6] rounded-xl transition-all duration-300"
+              className="group inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A879E6] rounded-xl transition-all duration-300 ml-4 sm:ml-7 md:ml-9"
               aria-label="QUEST - A Search Within Homepage"
             >
               {/* Official QUEST logo at 1.5x size (h-14 sm:h-16 md:h-[72px]) with NO text beside it */}
