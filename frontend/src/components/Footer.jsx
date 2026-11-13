@@ -361,28 +361,27 @@ const Footer = ({
 
           {/* ================= SECTION 1 — LEFT: QUEST BRAND IDENTITY ================= */}
           <div className="flex-1 md:max-w-sm flex flex-col items-start">
-            <SafeLink
-              to="/"
-              className="group inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A879E6] rounded-xl transition-all duration-300 ml-4 sm:ml-7 md:ml-9"
-              aria-label="QUEST - A Search Within Homepage"
-            >
-              {/* Official QUEST logo at 1.5x size (h-14 sm:h-16 md:h-[72px]) with NO text beside it */}
-              {showLogo && logoSrc && (
-                <img
-                  src={logoSrc}
-                  alt="QUEST Logo"
-                  className="h-14 sm:h-16 md:h-[72px] w-auto object-contain filter drop-shadow-[0_0_16px_rgba(168,121,230,0.45)] group-hover:drop-shadow-[0_0_24px_rgba(168,121,230,0.7)] shrink-0 transition-transform duration-300 group-hover:scale-105"
-                />
-              )}
-            </SafeLink>
+            <div className="w-full max-w-[320px] sm:max-w-[340px] flex justify-center">
+              <SafeLink
+                to="/"
+                className="group inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A879E6] rounded-xl transition-all duration-300"
+                aria-label="QUEST - A Search Within Homepage"
+              >
+                {/* Official QUEST logo at 1.5x size (h-14 sm:h-16 md:h-[72px]) centered in this section */}
+                {showLogo && logoSrc && (
+                  <img
+                    src={logoSrc}
+                    alt="QUEST Logo"
+                    className="h-14 sm:h-16 md:h-[72px] w-auto object-contain filter drop-shadow-[0_0_16px_rgba(168,121,230,0.45)] group-hover:drop-shadow-[0_0_24px_rgba(168,121,230,0.7)] shrink-0 transition-transform duration-300 group-hover:scale-105"
+                  />
+                )}
+              </SafeLink>
+            </div>
 
             {/* Description wrapped cleanly */}
             <p className="mt-4 text-xs sm:text-[13px] text-[#CBD5E1] leading-relaxed max-w-[320px] sm:max-w-[340px]">
               A student community to explore opportunities, build skills, and grow together.
             </p>
-
-            {/* Purple horizontal accent line */}
-            <div className="h-[2px] w-12 bg-gradient-to-r from-[#A879E6] via-[#8244B3] to-transparent rounded-full mt-3.5" />
           </div>
 
           {/* Thin, soft vertical separator between Section 1 & Section 2 with gentle fade */}
