@@ -1,4 +1,3 @@
-
 import React from "react";
 import alumniData from "../../data/alumniData";
 
@@ -74,21 +73,21 @@ export default function Alumni() {
       <div className="pointer-events-none absolute -right-[300px] bottom-[100px] -z-10 h-[420px] w-[420px] rounded-full border border-[rgba(0,220,190,0.10)] blur-[1px]" />
 
       {/* Heading */}
-      <header className="relative mx-auto mb-[65px] w-full max-w-[900px] text-center max-[760px]:mb-[50px]">
+      <header className="relative mx-auto mb-[40px] flex w-full max-w-[900px] flex-col items-center text-center max-[760px]:mb-[30px]">
 
-        <div className="mb-[25px] font-['Space_Grotesk',sans-serif] text-[15px] font-extrabold tracking-[5px] text-white">
+        <div className="mb-[12px] font-['Space_Grotesk',sans-serif] text-[15px] font-extrabold tracking-[5px] text-white">
           QUEST
         </div>
 
-        <p className="mb-3 text-[13px] font-extrabold tracking-[4px] text-[#00e5c3]">
+        <p className="mb-[14px] text-[13px] font-extrabold tracking-[4px] text-[#00e5c3]">
           OUR COMMUNITY
         </p>
 
-        <h1 className="m-0 font-['Space_Grotesk',sans-serif] text-[clamp(38px,5.5vw,68px)] font-bold leading-[1.1] tracking-[-2.5px] text-white max-[480px]:tracking-[-1.5px]">
+        <h1 className="mb-[12px] font-['Space_Grotesk',sans-serif] text-[clamp(38px,5.5vw,68px)] font-bold leading-[1.1] tracking-[-2.5px] text-white max-[480px]:tracking-[-1.5px]">
           Meet our Alumni
         </h1>
 
-        <p className="mx-auto mt-4 max-w-[620px] text-base leading-[1.8] text-[#c3bfd2] max-[480px]:text-sm">
+        <p className="w-full max-w-[620px] text-center text-base leading-[1.6] text-[#c3bfd2] max-[480px]:text-sm">
           Inspiring journeys. Meaningful connections.
           A community that grows together.
         </p>
@@ -104,10 +103,10 @@ export default function Alumni() {
           );
 
           return (
-            <section key={year} className="mb-[75px] w-full">
+            <section key={year} className="mb-[60px] w-full">
 
               {/* Year heading */}
-              <div className="mb-[35px] flex items-center justify-center gap-[22px] max-[480px]:gap-3">
+              <div className="mb-[25px] flex items-center justify-center gap-[22px] max-[480px]:gap-3">
 
                 <span className="h-px w-[85px] bg-gradient-to-r from-transparent to-[rgba(0,229,195,0.65)] max-[480px]:w-[35px]" />
 

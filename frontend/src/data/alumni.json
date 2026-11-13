@@ -3,7 +3,7 @@
   {
     "id": 1,
     "name": "Shashank Udagatti",
-    "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/shashank.jpeg",
     "year": 2025,
     "role": "Software Developer",
     "company": "Syncron",
@@ -13,7 +13,7 @@
   {
     "id": 2,
     "name": "Priya S N",
-    "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/priya.jpeg",
     "year": 2025,
     "role": "Quality Control",
     "company": "VJ Biosciences",
@@ -23,7 +23,7 @@
   {
     "id": 3,
     "name": "Krish U",
-    "image": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/krish.jpeg",
     "year": 2025,
     "role": "Mobile App Developer",
     "company": "redBus",
@@ -33,7 +33,7 @@
   {
     "id": 4,
     "name": "Nidhi LK",
-    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/nidhi.jpeg",
     "year": 2025,
     "role": "Data Engineer",
     "company": "Ujjivan Small Finance Bank",
@@ -43,7 +43,7 @@
   {
     "id": 5,
     "name": "Chetana Bamandi",
-    "image": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/chetaana.jpeg",
     "year": 2025,
     "role": "Development",
     "company": "Siemens Healthineers",
@@ -53,7 +53,7 @@
   {
     "id": 6,
     "name": "Keerthana B M",
-    "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/keerthana.jpeg",
     "year": 2025,
     "role": "Associate Software Engineer",
     "company": "BNP Paribas India Solutions Private Limited",
@@ -63,7 +63,7 @@
   {
     "id": 7,
     "name": "Nachiket",
-    "image": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/nachiket.jpeg",
     "year": 2025,
     "role": "Graduate Trainee Engineer",
     "company": "Siemens Technology and Services Private Limited",
@@ -73,7 +73,7 @@
   {
     "id": 8,
     "name": "Prathiksha C P",
-    "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/prathiksha.jpeg",
     "year": 2025,
     "role": "Advanced Service Engineer",
     "company": "Oracle",
@@ -83,7 +83,7 @@
   {
     "id": 9,
     "name": "Prajwal R",
-    "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/prajwal.jpeg",
     "year": 2025,
     "role": "Associate Engineer",
     "company": "Oracle",
@@ -93,7 +93,7 @@
   {
     "id": 10,
     "name": "Soumya Shetty S",
-    "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/soumya.jpeg",
     "year": 2025,
     "role": "Associate Software Engineer",
     "company": "Syncron",
@@ -103,7 +103,7 @@
   {
     "id": 11,
     "name": "Vasundhara M",
-    "image": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/vasundhara.jpeg",
     "year": 2025,
     "role": "SAP Consultant",
     "company": "Daimler Truck",
@@ -113,7 +113,7 @@
   {
     "id": 12,
     "name": "Vinayak B Sannatangiyavar",
-    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/vinayaak.jpeg",
     "year": 2026,
     "role": "Senior Associate",
     "company": "WFS Bengaluru Private Limited",
@@ -123,7 +123,7 @@
   {
     "id": 13,
     "name": "Ananya M S",
-    "image": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/ananya.jpeg",
     "year": 2026,
     "role": "Software Analyst",
     "company": "Morgan Stanley",
@@ -133,7 +133,7 @@
   {
     "id": 14,
     "name": "Basavaraj Revani",
-    "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/basu.jpeg",
     "year": 2026,
     "role": "SDE",
     "company": "HSBC",
@@ -143,7 +143,7 @@
   {
     "id": 15,
     "name": "Jeevan Kumar P S",
-    "image": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/jeevan.jpeg",
     "year": 2026,
     "role": "Quality Engineer",
     "company": "Alstom Group",
@@ -153,7 +153,7 @@
   {
     "id": 16,
     "name": "Sumanth Gowda S L",
-    "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/sumanth.jpeg",
     "year": 2026,
     "role": "Logistics Operations",
     "company": "Transport Corporation of India Limited",
@@ -163,7 +163,7 @@
   {
     "id": 17,
     "name": "Ananthakrishnan H",
-    "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/ananthakrishnan.jpeg",
     "year": 2026,
     "role": "ASE",
     "company": "TCS",
@@ -173,7 +173,7 @@
   {
     "id": 18,
     "name": "Chaithra K V",
-    "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/chaithra.jpeg",
     "year": 2026,
     "role": "Associate Software Engineer",
     "company": "NOKIA",
@@ -183,7 +183,7 @@
   {
     "id": 19,
     "name": "Harika Reddy S N",
-    "image": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/harika.jpeg",
     "year": 2026,
     "role": "Associate Consultant",
     "company": "Relanto Global Private Limited",
@@ -193,7 +193,7 @@
   {
     "id": 20,
     "name": "Harsh Patil",
-    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=85",
+    "image": "/images/harsh.jpeg",
     "year": 2026,
     "role": "GET",
     "company": "LTM",
