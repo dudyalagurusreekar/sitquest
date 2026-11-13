@@ -199,5 +199,27 @@
     "company": "LTM",
     "linkedin": "https://www.linkedin.com/in/harsh-patil-456476255?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
     "theme": "alumni-card--teal"
+  },
+  {
+    "id": 21,
+    "name": "Shalmala G Nadig",
+    "image": "/images/shalmala.jpeg",
+    "year": 2026,
+    "role": "Research Associate ",
+    "company": "IIIT Dharwad Research Park",
+    "linkedin": "https://www.linkedin.com/in/shalmala-nadig-052948353?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    "theme": "alumni-card--teal"
+  },
+  {
+    "id": 22,
+    "name": "Vijetha Maheshgowda",
+    "image": "/images/vijetha.jpeg",
+    "year": 2026,
+    "role": "Test Engineer",
+    "company": "Applogic Networks",
+    "linkedin": "https://www.linkedin.com/in/vijetha-maheshgowda-368a39262?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    "theme": "alumni-card--purple"
   }
+
+
 ]
