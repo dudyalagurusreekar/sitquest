@@ -416,22 +416,24 @@
     "lastTimestamp": "46339.96892859954"
   },
   {
-    "usn": "QUEST-TANUSHKA",
+    "usn": "1SI23CS182",
     "name": "Tanushka",
-    "slug": "tanushka-quest-tanushka",
+    "slug": "tanushka-1si23cs182",
     "branch": "Computer Science and Engineering",
     "semester": "7th Semester",
     "academicYear": "Fourth Year",
     "yearOrder": 1,
-    "domains": [],
-    "linkedin": "#",
+    "domains": [
+      "MULTIMEDIA"
+    ],
+    "linkedin": "https://www.linkedin.com/in/tanushka-rani-521506342",
     "position": "Core Member",
     "instagram": "",
-    "photoUrl": "",
+    "photoUrl": "/images_of_team/1si23cs182.webp",
     "driveId": null,
-    "photoFileName": "quest-tanushka.webp",
-    "localPhotoPath": "/images_of_team/quest-tanushka.webp",
-    "photoWebp": "/images_of_team/quest-tanushka.webp",
+    "photoFileName": "1si23cs182.webp",
+    "localPhotoPath": "/images_of_team/1si23cs182.webp",
+    "photoWebp": "/images_of_team/1si23cs182.webp",
     "driveThumbnailUrl": null,
     "lastTimestamp": "46340.9000000005"
   },

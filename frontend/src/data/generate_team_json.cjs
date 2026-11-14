@@ -139,7 +139,7 @@ function standardizePosition(pos, usn) {
   if (u === 'QUEST-PRATHIKSHA') return 'Core Member';
   if (u === 'QUEST-PREENA') return 'Core Member';
   if (u === 'QUEST-SHREEYA') return 'Core Member';
-  if (u === 'QUEST-TANUSHKA') return 'Core Member';
+  if (u === 'QUEST-TANUSHKA' || u === '1SI23CS182') return 'Core Member';
   if (u === 'QUEST-KUSHI') return 'Core Member';
 
   if (!pos) return '';
@@ -190,6 +190,7 @@ dataRows.forEach(r => {
   if (usn === '1SI23BT017') linkedIn = 'https://www.linkedin.com/in/pavithra-m-venkatesh-a39760432';
   if (usn === '1SI23AD024') linkedIn = 'https://www.linkedin.com/in/arun-subramanyam-lenkalapelli-a480412a5';
   if (usn === 'QUEST-HARADEEP') linkedIn = 'https://www.linkedin.com/in/haradeep-reddy-yeddula-52033729a';
+  if (usn === '1SI23CS182') linkedIn = 'https://www.linkedin.com/in/tanushka-rani-521506342';
   if (usn === 'QUEST-VARUN') linkedIn = '#';
   if (['QUEST-PRATHIKSHA', 'QUEST-PREENA', 'QUEST-SHREEYA', 'QUEST-TANUSHKA', 'QUEST-KUSHI'].includes(usn)) {
     linkedIn = '#';

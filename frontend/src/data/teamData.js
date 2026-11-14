@@ -93,7 +93,8 @@ export function getFourthYearTeam() {
     'QUEST-PRATHIKSHA', // Prathiksha (Core Member)
     'QUEST-PREENA', // Preena (Core Member)
     'QUEST-SHREEYA', // Shreeya (Core Member)
-    'QUEST-TANUSHKA', // Tanushka (Core Member)
+    '1SI23CS182', // Tanushka (Core Member)
+    'QUEST-TANUSHKA', // Tanushka fallback
     'QUEST-KUSHI', // Kushi (Core Member)
   ];
 
