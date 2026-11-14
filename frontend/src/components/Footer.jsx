@@ -88,13 +88,6 @@ const FreshersIcon = () => (
   </svg>
 );
 
-const RecruitmentsIcon = () => (
-  <svg className="w-3.5 h-3.5 text-[#C084FC] shrink-0 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-  </svg>
-);
-
 const PlacementIQIcon = () => (
   <svg className="w-3.5 h-3.5 text-[#C084FC] shrink-0 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <line x1="18" y1="20" x2="18" y2="10" />
@@ -129,7 +122,6 @@ const DiagonalArrowIcon = () => (
 
 const DEFAULT_EVENTS = [
   { name: 'Freshers Day', href: '/events/freshers-day', icon: <FreshersIcon /> },
-  { name: 'Recruitments', href: '/recruitments', icon: <RecruitmentsIcon /> },
   { name: 'Placement IQ', href: '/events/placement-iq', icon: <PlacementIQIcon /> },
   { name: 'QUEST Test Series', href: '/events/quest-test-series', icon: <TestSeriesIcon /> },
 ];
