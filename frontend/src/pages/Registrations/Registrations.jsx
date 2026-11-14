@@ -41,13 +41,15 @@ function StarField() {
   const stars = Array.from({ length: 120 }, (_, index) => ({
     x: (index * 137.51 + 11) % 1000,
     y: (index * 83.17 + (index % 7) * 19) % 700,
-    radius: index % 13 === 0 ? 2.1 : index % 4 === 0 ? 1.45 : 0.95,
+    radius: index % 5 === 0 ? 5.5 : index % 3 === 0 ? 4.2 : 3.2,
     delay: `${(index % 9) * -0.55}s`,
   }))
 
+  const starPath = ({ x, y, radius }) => `M ${x} ${y - radius} L ${x + radius * 0.28} ${y - radius * 0.28} L ${x + radius} ${y} L ${x + radius * 0.28} ${y + radius * 0.28} L ${x} ${y + radius} L ${x - radius * 0.28} ${y + radius * 0.28} L ${x - radius} ${y} L ${x - radius * 0.28} ${y - radius * 0.28} Z`
+
   return <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs><filter id="quest-star-glow" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="2.8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-    {stars.map((star, index) => <circle key={index} cx={star.x} cy={star.y} r={star.radius} fill={index % 3 === 0 ? '#d8b4fe' : '#ffffff'} opacity={index % 13 === 0 ? '.95' : '.68'} filter="url(#quest-star-glow)" className="animate-sparkle" style={{ animationDelay: star.delay }}/>) }
+    <defs><filter id="quest-star-glow" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="1.8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    {stars.map((star, index) => <path key={index} d={starPath(star)} fill={index % 3 === 0 ? '#d8b4fe' : '#ffffff'} opacity={index % 5 === 0 ? '.98' : '.8'} filter="url(#quest-star-glow)" className="animate-sparkle" style={{ animationDelay: star.delay }}/>) }
   </svg>
 }
 
@@ -182,14 +184,15 @@ function EventRegistration({ event, onBack, onRegistrationSubmit }) {
   const description = 'A new chapter begins! Meet your people, celebrate fresh starts, and make unforgettable memories with the QUEST community. We can’t wait to welcome you.'
   const detailsWidth = 'w-[min(1450px,calc(100%_-_72px))] max-[900px]:w-[calc(100%_-_48px)] max-[680px]:w-[calc(100%_-_36px)]'
 
-  return <main className="min-h-screen bg-[radial-gradient(circle_at_18%_14%,#a879e610_0_1px,transparent_1.5px),radial-gradient(circle_at_72%_22%,#ffffff12_0_1px,transparent_1.5px),radial-gradient(circle_at_48%_62%,#a879e612_0_1px,transparent_1.5px),radial-gradient(ellipse_at_70%_0%,#51287255_0,transparent_42%),radial-gradient(ellipse_at_8%_70%,#32195430_0,transparent_35%),#090711] bg-[length:170px_170px,230px_230px,290px_290px,auto,auto,auto] font-sans text-white">
-    <header className={`${detailsWidth} mx-auto flex h-[72px] max-w-[1450px] items-center justify-between border-b border-white/10 max-[680px]:h-[62px]`}>
+  return <main className="relative isolate min-h-screen bg-[radial-gradient(ellipse_at_70%_0%,#51287255_0,transparent_42%),radial-gradient(ellipse_at_8%_70%,#32195430_0,transparent_35%),#090711] font-sans text-white">
+    <StarField/>
+    <header className={`${detailsWidth} relative z-10 mx-auto flex h-[72px] max-w-[1450px] items-center justify-between border-b border-white/10 max-[680px]:h-[62px]`}>
       <button className="text-left text-xs text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-quest-lavender" onClick={onBack}><span className="mr-2 font-mono text-lg text-quest-lavender">←</span>All events</button>
       <img className="h-[70px] w-[118px] object-contain [mix-blend-mode:lighten] max-[680px]:h-[58px] max-[680px]:w-[88px]" src="/quest-logo.jpeg" alt="QUEST — A Search Within"/>
       <span className="w-20 max-[680px]:w-10" aria-hidden="true"/>
     </header>
 
-    <section className={`${detailsWidth} mx-auto mt-[34px] grid min-h-[330px] grid-cols-[1fr_.92fr] items-center gap-[54px] rounded-[22px] border border-quest-lavender/15 bg-white/[.015] p-6 shadow-[0_0_60px_#58297922,inset_0_1px_0_#ffffff0a] max-[900px]:gap-[30px] max-[680px]:mt-[22px] max-[680px]:flex max-[680px]:flex-col max-[680px]:items-stretch max-[680px]:gap-5 max-[680px]:p-3`}>
+    <section className={`${detailsWidth} relative z-10 mx-auto mt-[34px] grid min-h-[330px] grid-cols-[1fr_.92fr] items-center gap-[54px] rounded-[22px] border border-quest-lavender/15 bg-white/[.015] p-6 shadow-[0_0_60px_#58297922,inset_0_1px_0_#ffffff0a] max-[900px]:gap-[30px] max-[680px]:mt-[22px] max-[680px]:flex max-[680px]:flex-col max-[680px]:items-stretch max-[680px]:gap-5 max-[680px]:p-3`}>
       <div className="order-1 max-[680px]:order-2">
         <h1 className="mb-[31px] mt-0 max-w-[750px] bg-gradient-to-r from-white via-violet-100 to-quest-lavender bg-clip-text text-[clamp(44px,5.7vw,78px)] font-extrabold leading-[1.02] tracking-[-.065em] text-transparent drop-shadow-[0_0_22px_#a879e655] max-[680px]:mb-[19px] max-[680px]:text-[clamp(34px,9.5vw,52px)]">{event.title}</h1>
         <div className="flex flex-wrap items-center gap-[30px] max-[680px]:gap-x-[22px] max-[680px]:gap-y-[15px]">
@@ -202,7 +205,7 @@ function EventRegistration({ event, onBack, onRegistrationSubmit }) {
       </div>
     </section>
 
-    <section className={`${detailsWidth} mx-auto mb-[70px] mt-[54px] grid grid-cols-[minmax(0,1fr)_360px] grid-rows-[auto_1fr] gap-x-[52px] gap-y-0 max-[900px]:grid-cols-[minmax(0,1fr)_310px] max-[900px]:gap-x-7 max-[680px]:mb-[45px] max-[680px]:mt-[34px] max-[680px]:flex max-[680px]:flex-col max-[680px]:gap-6`}>
+    <section className={`${detailsWidth} relative z-10 mx-auto mb-[70px] mt-[54px] grid grid-cols-[minmax(0,1fr)_360px] grid-rows-[auto_1fr] gap-x-[52px] gap-y-0 max-[900px]:grid-cols-[minmax(0,1fr)_310px] max-[900px]:gap-x-7 max-[680px]:mb-[45px] max-[680px]:mt-[34px] max-[680px]:flex max-[680px]:flex-col max-[680px]:gap-6`}>
       <div className="contents">
         <div className="col-start-1 row-start-1 mb-[27px] flex items-center gap-[15px] max-[680px]:mb-[17px] max-[680px]:gap-3">
           <span className="grid h-12 w-12 place-items-center rounded-[14px] bg-quest-lavender/10 font-mono text-[23px] text-quest-lavender shadow-[0_0_25px_#b78fdf12] max-[680px]:h-[41px] max-[680px]:w-[41px]">i</span><span><h2 className="mb-1 mt-0 text-[27px] font-bold tracking-[-.035em] max-[680px]:text-[22px]">Event Details</h2><p className="m-0 text-[11px] text-slate-400">Everything you need to know</p></span>
@@ -229,7 +232,7 @@ function EventRegistration({ event, onBack, onRegistrationSubmit }) {
       </aside>
     </section>
 
-    <footer className={`${detailsWidth} mx-auto flex h-[65px] items-center justify-between border-t border-quest-lavender/15 font-mono text-[9px] tracking-[.12em] text-violet-200/65 max-[680px]:h-[58px] max-[680px]:text-[7px]`}><span>QUEST · EVENT REGISTRATION</span><button className="fixed bottom-6 right-6 z-40 grid h-12 w-12 place-items-center rounded-full border border-quest-lavender/40 bg-[#1a1028]/90 text-2xl text-quest-lavender shadow-[0_0_28px_#8244b366] transition hover:-translate-y-1 hover:bg-quest-purple" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top">↑</button></footer>
+    <footer className={`${detailsWidth} relative z-10 mx-auto flex h-[65px] items-center justify-between border-t border-quest-lavender/15 font-mono text-[9px] tracking-[.12em] text-violet-200/65 max-[680px]:h-[58px] max-[680px]:text-[7px]`}><span>QUEST · EVENT REGISTRATION</span><button className="fixed bottom-6 right-6 z-40 grid h-12 w-12 place-items-center rounded-full border border-quest-lavender/40 bg-[#1a1028]/90 text-2xl text-quest-lavender shadow-[0_0_28px_#8244b366] transition hover:-translate-y-1 hover:bg-quest-purple" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top">↑</button></footer>
 
     {formOpen && <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-[#05050b]/90 p-6 backdrop-blur-[9px] animate-overlay-in max-[680px]:p-3 motion-reduce:animate-none" role="presentation" onMouseDown={(e) => { if (e.target === e.currentTarget) setFormOpen(false) }}>
       <section className="max-h-[min(92vh,980px)] w-full max-w-[590px] overflow-y-auto rounded-[20px] border border-quest-lavender/50 bg-[radial-gradient(ellipse_at_100%_0%,#8244b32a,transparent_42%),linear-gradient(145deg,#21162e,#100d18)] p-[30px] shadow-[0_30px_100px_#000b,0_0_48px_#8244b333,inset_0_1px_0_#ffffff12] animate-modal-in max-[680px]:max-h-[calc(100svh_-_24px)] max-[680px]:rounded-[17px] max-[680px]:px-[18px] max-[680px]:py-[22px] motion-reduce:animate-none" role="dialog" aria-modal="true" aria-labelledby="registration-title">

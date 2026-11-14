@@ -963,11 +963,11 @@
   .bg-\[\#171120\]\/80 {
     background-color: color-mix(in oklab, #171120 80%, transparent);
   }
-  .bg-\[radial-gradient\(circle_at_18\%_14\%\,\#a879e610_0_1px\,transparent_1\.5px\)\,radial-gradient\(circle_at_72\%_22\%\,\#ffffff12_0_1px\,transparent_1\.5px\)\,radial-gradient\(circle_at_48\%_62\%\,\#a879e612_0_1px\,transparent_1\.5px\)\,radial-gradient\(ellipse_at_70\%_0\%\,\#51287255_0\,transparent_42\%\)\,radial-gradient\(ellipse_at_8\%_70\%\,\#32195430_0\,transparent_35\%\)\,\#090711\] {
-    background-color: radial-gradient(circle at 18% 14%,#a879e610 0 1px,transparent 1.5px),radial-gradient(circle at 72% 22%,#ffffff12 0 1px,transparent 1.5px),radial-gradient(circle at 48% 62%,#a879e612 0 1px,transparent 1.5px),radial-gradient(ellipse at 70% 0%,#51287255 0,transparent 42%),radial-gradient(ellipse at 8% 70%,#32195430 0,transparent 35%),#090711;
-  }
   .bg-\[radial-gradient\(ellipse_at_50\%_-8\%\,\#7a3bab70_0\,transparent_38\%\)\,radial-gradient\(ellipse_at_8\%_48\%\,\#4a267044_0\,transparent_34\%\)\,radial-gradient\(ellipse_at_92\%_75\%\,\#62368a40_0\,transparent_34\%\)\,\#090711\] {
     background-color: radial-gradient(ellipse at 50% -8%,#7a3bab70 0,transparent 38%),radial-gradient(ellipse at 8% 48%,#4a267044 0,transparent 34%),radial-gradient(ellipse at 92% 75%,#62368a40 0,transparent 34%),#090711;
+  }
+  .bg-\[radial-gradient\(ellipse_at_70\%_0\%\,\#51287255_0\,transparent_42\%\)\,radial-gradient\(ellipse_at_8\%_70\%\,\#32195430_0\,transparent_35\%\)\,\#090711\] {
+    background-color: radial-gradient(ellipse at 70% 0%,#51287255 0,transparent 42%),radial-gradient(ellipse at 8% 70%,#32195430 0,transparent 35%),#090711;
   }
   .bg-quest-lavender {
     background-color: var(--color-quest-lavender);
@@ -1123,9 +1123,6 @@
   }
   .\[background-size\:34px_34px\] {
     background-size: 34px 34px;
-  }
-  .bg-\[length\:170px_170px\,230px_230px\,290px_290px\,auto\,auto\,auto\] {
-    background-size: 170px 170px,230px 230px,290px 290px,auto,auto,auto;
   }
   .bg-clip-text {
     background-clip: text;
