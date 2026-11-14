@@ -119,6 +119,37 @@ function EventList({ onSelect }) {
 const fakeQr = Array.from({ length: 441 }, (_, index) => ((index * 17 + Math.floor(index / 7) * 11 + (index % 9) * (index % 5)) % 13) < 6)
 
 const inputClass = 'h-12 w-full rounded-lg border border-white/15 bg-[#0d0b13] px-3.5 text-[13px] text-white outline-none placeholder:text-slate-500 focus:border-quest-lavender focus:ring-2 focus:ring-quest-lavender/15 max-[680px]:h-[45px] max-[680px]:text-xs'
+const registrationRowsKey = 'quest-registration-rows'
+const registrationColumns = [
+  ['Submitted at', 'submittedAt'], ['Event', 'eventTitle'], ['Full name', 'fullName'],
+  ['Email', 'email'], ['Phone', 'phone'], ['USN', 'usn'], ['Year', 'year'],
+  ['Department', 'department'], ['Payment snapshot', 'paymentSnapshot'],
+]
+
+function exportRegistrationCsv(registration) {
+  let rows = [registration]
+  try {
+    const savedRows = JSON.parse(window.sessionStorage.getItem(registrationRowsKey) || '[]')
+    if (Array.isArray(savedRows)) rows = [...savedRows, registration]
+    window.sessionStorage.setItem(registrationRowsKey, JSON.stringify(rows))
+  } catch {
+    // The CSV still downloads for this registration if browser storage is unavailable.
+  }
+
+  const quote = (value) => `"${String(value ?? '').replaceAll('"', '""')}"`
+  const contents = [
+    registrationColumns.map(([label]) => quote(label)).join(','),
+    ...rows.map((row) => registrationColumns.map(([, key]) => quote(row[key])).join(',')),
+  ].join('\r\n')
+  const url = URL.createObjectURL(new Blob(['\uFEFF', contents], { type: 'text/csv;charset=utf-8' }))
+  const link = document.createElement('a')
+  link.href = url
+  link.download = `quest-registrations-${new Date().toISOString().slice(0, 10)}.csv`
+  document.body.appendChild(link)
+  link.click()
+  link.remove()
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000)
+}
 
 function TextField({ label, name, value, onChange, ...props }) {
   return <label className="flex flex-col gap-2 text-xs font-semibold text-violet-100"><span>{label} <span className="text-quest-lavender" aria-hidden="true">*</span></span><input className={inputClass} name={name} value={value} onChange={onChange} {...props}/></label>
@@ -129,6 +160,7 @@ function EventRegistration({ event, onBack, onRegistrationSubmit }) {
   const [snapshot, setSnapshot] = useState(null)
   const [formOpen, setFormOpen] = useState(false)
   const [notice, setNotice] = useState(null)
+  const [submitted, setSubmitted] = useState(false)
 
   useEffect(() => {
     if (!formOpen) return
@@ -167,10 +199,18 @@ function EventRegistration({ event, onBack, onRegistrationSubmit }) {
       setNotice({ type: 'error', text: 'Upload your payment screenshot to continue.' })
       return
     }
-    const registration = { ...form, eventKey: event.eventKey, eventTitle: event.title, paymentSnapshot: snapshot }
+    const cleanForm = { ...form, fullName: form.fullName.trim(), email: form.email.trim(), phone: form.phone.trim(), usn: form.usn.trim() }
+    if (cleanForm.fullName.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanForm.email) || !/^\d{10}$/.test(cleanForm.phone) || !cleanForm.usn || !cleanForm.department || (yearRequired && !cleanForm.year)) {
+      setNotice({ type: 'error', text: 'Check each required field and enter a valid email and 10 digit phone number.' })
+      return
+    }
+    const registration = { ...cleanForm, eventKey: event.eventKey, eventTitle: event.title, paymentSnapshot: snapshot }
+    const csvRow = { ...cleanForm, eventKey: event.eventKey, eventTitle: event.title, paymentSnapshot: snapshot?.name || '', submittedAt: new Date().toISOString() }
+    exportRegistrationCsv(csvRow)
     onRegistrationSubmit?.(registration)
     window.dispatchEvent(new CustomEvent('quest:registration-submit', { detail: registration }))
-    setNotice({ type: 'success', text: 'Your details are ready. The QUEST team will connect this form to its registration sheet.' })
+    setSubmitted(true)
+    setNotice({ type: 'success', text: 'Registration successful.' })
   }
 
   const description = 'A new chapter begins! Meet your people, celebrate fresh starts, and make unforgettable memories with the QUEST community. We can’t wait to welcome you.'
@@ -249,7 +289,7 @@ function EventRegistration({ event, onBack, onRegistrationSubmit }) {
             <div className="mb-[13px] flex items-center gap-[15px] rounded-lg border border-quest-lavender/20 bg-[#0d0b13] p-[13px] shadow-[0_0_24px_#8244b32b] max-[680px]:gap-[11px] max-[680px]:p-[10px]"><div className="flex shrink-0 flex-col items-center gap-[5px] rounded bg-white p-2"><div className="grid h-[91px] w-[91px] grid-cols-[repeat(21,minmax(0,1fr))] grid-rows-[repeat(21,minmax(0,1fr))] gap-px bg-white max-[680px]:h-[78px] max-[680px]:w-[78px]" role="img" aria-label="Payment QR code">{fakeQr.map((active, index) => <i className={active ? 'bg-[#15111d]' : ''} key={index}/>)}</div></div><div><b className="text-[11px]">Payment QR code</b><p className="mb-0 mt-[5px] text-[9px] leading-relaxed text-slate-300">Scan to complete your QTS payment, then upload the receipt.</p></div></div>
             <label className="relative flex min-h-[61px] cursor-pointer items-center gap-[11px] rounded-lg border border-dashed border-quest-lavender/35 bg-quest-purple/10 px-[13px] py-[10px] transition-colors hover:border-quest-lavender"><span className="grid h-[30px] w-[30px] place-items-center rounded-md bg-quest-lavender/15 font-mono text-[17px] text-violet-200">↑</span><span className="flex min-w-0 flex-1 flex-col gap-1"><b className="text-[10px] text-violet-50">Payment screenshot</b><small className="overflow-hidden text-ellipsis whitespace-nowrap text-[8px] text-slate-400">{snapshot ? snapshot.name : 'PNG, JPG or WEBP · up to 5 MB'}</small></span><input className="absolute inset-0 h-full w-full cursor-pointer opacity-0" type="file" accept="image/png,image/jpeg,image/webp" onChange={setFile} disabled={registrationClosed} required/><span className="text-[9px] font-bold text-quest-lavender">Browse</span></label>
           </div>}
-          {!registrationClosed && <button className="h-[49px] rounded-lg bg-gradient-to-r from-quest-purple to-quest-lavender text-[13px] font-extrabold text-white shadow-[0_8px_25px_#8244b333] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-quest-lavender" type="submit">Register now <span className="float-right mr-4 font-mono">↗</span></button>}
+          {!registrationClosed && <button className="h-[49px] rounded-lg bg-gradient-to-r from-quest-purple to-quest-lavender text-[13px] font-extrabold text-white shadow-[0_8px_25px_#8244b333] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-quest-lavender disabled:cursor-default disabled:opacity-70" type="submit" disabled={submitted}>{submitted ? 'Registration successful' : 'Register now'} <span className="float-right mr-4 font-mono">{submitted ? '✓' : '↗'}</span></button>}
           {registrationClosed && <p className="m-0 rounded-lg border border-slate-500/30 bg-slate-800/40 p-3 text-center text-xs font-semibold text-slate-300">Registrations are closed for this event.</p>}
           <p className="-mt-1 mb-0 text-center text-[9px] leading-relaxed text-slate-400">Your details will be connected to the QUEST registration sheet.</p>
         </form>

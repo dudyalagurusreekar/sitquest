@@ -1768,6 +1768,12 @@
   .focus-visible\:outline-quest-lavender:focus-visible {
     outline-color: var(--color-quest-lavender);
   }
+  .disabled\:cursor-default:disabled {
+    cursor: default;
+  }
+  .disabled\:opacity-70:disabled {
+    opacity: 70%;
+  }
   @media (prefers-reduced-motion: reduce) {
     .motion-reduce\:animate-none {
       animation: none;
