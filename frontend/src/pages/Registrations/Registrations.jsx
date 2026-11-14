@@ -180,18 +180,19 @@ function EventRegistration({ event, onBack, onRegistrationSubmit }) {
     <StarField/>
     <header className={`${detailsWidth} relative z-10 mx-auto flex h-[72px] max-w-[1450px] items-center justify-between border-b border-white/10 max-[680px]:h-[62px]`}>
       <button className="text-left text-xs text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-quest-lavender" onClick={onBack}><span className="mr-2 font-mono text-lg text-quest-lavender">←</span>All events</button>
-      <img className="h-[70px] w-[118px] object-contain [mix-blend-mode:lighten] max-[680px]:h-[58px] max-[680px]:w-[88px]" src="/quest-logo.jpeg" alt="QUEST — A Search Within"/>
+      <img className="h-[70px] w-[118px] object-contain max-[680px]:h-[58px] max-[680px]:w-[88px]" style={{ mixBlendMode: 'screen' }} src="/quest-logo.jpeg" alt="QUEST — A Search Within"/>
       <span className="w-20 max-[680px]:w-10" aria-hidden="true"/>
     </header>
 
     <section className={`${detailsWidth} relative z-10 mx-auto mt-[34px] grid min-h-[330px] grid-cols-[1fr_.92fr] items-center gap-[54px] rounded-[22px] border border-quest-lavender/15 bg-white/[.015] p-6 shadow-[0_0_60px_#58297922,inset_0_1px_0_#ffffff0a] max-[900px]:gap-[30px] max-[680px]:mt-[22px] max-[680px]:flex max-[680px]:flex-col max-[680px]:items-stretch max-[680px]:gap-5 max-[680px]:p-3`}>
-      <div className="order-1 max-[680px]:order-2">
+      <div className="event-detail-copy order-1 max-[680px]:order-2" data-event-key={event.eventKey}>
+        <style>{`@media screen and (min-width: 901px) and (orientation: landscape) { .event-detail-copy[data-event-key="freshers-event"], .event-detail-copy[data-event-key="placement-iq"] { transform: translateY(-18px); } .event-detail-copy[data-event-key="freshers-event"] .event-detail-meta, .event-detail-copy[data-event-key="placement-iq"] .event-detail-meta { flex-direction: column; align-items: flex-start; gap: 15px; } }`}</style>
         <div className="relative z-0 mb-[31px] mt-0 w-fit max-w-full px-2 py-1 max-[680px]:mb-[19px]">
           <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[155%] w-[112%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-quest-lavender/45 shadow-[0_0_16px_#b994e466] animate-art-orbit motion-reduce:animate-none"/>
           <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[135%] w-[120%] -translate-x-1/2 -translate-y-1/2 rotate-[35deg] rounded-[50%] border border-violet-300/30 shadow-[0_0_18px_#8244b355] animate-art-orbit-reverse motion-reduce:animate-none"/>
           <h1 className="m-0 bg-gradient-to-r from-white via-violet-100 to-quest-lavender bg-clip-text text-[clamp(44px,5.7vw,78px)] font-extrabold leading-[1.02] tracking-[-.065em] text-transparent drop-shadow-[0_0_22px_#a879e655] max-[680px]:text-[clamp(34px,9.5vw,52px)]">{event.title}</h1>
         </div>
-        <div className="flex flex-wrap items-center gap-[30px] max-[680px]:gap-x-[22px] max-[680px]:gap-y-[15px]">
+        <div className="event-detail-meta flex flex-wrap items-center gap-[30px] max-[680px]:gap-x-[22px] max-[680px]:gap-y-[15px]">
           <div className="flex items-center gap-[11px]"><span className="font-mono text-2xl text-quest-lavender max-[680px]:text-xl">◷</span><span className="flex flex-col gap-[5px]"><small className="font-mono text-[8px] tracking-[.15em] text-slate-400">DATE</small><b className="text-[13px] font-semibold text-slate-200 max-[680px]:text-[11px]">{event.eventKey === 'placement-iq' ? '16 Nov 2026 · 5:15 PM' : event.eventKey === 'freshers-event' ? '5 Oct 2026 · 5:15 PM' : 'To be announced'}</b></span></div>
           {event.eventKey !== 'quest-test-series' && <div className="flex items-center gap-[11px]"><span className="font-mono text-2xl text-quest-lavender max-[680px]:text-xl">⌖</span><span className="flex flex-col gap-[5px]"><small className="font-mono text-[8px] tracking-[.15em] text-slate-400">LOCATION</small><b className="text-[13px] font-semibold text-slate-200 max-[680px]:text-[11px]">{event.eventKey === 'freshers-event' ? 'Birla Auditorium' : 'Media Centre'}</b></span></div>}
         </div>

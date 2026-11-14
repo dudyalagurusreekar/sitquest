@@ -1499,9 +1499,6 @@
   .opacity-\[\.65\] {
     opacity: .65;
   }
-  .\[mix-blend-mode\:lighten\] {
-    mix-blend-mode: lighten;
-  }
   .shadow-\[0_0_11px_\#b78fdf\] {
     --tw-shadow: 0 0 11px var(--tw-shadow-color, #b78fdf);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
