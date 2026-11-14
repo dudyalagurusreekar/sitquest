@@ -46,42 +46,59 @@ export const DOMAIN_INFO = {
 
 /**
  * Returns 4th Year Team separated into two layers:
- * Layer 1: SHARATH, RISHABH, ANUSHKA (Top triumvirate / podium speakers / lead)
- * Layer 2: All remaining 4th year members
+ * Layer 1: SHARATH, ANUSHKA, RISHABH (Top podium speakers in requested order)
+ * Layer 2: All remaining 4th year members in the exact requested order
  */
 export function getFourthYearTeam() {
   const fourthYears = teamMembers.filter((m) => m.academicYear === 'Fourth Year');
 
-  // Layer 1 targets in exact requested order: Sharath, Rishabh, Anushka
-  const layer1Targets = ['sharath s kirasur', 'rishabh singh', 'anushka patil'];
+  // Layer 1 targets in exact requested order: Sharath -> Anushka -> Rishabh
+  const layer1Usns = ['1SI23IS097', '1SI23AD007', '1SI23EC091'];
   const layer1 = [];
-  const layer2 = [];
 
-  layer1Targets.forEach((target) => {
-    const normTarget = target.replace(/[^a-z]/g, '');
-    const found = fourthYears.find(
-      (m) => m.name.toLowerCase().replace(/[^a-z]/g, '') === normTarget
-    );
+  layer1Usns.forEach((usn) => {
+    const found = fourthYears.find((m) => (m.usn || '').toUpperCase() === usn);
     if (found) layer1.push(found);
   });
 
-  // Layer 2: All remaining fourth year members
-  fourthYears.forEach((m) => {
-    if (!layer1.some((l1) => l1.usn === m.usn)) {
-      layer2.push(m);
+  // Layer 2: Exact order specified by user
+  const layer2UsnOrder = [
+    '1SI23EC029', // Darshan (Treasurer)
+    '1SI23AD005', // Amoghavarsha N (Video Editing Lead)
+    '1SI23EI015', // Dhruthi P (Video Editing Lead)
+    '1SI23AD032', // Navya T (Multimedia Lead)
+    '1SI23ME088', // Shivakumar (Multimedia Lead)
+    '1SI24IS409', // Sanith H N (Social Media Lead)
+    '1SI23BT017', // Pavithra (Social Media Lead)
+    'QUEST-HARADEEP', // Haradeep Reddy Yeddula (Database Lead)
+    'QUEST-VARUN', // Varun (Database Lead)
+    '1SI23AD059', // Tanush Datta V (Content Lead)
+    '1SI23CS205', // Venkatkarthikeyan (Content Lead)
+    '1SI23AD019', // J Chetan Rao (Core Member)
+    '1SI23AD024', // Lenkalapelli Arun Subramanyam (Core Member)
+    '1SI23CI046', // Sai Venkatesh R N (Core Member)
+    'QUEST-PRATHIKSHA', // Prathiksha (Core Member)
+    'QUEST-PREENA', // Preena (Core Member)
+    'QUEST-SHREEYA', // Shreeya (Core Member)
+    'QUEST-TANUSHKA', // Tanushka (Core Member)
+    'QUEST-KUSHI', // Kushi (Core Member)
+  ];
+
+  const layer2 = [];
+
+  // Add members in exact order
+  layer2UsnOrder.forEach((usn) => {
+    const found = fourthYears.find((m) => (m.usn || '').toUpperCase() === usn);
+    if (found && !layer1.some((l1) => l1.usn === found.usn)) {
+      layer2.push(found);
     }
   });
 
-  // Sort Layer 2: Domain Leads/Heads/Treasurer first, then alphabetical
-  layer2.sort((a, b) => {
-    const isSpecial = (pos = '') => {
-      const p = pos.toLowerCase();
-      if (p.includes('lead') || p.includes('head') || p.includes('treasurer')) return 1;
-      return 2;
-    };
-    const diff = isSpecial(a.position) - isSpecial(b.position);
-    if (diff !== 0) return diff;
-    return a.name.localeCompare(b.name);
+  // Include any remaining fourth year member not explicitly listed (fallback)
+  fourthYears.forEach((m) => {
+    if (!layer1.some((l1) => l1.usn === m.usn) && !layer2.some((l2) => l2.usn === m.usn)) {
+      layer2.push(m);
+    }
   });
 
   return { layer1, layer2 };

@@ -32,6 +32,7 @@ function parseCSV(text) {
 function cleanLinkedIn(raw) {
   if (!raw) return null;
   const s = raw.trim();
+  if (s === '#') return '#';
   const lower = s.toLowerCase();
   if (['n/a', 'na', 'none', 'not available', 'nil', 'null', '..', '_', '', 'student'].includes(lower)) return null;
   if (lower.includes('@') && !lower.includes('linkedin.com')) return null;
@@ -63,8 +64,13 @@ function extractDriveId(url) {
 // 1st Semester -> First Year (4) -> completely omitted
 function normalizeSemester(sem, usn) {
   const s = (sem || '').trim();
+  const u = (usn || '').toUpperCase();
+  // Fourth Years / Senior Council:
+  if (u === '1SI24IS409') {
+    return { semester: '7th Semester', year: 'Fourth Year', yearOrder: 1 };
+  }
   // User explicit instruction: Move Mallikarjun (1SI24EI025) and Shamitha HS (1SI24CS161) to Third Year
-  if (usn && (usn.toUpperCase() === '1SI24CS161' || usn.toUpperCase() === '1SI24EI025')) {
+  if (u === '1SI24CS161' || u === '1SI24EI025') {
     return { semester: '5th Semester', year: 'Third Year', yearOrder: 2 };
   }
   if (s.startsWith('7')) return { semester: '7th Semester', year: 'Fourth Year', yearOrder: 1 };
@@ -99,12 +105,12 @@ function cleanBranch(branch) {
     return 'Artificial Intelligence & Data Science';
   }
   if (lower.includes('ai-ml') || lower.includes('ci')) return 'CSE (AI & ML)';
-  if (lower === 'ece' || lower.includes('electronics and communication')) return 'Electronics & Communication Engineering';
-  if (lower.includes('electronic and instrumentation') || lower.includes('electronics and instrumentation') || lower === 'eie' || lower.includes('eie')) {
+  if (lower === 'ece' || lower.includes('electronics and communication') || lower.includes('electronic and communication')) return 'Electronics & Communication Engineering';
+  if (lower.includes('electronic and instrumentation') || lower.includes('electronics and instrumentation') || lower.includes('instrumental') || lower.includes('instrumention') || lower === 'eie' || lower.includes('eie')) {
     return 'Electronics & Instrumentation Engineering';
   }
-  if (lower === 'ete' || lower.includes('telecommunication')) return 'Electronics & Telecommunication Engineering';
-  if (lower === 'eee') return 'Electrical & Electronics Engineering';
+  if (lower === 'ete' || lower.includes('telecommunication') || lower.includes('telecoommunicannal')) return 'Electronics & Telecommunication Engineering';
+  if (lower === 'eee' || lower.includes('electrical and electronics') || lower.includes('electrical & electronics') || lower.includes('electnrices')) return 'Electrical & Electronics Engineering';
   if (lower.includes('mechanical')) return 'Mechanical Engineering';
   if (lower.includes('biotechnology')) return 'Biotechnology';
   if (lower === 'iem') return 'Industrial Engineering & Management';
@@ -113,29 +119,40 @@ function cleanBranch(branch) {
 
 function standardizePosition(pos, usn) {
   const u = (usn || '').toUpperCase();
-  if (u === '1SI23IS097') return 'Club Lead';
-  if (u === '1SI23EC091') return 'Podium Speaker';
-  if (u === '1SI23AD007') return 'Podium Speaker';
-  if (u === '1SI23AD005') return 'Video Editing Lead';
-  if (u === '1SI23AD032') return 'Multimedia Lead';
-  if (u === '1SI23AD059') return 'Content Head';
-  if (u === '1SI23EC029') return 'Treasurer';
-  if (u === '1SI23CI046') return 'Core Member';
-  if (u === '1SI23CS205') return 'Core Member';
-  if (u === '1SI23AD024') return 'Core Member';
-  if (u === '1SI23AD019') return 'Core Member';
-  if (u === '1SI23ME088') return 'Core Member';
-  if (u === '1SI24IS409') return 'Social Media Lead';
+  if (u === '1SI23IS097') return 'Podium Speaker'; // User instruction: Sharath changed from Club Lead to Podium Speaker
+  if (u === '1SI23EC091') return 'Podium Speaker'; // Rishabh
+  if (u === '1SI23AD007') return 'Podium Speaker'; // Anushka
+  if (u === '1SI23EC029') return 'Treasurer'; // Darshan
+  if (u === '1SI23AD005') return 'Video Editing Lead'; // Amoghavarsha N
+  if (u === '1SI23EI015') return 'Video Editing Lead'; // Dhruthi P
+  if (u === '1SI23AD032') return 'Multimedia Lead'; // Navya T
+  if (u === '1SI23ME088') return 'Multimedia Lead'; // Shivakumar
+  if (u === '1SI24IS409') return 'Social Media Lead'; // Sanith H N
+  if (u === '1SI23BT017') return 'Social Media Lead'; // Pavithra
+  if (u === 'QUEST-HARADEEP') return 'Database Lead'; // Haradeep Reddy Yeddula
+  if (u === 'QUEST-VARUN') return 'Database Lead'; // Varun
+  if (u === '1SI23AD059') return 'Content Lead'; // Tanush Datta V
+  if (u === '1SI23CS205') return 'Content Lead'; // Venkatkarthikeyan
+  if (u === '1SI23CI046') return 'Core Member'; // Sai Venkatesh R N
+  if (u === '1SI23AD024') return 'Core Member'; // Lenkalapelli Arun Subramanyam
+  if (u === '1SI23AD019') return 'Core Member'; // J Chetan Rao
+  if (u === 'QUEST-PRATHIKSHA') return 'Core Member';
+  if (u === 'QUEST-PREENA') return 'Core Member';
+  if (u === 'QUEST-SHREEYA') return 'Core Member';
+  if (u === 'QUEST-TANUSHKA') return 'Core Member';
+  if (u === 'QUEST-KUSHI') return 'Core Member';
 
   if (!pos) return '';
   const p = pos.trim();
   const lower = p.toLowerCase();
   if (['na', 'n/a', 'nil', 'null', 'none', 'student', '_', '4th year', 'member', 'club member', 'vth sem', 'tumkur'].includes(lower)) return '';
-  if (lower === 'treasure') return 'Treasurer';
+  if (lower === 'treasure' || lower === 'treasurer') return 'Treasurer';
   if (lower === 'podium speaker') return 'Podium Speaker';
-  if (lower === 'video editing lead') return 'Video Editing Lead';
-  if (lower === 'multimedia lead') return 'Multimedia Lead';
-  if (lower === 'content head') return 'Content Head';
+  if (lower.includes('video editing lead') || lower.includes('vedio editing lead')) return 'Video Editing Lead';
+  if (lower.includes('multimedia lead')) return 'Multimedia Lead';
+  if (lower.includes('social media lead')) return 'Social Media Lead';
+  if (lower.includes('database lead')) return 'Database Lead';
+  if (lower.includes('content lead') || lower.includes('content head')) return 'Content Lead';
   return p;
 }
 
@@ -169,6 +186,14 @@ dataRows.forEach(r => {
   if (usn === '1SI25IS038') linkedIn = 'https://www.linkedin.com/in/k-c-spoorthi-005a53393';
   if (usn === '1SI25IS033') linkedIn = 'https://www.linkedin.com/in/h-m-g-234619383';
   if (usn === '1SI24IS409') linkedIn = 'https://www.linkedin.com/in/sanith-hn-9201a2389';
+  if (usn === '1SI23EI015') linkedIn = 'https://www.linkedin.com/in/dhruthi1';
+  if (usn === '1SI23BT017') linkedIn = 'https://www.linkedin.com/in/pavithra-m-venkatesh-a39760432';
+  if (usn === '1SI23AD024') linkedIn = 'https://www.linkedin.com/in/arun-subramanyam-lenkalapelli-a480412a5';
+  if (usn === 'QUEST-HARADEEP') linkedIn = 'https://www.linkedin.com/in/haradeep-reddy-yeddula-52033729a';
+  if (usn === 'QUEST-VARUN') linkedIn = '#';
+  if (['QUEST-PRATHIKSHA', 'QUEST-PREENA', 'QUEST-SHREEYA', 'QUEST-TANUSHKA', 'QUEST-KUSHI'].includes(usn)) {
+    linkedIn = '#';
+  }
   const driveId = extractDriveId(photoUrl);
   const branch = cleanBranch(rawBranch);
   const finalPos = standardizePosition(currentPos, usn);

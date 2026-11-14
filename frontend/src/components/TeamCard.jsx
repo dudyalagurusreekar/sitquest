@@ -1,14 +1,18 @@
 import { useState, useMemo } from 'react';
 
-// Exact LinkedIn Vector Icon from Footer.jsx with Glassmorphism
+// Official LinkedIn Blue Brand Icon
 function LinkedInIcon() {
   return (
     <svg
-      className="w-4 h-4 fill-white"
+      className="w-6 h-6 transition-transform duration-200 group-hover/linkedin:scale-110 drop-shadow-[0_2px_8px_rgba(10,102,194,0.4)]"
       viewBox="0 0 24 24"
       aria-hidden="true"
     >
-      <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
+      <rect width="24" height="24" rx="4" fill="#0A66C2" />
+      <path
+        d="M6.5 8.5C7.328 8.5 8 7.828 8 7C8 6.172 7.328 5.5 6.5 5.5C5.672 5.5 5 6.172 5 7C5 7.828 5.672 8.5 6.5 8.5ZM5 19H8V10H5V19ZM11 10H13.8V11.3H13.84C14.23 10.56 15.18 9.8 16.64 9.8C19.5 9.8 20 11.68 20 14.14V19H17V14.5C17 13.38 16.98 11.94 15.44 11.94C13.88 11.94 13.64 13.16 13.64 14.42V19H10.64L11 10Z"
+        fill="#FFFFFF"
+      />
     </svg>
   );
 }
@@ -152,7 +156,7 @@ export default function TeamCard({ member, showPosition = false }) {
           </p>
         </div>
 
-        {/* LinkedIn: Pinned to bottom with exact Footer glassmorphism */}
+        {/* LinkedIn: Blue Brand Icon */}
         <div className="mt-auto flex h-10 items-end justify-center pt-2">
           {member.linkedin ? (
             <a
@@ -161,14 +165,12 @@ export default function TeamCard({ member, showPosition = false }) {
               rel="noopener noreferrer"
               aria-label={`View ${member.name}'s LinkedIn profile`}
               title="View LinkedIn profile"
-              className="group/linkedin relative inline-flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-b from-white/[0.14] via-white/[0.04] to-white/[0.01] backdrop-blur-md border border-white/[0.22] text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),inset_0_-1px_1px_rgba(0,0,0,0.25),0_4px_12px_rgba(0,0,0,0.35),0_0_10px_rgba(168,121,230,0.25)] hover:border-white/50 hover:bg-gradient-to-b hover:from-white/[0.22] hover:via-white/[0.08] hover:to-[#C084FC]/[0.18] hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.7),0_0_20px_rgba(192,132,252,0.6)] hover:scale-110 active:scale-95 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C084FC]"
+              className="group/linkedin relative inline-flex items-center justify-center p-1 rounded-md transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0A66C2]"
             >
-              <div className="transform transition-transform duration-200 group-hover/linkedin:scale-110 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
-                <LinkedInIcon />
-              </div>
+              <LinkedInIcon />
             </a>
           ) : (
-            <span className="h-8 w-8" aria-hidden="true" />
+            <span className="h-6 w-6" aria-hidden="true" />
           )}
         </div>
 

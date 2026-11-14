@@ -49,7 +49,7 @@
     "usn": "1SI23EC029",
     "name": "Darshan",
     "slug": "darshan-1si23ec029",
-    "branch": "Electronic and Communication Engineering",
+    "branch": "Electronics & Communication Engineering",
     "semester": "7th Semester",
     "academicYear": "Fourth Year",
     "yearOrder": 1,
@@ -66,6 +66,50 @@
     "photoWebp": "/images_of_team/1si23ec029.webp",
     "driveThumbnailUrl": "https://lh3.googleusercontent.com/d/1YNLIhCvxES-jyoCAz7Jgz5mbXipH4ZL7",
     "lastTimestamp": "46339.96794206019"
+  },
+  {
+    "usn": "1SI23EI015",
+    "name": "Dhruthi P",
+    "slug": "dhruthi-p-1si23ei015",
+    "branch": "Electronics & Instrumentation Engineering",
+    "semester": "7th Semester",
+    "academicYear": "Fourth Year",
+    "yearOrder": 1,
+    "domains": [
+      "VIDEO EDITING"
+    ],
+    "linkedin": "https://www.linkedin.com/in/dhruthi1",
+    "position": "Video Editing Lead",
+    "instagram": "",
+    "photoUrl": "https://drive.google.com/open?id=1KZdAG9csdVGMuQTxGQdh5k0OOeMGx10i",
+    "driveId": "1KZdAG9csdVGMuQTxGQdh5k0OOeMGx10i",
+    "photoFileName": "1si23ei015.webp",
+    "localPhotoPath": "/images_of_team/1si23ei015.webp",
+    "photoWebp": "/images_of_team/1si23ei015.webp",
+    "driveThumbnailUrl": "https://lh3.googleusercontent.com/d/1KZdAG9csdVGMuQTxGQdh5k0OOeMGx10i",
+    "lastTimestamp": "46340.820877164355"
+  },
+  {
+    "usn": "QUEST-HARADEEP",
+    "name": "Haradeep Reddy Yeddula",
+    "slug": "haradeep-reddy-yeddula-quest-haradeep",
+    "branch": "Computer Science and Engineering",
+    "semester": "7th Semester",
+    "academicYear": "Fourth Year",
+    "yearOrder": 1,
+    "domains": [
+      "DATABASE"
+    ],
+    "linkedin": "https://www.linkedin.com/in/haradeep-reddy-yeddula-52033729a",
+    "position": "Database Lead",
+    "instagram": "",
+    "photoUrl": "",
+    "driveId": null,
+    "photoFileName": "quest-haradeep.webp",
+    "localPhotoPath": "/images_of_team/quest-haradeep.webp",
+    "photoWebp": "/images_of_team/quest-haradeep.webp",
+    "driveThumbnailUrl": null,
+    "lastTimestamp": "46340.9000000000"
   },
   {
     "usn": "1SI23AD019",
@@ -90,6 +134,26 @@
     "lastTimestamp": "46337.87372684028"
   },
   {
+    "usn": "QUEST-KUSHI",
+    "name": "Kushi",
+    "slug": "kushi-quest-kushi",
+    "branch": "Electrical & Electronics Engineering",
+    "semester": "7th Semester",
+    "academicYear": "Fourth Year",
+    "yearOrder": 1,
+    "domains": [],
+    "linkedin": "#",
+    "position": "Core Member",
+    "instagram": "",
+    "photoUrl": "",
+    "driveId": null,
+    "photoFileName": "quest-kushi.webp",
+    "localPhotoPath": "/images_of_team/quest-kushi.webp",
+    "photoWebp": "/images_of_team/quest-kushi.webp",
+    "driveThumbnailUrl": null,
+    "lastTimestamp": "46340.9000000006"
+  },
+  {
     "usn": "1SI23AD024",
     "name": "Lenkalapelli Arun Subramanyam",
     "slug": "lenkalapelli-arun-subramanyam-1si23ad024",
@@ -100,7 +164,7 @@
     "domains": [
       "DATABASE"
     ],
-    "linkedin": null,
+    "linkedin": "https://www.linkedin.com/in/arun-subramanyam-lenkalapelli-a480412a5",
     "position": "Core Member",
     "instagram": "arun_subramanyam_07",
     "photoUrl": "https://drive.google.com/open?id=18XyzhI4vuxvGiHew_qjB0yii7YLLPmEN",
@@ -133,6 +197,68 @@
     "photoWebp": "/images_of_team/1si23ad032.webp",
     "driveThumbnailUrl": "https://lh3.googleusercontent.com/d/1NhHHeclO2eZsCMh0_YbyUVf0ohP6h8yo",
     "lastTimestamp": "46340.01187458333"
+  },
+  {
+    "usn": "1SI23BT017",
+    "name": "Pavithra",
+    "slug": "pavithra-1si23bt017",
+    "branch": "Biotechnology",
+    "semester": "7th Semester",
+    "academicYear": "Fourth Year",
+    "yearOrder": 1,
+    "domains": [
+      "MULTIMEDIA"
+    ],
+    "linkedin": "https://www.linkedin.com/in/pavithra-m-venkatesh-a39760432",
+    "position": "Social Media Lead",
+    "instagram": "pavithra_m_venkatesh",
+    "photoUrl": "https://drive.google.com/open?id=1_lhE5L2ztBzy29OchdTl8CELY1qWYxRq",
+    "driveId": "1_lhE5L2ztBzy29OchdTl8CELY1qWYxRq",
+    "photoFileName": "1si23bt017.webp",
+    "localPhotoPath": "/images_of_team/1si23bt017.webp",
+    "photoWebp": "/images_of_team/1si23bt017.webp",
+    "driveThumbnailUrl": "https://lh3.googleusercontent.com/d/1_lhE5L2ztBzy29OchdTl8CELY1qWYxRq",
+    "lastTimestamp": "46340.7537128588"
+  },
+  {
+    "usn": "QUEST-PRATHIKSHA",
+    "name": "Prathiksha",
+    "slug": "prathiksha-quest-prathiksha",
+    "branch": "Electronics & Instrumentation Engineering",
+    "semester": "7th Semester",
+    "academicYear": "Fourth Year",
+    "yearOrder": 1,
+    "domains": [],
+    "linkedin": "#",
+    "position": "Core Member",
+    "instagram": "",
+    "photoUrl": "",
+    "driveId": null,
+    "photoFileName": "quest-prathiksha.webp",
+    "localPhotoPath": "/images_of_team/quest-prathiksha.webp",
+    "photoWebp": "/images_of_team/quest-prathiksha.webp",
+    "driveThumbnailUrl": null,
+    "lastTimestamp": "46340.9000000002"
+  },
+  {
+    "usn": "QUEST-PREENA",
+    "name": "Preena",
+    "slug": "preena-quest-preena",
+    "branch": "Electronics & Telecommunication Engineering",
+    "semester": "7th Semester",
+    "academicYear": "Fourth Year",
+    "yearOrder": 1,
+    "domains": [],
+    "linkedin": "#",
+    "position": "Core Member",
+    "instagram": "",
+    "photoUrl": "",
+    "driveId": null,
+    "photoFileName": "quest-preena.webp",
+    "localPhotoPath": "/images_of_team/quest-preena.webp",
+    "photoWebp": "/images_of_team/quest-preena.webp",
+    "driveThumbnailUrl": null,
+    "lastTimestamp": "46340.9000000003"
   },
   {
     "usn": "1SI23EC091",
@@ -180,6 +306,28 @@
     "lastTimestamp": "46339.966801180555"
   },
   {
+    "usn": "1SI24IS409",
+    "name": "Sanith H N",
+    "slug": "sanith-h-n-1si24is409",
+    "branch": "Information Science and Engineering",
+    "semester": "7th Semester",
+    "academicYear": "Fourth Year",
+    "yearOrder": 1,
+    "domains": [
+      "VIDEO EDITING"
+    ],
+    "linkedin": "https://www.linkedin.com/in/sanith-hn-9201a2389",
+    "position": "Social Media Lead",
+    "instagram": "https://www.instagram.com/sanith_halemane?psln=MW9zMGhxcjBtNm02aw==",
+    "photoUrl": "/images_of_team/1si24is409.webp",
+    "driveId": null,
+    "photoFileName": "1si24is409.webp",
+    "localPhotoPath": "/images_of_team/1si24is409.webp",
+    "photoWebp": "/images_of_team/1si24is409.webp",
+    "driveThumbnailUrl": null,
+    "lastTimestamp": "46340.58"
+  },
+  {
     "usn": "1SI23IS097",
     "name": "Sharath S Kirasur",
     "slug": "sharath-s-kirasur-1si23is097",
@@ -192,7 +340,7 @@
       "WEB DEVELOPMENT"
     ],
     "linkedin": "https://www.linkedin.com/in/sharath-s-kirasur-588b95303",
-    "position": "Club Lead",
+    "position": "Podium Speaker",
     "instagram": "",
     "photoUrl": "https://drive.google.com/open?id=1sZ5ucahxHhE1BH9S4JW1ttn5bK4zHuhf",
     "driveId": "1sZ5ucahxHhE1BH9S4JW1ttn5bK4zHuhf",
@@ -214,7 +362,7 @@
       "MULTIMEDIA"
     ],
     "linkedin": null,
-    "position": "Core Member",
+    "position": "Multimedia Lead",
     "instagram": "shivakumarvkkinnal",
     "photoUrl": "https://drive.google.com/open?id=1mim3QMSN63yVSST7Lv1B4V73yeZzIIVj",
     "driveId": "1mim3QMSN63yVSST7Lv1B4V73yeZzIIVj",
@@ -223,6 +371,26 @@
     "photoWebp": "/images_of_team/1si23me088.webp",
     "driveThumbnailUrl": "https://lh3.googleusercontent.com/d/1mim3QMSN63yVSST7Lv1B4V73yeZzIIVj",
     "lastTimestamp": "46339.96491234953"
+  },
+  {
+    "usn": "QUEST-SHREEYA",
+    "name": "Shreeya",
+    "slug": "shreeya-quest-shreeya",
+    "branch": "Artificial Intelligence & Data Science",
+    "semester": "7th Semester",
+    "academicYear": "Fourth Year",
+    "yearOrder": 1,
+    "domains": [],
+    "linkedin": "#",
+    "position": "Core Member",
+    "instagram": "",
+    "photoUrl": "",
+    "driveId": null,
+    "photoFileName": "quest-shreeya.webp",
+    "localPhotoPath": "/images_of_team/quest-shreeya.webp",
+    "photoWebp": "/images_of_team/quest-shreeya.webp",
+    "driveThumbnailUrl": null,
+    "lastTimestamp": "46340.9000000004"
   },
   {
     "usn": "1SI23AD059",
@@ -237,7 +405,7 @@
       "MULTIMEDIA"
     ],
     "linkedin": "https://www.linkedin.com/in/tanush-datta-4060802b3S56NL",
-    "position": "Content Head",
+    "position": "Content Lead",
     "instagram": "tanushxx6",
     "photoUrl": "https://drive.google.com/open?id=11qUlUbF8tCpXzdFBsYhxrwhCc7_rI6X5",
     "driveId": "11qUlUbF8tCpXzdFBsYhxrwhCc7_rI6X5",
@@ -246,6 +414,48 @@
     "photoWebp": "/images_of_team/1si23ad059.webp",
     "driveThumbnailUrl": "https://lh3.googleusercontent.com/d/11qUlUbF8tCpXzdFBsYhxrwhCc7_rI6X5",
     "lastTimestamp": "46339.96892859954"
+  },
+  {
+    "usn": "QUEST-TANUSHKA",
+    "name": "Tanushka",
+    "slug": "tanushka-quest-tanushka",
+    "branch": "Computer Science and Engineering",
+    "semester": "7th Semester",
+    "academicYear": "Fourth Year",
+    "yearOrder": 1,
+    "domains": [],
+    "linkedin": "#",
+    "position": "Core Member",
+    "instagram": "",
+    "photoUrl": "",
+    "driveId": null,
+    "photoFileName": "quest-tanushka.webp",
+    "localPhotoPath": "/images_of_team/quest-tanushka.webp",
+    "photoWebp": "/images_of_team/quest-tanushka.webp",
+    "driveThumbnailUrl": null,
+    "lastTimestamp": "46340.9000000005"
+  },
+  {
+    "usn": "QUEST-VARUN",
+    "name": "Varun",
+    "slug": "varun-quest-varun",
+    "branch": "Electronics & Instrumentation Engineering",
+    "semester": "7th Semester",
+    "academicYear": "Fourth Year",
+    "yearOrder": 1,
+    "domains": [
+      "DATABASE"
+    ],
+    "linkedin": "#",
+    "position": "Database Lead",
+    "instagram": "",
+    "photoUrl": "",
+    "driveId": null,
+    "photoFileName": "quest-varun.webp",
+    "localPhotoPath": "/images_of_team/quest-varun.webp",
+    "photoWebp": "/images_of_team/quest-varun.webp",
+    "driveThumbnailUrl": null,
+    "lastTimestamp": "46340.9000000001"
   },
   {
     "usn": "1SI23CS205",
@@ -259,7 +469,7 @@
       "MULTIMEDIA"
     ],
     "linkedin": "https://www.linkedin.com/in/yemula-venkatkarthikeyan-587a1b272",
-    "position": "Core Member",
+    "position": "Content Lead",
     "instagram": "",
     "photoUrl": "https://drive.google.com/open?id=1XoR5qm8_-DIuNddRBQjCS8yE3qRwAMVy",
     "driveId": "1XoR5qm8_-DIuNddRBQjCS8yE3qRwAMVy",
@@ -590,28 +800,6 @@
     "lastTimestamp": "46339.962515057865"
   },
   {
-    "usn": "1SI24IS409",
-    "name": "Sanith H N",
-    "slug": "sanith-h-n-1si24is409",
-    "branch": "Information Science and Engineering",
-    "semester": "5th Semester",
-    "academicYear": "Third Year",
-    "yearOrder": 2,
-    "domains": [
-      "VIDEO EDITING"
-    ],
-    "linkedin": "https://www.linkedin.com/in/sanith-hn-9201a2389",
-    "position": "Social Media Lead",
-    "instagram": "https://www.instagram.com/sanith_halemane?psln=MW9zMGhxcjBtNm02aw==",
-    "photoUrl": "/images_of_team/1si24is409.webp",
-    "driveId": null,
-    "photoFileName": "1si24is409.webp",
-    "localPhotoPath": "/images_of_team/1si24is409.webp",
-    "photoWebp": "/images_of_team/1si24is409.webp",
-    "driveThumbnailUrl": null,
-    "lastTimestamp": "46340.58"
-  },
-  {
     "usn": "1SI24CS161",
     "name": "Shamitha HS",
     "slug": "shamitha-hs-1si24cs161",
@@ -632,6 +820,29 @@
     "photoWebp": "/images_of_team/1si24cs161.webp",
     "driveThumbnailUrl": "https://lh3.googleusercontent.com/d/1pSP6hHMACk6Y1Ti6FuBy5oEfxsG0_gi6",
     "lastTimestamp": "46339.33284959491"
+  },
+  {
+    "usn": "1SI24CS197",
+    "name": "Uday N P",
+    "slug": "uday-n-p-1si24cs197",
+    "branch": "Computer Science and Engineering",
+    "semester": "5th Semester",
+    "academicYear": "Third Year",
+    "yearOrder": 2,
+    "domains": [
+      "PPT",
+      "VIDEO EDITING"
+    ],
+    "linkedin": null,
+    "position": "",
+    "instagram": "np_uday",
+    "photoUrl": "https://drive.google.com/open?id=1sQfzHx80ueGT1xpERfm4GP_uAXGydQWM",
+    "driveId": "1sQfzHx80ueGT1xpERfm4GP_uAXGydQWM",
+    "photoFileName": "1si24cs197.webp",
+    "localPhotoPath": "/images_of_team/1si24cs197.webp",
+    "photoWebp": "/images_of_team/1si24cs197.webp",
+    "driveThumbnailUrl": "https://lh3.googleusercontent.com/d/1sQfzHx80ueGT1xpERfm4GP_uAXGydQWM",
+    "lastTimestamp": "46340.85984619213"
   },
   {
     "usn": "1SI24CS205",
