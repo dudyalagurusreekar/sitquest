@@ -1,3 +1,4 @@
+
 import React from "react";
 import alumniData from "../../data/alumniData";
 
@@ -49,7 +50,7 @@ function AlumniCard({ alumni }) {
       {/* Information */}
       <div className="flex flex-1 flex-col px-[5px] pb-[5px] pt-[12px] text-center">
 
-        {/* Name: fixed height so every name sits on the same line */}
+        {/* Name */}
         <div className="flex h-[26px] items-center justify-center">
           <h3
             className={`break-words font-['Space_Grotesk',sans-serif] font-bold leading-[1.2] text-white ${nameSize(
@@ -60,18 +61,18 @@ function AlumniCard({ alumni }) {
           </h3>
         </div>
 
-        {/* Company: fixed height (fits up to 2 lines) */}
+        {/* Company: teal highlighted pill */}
         <div className="mt-[2px] flex h-[36px] items-center justify-center overflow-hidden">
           <p
-            className={`break-words font-bold leading-[1.25] text-[#ded6ed] ${companySize(
+            className={`inline-flex max-w-full items-center justify-center rounded-full border border-[rgba(0,229,195,0.28)] bg-[rgba(0,229,195,0.10)] px-3 py-[5px] text-center font-bold leading-[1.25] text-[#00e5c3] shadow-[0_0_12px_rgba(0,229,195,0.08)] ${companySize(
               alumni.company
-            )} max-[760px]:!text-[11px] max-[480px]:!text-[10px]`}
+            )} max-[760px]:!px-2 max-[760px]:!text-[11px] max-[480px]:!px-[7px] max-[480px]:!text-[10px]`}
           >
             {alumni.company}
           </p>
         </div>
 
-        {/* Role: fixed height */}
+        {/* Role */}
         <div className="mt-[2px] flex h-[30px] items-center justify-center overflow-hidden">
           <p
             className={`break-words font-semibold leading-[1.25] text-[#b995ee] ${roleSize(
@@ -82,7 +83,7 @@ function AlumniCard({ alumni }) {
           </p>
         </div>
 
-        {/* LinkedIn: pinned to the bottom so it's on the same line in all cards */}
+        {/* LinkedIn */}
         <div className="mt-auto flex h-6 items-end justify-center pt-2">
           {alumni.linkedin && (
             <a
