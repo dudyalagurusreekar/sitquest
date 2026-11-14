@@ -38,18 +38,33 @@ function cardTransform(position) {
 }
 
 function StarField() {
-  const stars = Array.from({ length: 170 }, (_, index) => ({
-    x: (index * 137.51 + 11) % 1000,
-    y: (index * 83.17 + (index % 7) * 19) % 700,
-    radius: index % 19 === 0 ? 2.1 : index % 4 === 0 ? 1.45 : 0.9,
-    delay: `${(index % 9) * -0.55}s`,
-  }))
+  const stars = Array.from({ length: 220 }, (_, index) => {
+    const seededPoint = (seed) => {
+      const value = Math.sin((index + 1) * seed) * 43758.5453
+      return value - Math.floor(value)
+    }
+    return {
+      x: seededPoint(127.1) * 1000,
+      y: seededPoint(311.7) * 700,
+      radius: index % 31 === 0 ? 2.1 : index % 5 === 0 ? 1.05 : 0.58,
+      flare: index % 31 === 0,
+      delay: `${(index % 13) * -0.7}s`,
+    }
+  })
 
   const starPath = ({ x, y, radius }) => `M ${x} ${y - radius} L ${x + radius * 0.28} ${y - radius * 0.28} L ${x + radius} ${y} L ${x + radius * 0.28} ${y + radius * 0.28} L ${x} ${y + radius} L ${x - radius * 0.28} ${y + radius * 0.28} L ${x - radius} ${y} L ${x - radius * 0.28} ${y - radius * 0.28} Z`
 
   return <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs><filter id="quest-star-glow" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="0.65" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-    {stars.map((star, index) => <path key={index} d={starPath(star)} fill={index % 11 === 0 ? '#d8c6ff' : '#ffffff'} opacity={index % 19 === 0 ? '.88' : index % 3 === 0 ? '.58' : '.38'} filter="url(#quest-star-glow)" className="animate-sparkle" style={{ animationDelay: star.delay }}/>) }
+    <defs>
+      <radialGradient id="quest-nebula-one"><stop stopColor="#8244b3" stopOpacity=".17"/><stop offset="1" stopColor="#8244b3" stopOpacity="0"/></radialGradient>
+      <radialGradient id="quest-nebula-two"><stop stopColor="#355eb4" stopOpacity=".12"/><stop offset="1" stopColor="#355eb4" stopOpacity="0"/></radialGradient>
+      <filter id="quest-star-glow" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="0.4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <ellipse cx="315" cy="205" rx="350" ry="145" fill="url(#quest-nebula-one)" className="motion-safe:animate-nebula-drift"/>
+    <ellipse cx="755" cy="520" rx="330" ry="160" fill="url(#quest-nebula-two)" className="motion-safe:animate-nebula-drift-reverse"/>
+    {stars.map((star, index) => star.flare
+      ? <path key={index} d={starPath(star)} fill={index % 2 === 0 ? '#e9dcff' : '#ffffff'} opacity=".78" filter="url(#quest-star-glow)" className="motion-safe:animate-stellar-twinkle" style={{ animationDelay: star.delay }}/>
+      : <circle key={index} cx={star.x} cy={star.y} r={star.radius} fill={index % 12 === 0 ? '#d8c6ff' : '#ffffff'} opacity={index % 4 === 0 ? '.62' : '.38'} filter="url(#quest-star-glow)" className="motion-safe:animate-stellar-twinkle" style={{ animationDelay: star.delay }}/>)}
   </svg>
 }
 
