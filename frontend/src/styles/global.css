@@ -1,0 +1,85 @@
+@import "tailwindcss";
+@import "./variables.css";
+
+@layer base {
+  html {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-primary);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-primary);
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgba(130, 68, 179, 0.45);
+    color: #ffffff;
+  }
+}
+
+/* Custom sleek scrollbar aligned to QUEST palette */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 121, 230, 0.28);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 121, 230, 0.55);
+}
+
+.font-mono-quest {
+  font-family: var(--font-mono);
+}
+
+.quest-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--glass-border);
+}
+
+.quest-glass-card {
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  transition: border-color 0.35s ease, background-color 0.35s ease, transform 0.35s ease;
+}
+
+.quest-glass-card:hover {
+  border-color: var(--glass-border-hover);
+  background: rgba(26, 15, 46, 0.45);
+}
+
+.quest-btn-primary {
+  background: var(--purple-gradient);
+  color: var(--text-main);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.quest-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -8px rgba(130, 68, 179, 0.55);
+  filter: brightness(1.06);
+}
+
+.quest-btn-primary:active {
+  transform: translateY(0);
+}

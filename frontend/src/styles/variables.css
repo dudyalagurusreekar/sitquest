@@ -1,0 +1,32 @@
+:root {
+  --font-primary: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+
+  /* Brand colours */
+  --color-primary: #8244B3;
+  --color-secondary: #A879E6;
+
+  /* Accent colours */
+  --accent-teal: #2EEED0;
+  --accent-blue: #7C9BFF;
+
+  /* Backgrounds */
+  --bg-color: #0B0B14;
+  --surface-color: #1A0F2E;
+  --surface-hover: #23143E;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(26, 15, 46, 0.65);
+  --glass-card-bg: rgba(255, 255, 255, 0.035);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-hover: rgba(168, 121, 230, 0.4);
+
+  /* Typography */
+  --text-main: #FFFFFF;
+  --text-muted: #CBD5E1;
+  --text-dim: #94A3B8;
+
+  /* Gradients */
+  --purple-gradient: linear-gradient(135deg, #8244B3 0%, #A879E6 100%);
+  --teal-gradient: linear-gradient(135deg, #2EEED0 0%, #7C9BFF 100%);
+}

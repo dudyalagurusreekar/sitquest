@@ -1,0 +1,40 @@
+.quest-hero-bg-glow {
+  background:
+    radial-gradient(ellipse 65% 55% at 72% 44%, rgba(130, 68, 179, 0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 40% at 20% 35%, rgba(168, 121, 230, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 35% 30% at 75% 70%, rgba(46, 238, 208, 0.06) 0%, transparent 60%);
+}
+
+.quest-hero-title {
+  background: linear-gradient(135deg, #ffffff 25%, #e6d7ff 68%, #a879e6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.quest-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: quest-marquee 28s linear infinite;
+}
+
+.quest-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes quest-marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.quest-grid-lines {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 30%, transparent 100%);
+}
