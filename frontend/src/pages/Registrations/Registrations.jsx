@@ -58,26 +58,24 @@ function EventList({ onSelect }) {
     setActiveIndex(0)
   }
 
-  return <main id="events" className="flex min-h-screen items-center overflow-hidden bg-[radial-gradient(ellipse_at_50%_0%,#281437_0,transparent_48%),#090711] font-sans text-white">
-    <section className="mx-auto w-[min(1700px,calc(100%_-_13.4vw))] py-[70px] max-[850px]:w-[calc(100%_-_56px)] max-[560px]:w-[calc(100%_-_32px)] max-[560px]:py-[42px]">
-      <div className="flex items-end justify-between gap-9 max-[850px]:flex-col max-[850px]:items-start">
-        <div>
-          <p className="mb-[21px] font-mono text-[10px] font-bold tracking-[.17em] text-quest-lavender max-[560px]:mb-[15px]">YOUR NEXT OPPORTUNITY</p>
-          <h1 id="events-title" className="m-0 text-[clamp(46px,4.2vw,72px)] font-extrabold leading-[.98] tracking-[-.075em] max-[560px]:text-[43px]">Events at QUEST<span className="text-quest-lavender">.</span></h1>
-          <p className="mt-[17px] text-[clamp(13px,1vw,17px)] text-slate-300 max-[560px]:mt-[11px] max-[560px]:text-xs">Find the one that feels like your next step.</p>
+  return <main id="events" className="relative flex min-h-screen items-center overflow-hidden bg-[radial-gradient(ellipse_at_50%_-8%,#5d2b8050_0,transparent_36%),radial-gradient(ellipse_at_8%_48%,#2c1a4825_0,transparent_30%),radial-gradient(ellipse_at_92%_75%,#41236420_0,transparent_30%),#090711] font-sans text-white">
+    <section className="relative mx-auto w-[min(1700px,calc(100%_-_13.4vw))] py-[70px] max-[850px]:w-[calc(100%_-_56px)] max-[560px]:w-[calc(100%_-_32px)] max-[560px]:py-[42px]">
+      <div className="relative flex min-h-[92px] items-center justify-between gap-9 max-[850px]:flex-col max-[850px]:items-start">
+        <div className="max-[850px]:pr-0 min-[851px]:pr-[520px]">
+          <h1 id="events-title" className="m-0 bg-gradient-to-r from-white via-violet-100 to-quest-lavender bg-clip-text text-[clamp(38px,4vw,66px)] font-extrabold leading-[1.04] tracking-[-.065em] text-transparent drop-shadow-[0_0_30px_#a879e633] max-[560px]:text-[37px]">Shape What Comes Next.</h1>
         </div>
-        <div className="mb-0.5 ml-auto flex items-center justify-end gap-3 max-[850px]:mt-6 max-[850px]:w-full max-[560px]:gap-2">
-          <label className="flex h-[54px] w-[clamp(220px,22vw,360px)] items-center gap-3 rounded-[10px] border border-white/15 bg-white/[.035] px-[17px] focus-within:border-quest-lavender/60 focus-within:ring-2 focus-within:ring-quest-lavender/15 max-[850px]:w-auto max-[850px]:flex-1 max-[560px]:h-[46px] max-[560px]:gap-2 max-[560px]:px-[11px]">
+        <div className="absolute right-0 top-1/2 flex -translate-y-1/2 items-center justify-end gap-3 max-[850px]:static max-[850px]:mt-6 max-[850px]:w-full max-[850px]:translate-y-0 max-[560px]:gap-2">
+          <label className="flex h-[54px] w-[clamp(220px,22vw,360px)] items-center gap-3 rounded-[12px] border border-quest-lavender/25 bg-[#171120]/80 px-[17px] shadow-[0_8px_34px_#0005,0_0_24px_#8244b322] transition focus-within:border-quest-lavender/70 focus-within:ring-2 focus-within:ring-quest-lavender/20 max-[850px]:w-auto max-[850px]:flex-1 max-[560px]:h-[46px] max-[560px]:gap-2 max-[560px]:px-[11px]">
             <span aria-hidden="true" className="-rotate-12 font-mono text-[27px] text-quest-lavender">⌕</span><input aria-label="Search events" placeholder="Search events" value={query} onChange={(e) => { setQuery(e.target.value); setActiveIndex(0) }} className="w-full border-0 bg-transparent text-[13px] text-white outline-none placeholder:text-slate-500 max-[560px]:text-[10px]"/>
           </label>
-          <label className="flex h-[54px] items-center gap-3 rounded-[10px] border border-white/15 bg-white/[.035] px-4 font-mono text-[9px] tracking-[.13em] text-slate-400 max-[560px]:h-[46px] max-[560px]:gap-1 max-[560px]:px-[11px] max-[560px]:text-[7px]">
+          <label className="flex h-[54px] items-center gap-3 rounded-[12px] border border-quest-lavender/25 bg-[#171120]/80 px-4 font-mono text-[9px] tracking-[.13em] text-slate-400 shadow-[0_8px_34px_#0005,0_0_24px_#8244b322] transition hover:border-quest-lavender/50 max-[560px]:h-[46px] max-[560px]:gap-1 max-[560px]:px-[11px] max-[560px]:text-[7px]">
             <span>SHOW</span><select value={category} onChange={(e) => changeCategory(e.target.value)} className="max-w-none cursor-pointer border-0 bg-transparent font-sans text-xs text-white outline-none max-[560px]:max-w-[96px] max-[560px]:text-[10px]">{categories.map((item) => <option className="bg-violet-950" key={item}>{item}</option>)}</select>
           </label>
         </div>
       </div>
 
       {filteredEvents.length ? <>
-        <div className="relative mt-[34px] h-[clamp(500px,45vw,635px)] [perspective:1600px] [perspective-origin:50%_46%] [--card-side:min(39vw,580px)] [--card-depth:-220px] [--card-scale:.79] max-[850px]:h-[550px] max-[850px]:[--card-side:min(38vw,400px)] max-[850px]:[--card-scale:.76] max-[560px]:mt-[14px] max-[560px]:h-[470px] max-[560px]:[perspective:1000px] max-[560px]:[--card-side:43vw] max-[560px]:[--card-depth:-200px] max-[560px]:[--card-scale:.71]" aria-label="Event carousel" onKeyDown={(e) => { if (e.key === 'ArrowRight') { e.preventDefault(); move(1) } if (e.key === 'ArrowLeft') { e.preventDefault(); move(-1) } }} tabIndex="0">
+        <div className="relative mt-[34px] h-[clamp(500px,45vw,635px)] rounded-[36px] bg-[radial-gradient(ellipse_at_50%_50%,#a879e610,transparent_68%)] [perspective:1600px] [perspective-origin:50%_46%] [--card-side:min(39vw,580px)] [--card-depth:-220px] [--card-scale:.79] max-[850px]:h-[550px] max-[850px]:[--card-side:min(38vw,400px)] max-[850px]:[--card-scale:.76] max-[560px]:mt-[14px] max-[560px]:h-[470px] max-[560px]:[perspective:1000px] max-[560px]:[--card-side:43vw] max-[560px]:[--card-depth:-200px] max-[560px]:[--card-scale:.71]" aria-label="Opportunity carousel" onKeyDown={(e) => { if (e.key === 'ArrowRight') { e.preventDefault(); move(1) } if (e.key === 'ArrowLeft') { e.preventDefault(); move(-1) } }} tabIndex="0">
           {filteredEvents.map((event, index) => {
             const offset = (index - activeIndex + filteredEvents.length) % filteredEvents.length
             const position = offset === 0 ? 'center' : offset === 1 ? 'next' : 'previous'
