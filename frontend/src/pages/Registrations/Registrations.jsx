@@ -180,7 +180,7 @@ function EventRegistration({ event, onBack, onRegistrationSubmit }) {
     <StarField/>
     <header className={`${detailsWidth} relative z-10 mx-auto flex h-[72px] max-w-[1450px] items-center justify-between border-b border-white/10 max-[680px]:h-[62px]`}>
       <button className="text-left text-xs text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-quest-lavender" onClick={onBack}><span className="mr-2 font-mono text-lg text-quest-lavender">←</span>All events</button>
-      <img className="h-[70px] w-[118px] object-contain max-[680px]:h-[58px] max-[680px]:w-[88px]" style={{ mixBlendMode: 'screen' }} src="/quest-logo.jpeg" alt="QUEST — A Search Within"/>
+      <img className="h-[70px] w-[118px] object-contain max-[680px]:h-[58px] max-[680px]:w-[88px]" src="/quest-logo-transparent.png" alt="QUEST — A Search Within"/>
       <span className="w-20 max-[680px]:w-10" aria-hidden="true"/>
     </header>
 
