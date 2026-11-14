@@ -1063,8 +1063,8 @@
   .bg-\[linear-gradient\(\#5039680b_1px\,transparent_1px\)\,linear-gradient\(90deg\,\#5039680b_1px\,transparent_1px\)\] {
     background-image: linear-gradient(#5039680b 1px,transparent 1px),linear-gradient(90deg,#5039680b 1px,transparent 1px);
   }
-  .bg-\[linear-gradient\(180deg\,\#090711b8_0\%\,\#09071182_46\%\,\#090711d9_100\%\)\,radial-gradient\(ellipse_at_50\%_42\%\,\#09071122_0\%\,\#090711a6_100\%\)\] {
-    background-image: linear-gradient(180deg,#090711b8 0%,#09071182 46%,#090711d9 100%),radial-gradient(ellipse at 50% 42%,#09071122 0%,#090711a6 100%);
+  .bg-\[linear-gradient\(180deg\,\#09071170_0\%\,\#0907115c_46\%\,\#09071195_100\%\)\] {
+    background-image: linear-gradient(180deg,#09071170 0%,#0907115c 46%,#09071195 100%);
   }
   .bg-\[radial-gradient\(ellipse_at_50\%_0\%\,\#8244b322\,transparent_65\%\)\] {
     background-image: radial-gradient(ellipse at 50% 0%,#8244b322,transparent 65%);
@@ -1503,17 +1503,14 @@
   .opacity-100 {
     opacity: 100%;
   }
-  .opacity-\[\.23\] {
-    opacity: .23;
+  .opacity-\[\.48\] {
+    opacity: .48;
   }
   .opacity-\[\.65\] {
     opacity: .65;
   }
   .\[mix-blend-mode\:lighten\] {
     mix-blend-mode: lighten;
-  }
-  .mix-blend-screen {
-    mix-blend-mode: screen;
   }
   .shadow-\[0_0_11px_\#b78fdf\] {
     --tw-shadow: 0 0 11px var(--tw-shadow-color, #b78fdf);

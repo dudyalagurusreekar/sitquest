@@ -39,8 +39,8 @@ function cardTransform(position) {
 
 function StarField() {
   return <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-    <div className="absolute inset-[-3%] bg-[url('/quest-hubble-starfield.jpg')] bg-cover bg-center opacity-[.23] mix-blend-screen motion-safe:animate-galaxy-drift motion-reduce:animate-none" />
-    <div className="absolute inset-0 bg-[linear-gradient(180deg,#090711b8_0%,#09071182_46%,#090711d9_100%),radial-gradient(ellipse_at_50%_42%,#09071122_0%,#090711a6_100%)]" />
+    <div className="absolute inset-[-3%] bg-[url('/quest-hubble-starfield.jpg')] bg-cover bg-center opacity-[.48] motion-safe:animate-galaxy-drift motion-reduce:animate-none" />
+    <div className="absolute inset-0 bg-[linear-gradient(180deg,#09071170_0%,#0907115c_46%,#09071195_100%)]" />
   </div>
 }
 function EventList({ onSelect }) {
