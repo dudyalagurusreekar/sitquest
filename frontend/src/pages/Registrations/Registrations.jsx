@@ -37,6 +37,20 @@ function cardTransform(position) {
   return `translateX(calc(-50% ${direction} var(--card-side, min(39vw, 580px)))) translateZ(var(--card-depth, -220px)) rotateY(var(--card-rotation)) scale(var(--card-scale, .79))`
 }
 
+function StarField() {
+  const stars = Array.from({ length: 120 }, (_, index) => ({
+    x: (index * 137.51 + 11) % 1000,
+    y: (index * 83.17 + (index % 7) * 19) % 700,
+    radius: index % 13 === 0 ? 2.1 : index % 4 === 0 ? 1.45 : 0.95,
+    delay: `${(index % 9) * -0.55}s`,
+  }))
+
+  return <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><filter id="quest-star-glow" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="2.8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    {stars.map((star, index) => <circle key={index} cx={star.x} cy={star.y} r={star.radius} fill={index % 3 === 0 ? '#d8b4fe' : '#ffffff'} opacity={index % 13 === 0 ? '.95' : '.68'} filter="url(#quest-star-glow)" className="animate-sparkle" style={{ animationDelay: star.delay }}/>) }
+  </svg>
+}
+
 function EventList({ onSelect }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [query, setQuery] = useState('')
@@ -58,8 +72,9 @@ function EventList({ onSelect }) {
     setActiveIndex(0)
   }
 
-  return <main id="events" className="relative flex min-h-screen items-center overflow-hidden bg-[radial-gradient(circle_at_13%_17%,#ffffffaa_0_1px,transparent_2px),radial-gradient(circle_at_72%_22%,#d9b5ffcc_0_1.2px,transparent_2.5px),radial-gradient(circle_at_42%_78%,#ffffff99_0_1px,transparent_2px),radial-gradient(circle_at_88%_66%,#d9b5ffbb_0_1px,transparent_2px),radial-gradient(ellipse_at_50%_-8%,#7a3bab70_0,transparent_38%),radial-gradient(ellipse_at_8%_48%,#4a267044_0,transparent_34%),radial-gradient(ellipse_at_92%_75%,#62368a40_0,transparent_34%),#090711] bg-[length:137px_151px,197px_183px,241px_217px,283px_263px,auto,auto,auto,auto] font-sans text-white">
-    <section className="relative mx-auto w-[min(1700px,calc(100%_-_13.4vw))] py-[70px] max-[850px]:w-[calc(100%_-_56px)] max-[560px]:w-[calc(100%_-_32px)] max-[560px]:py-[42px]">
+  return <main id="events" className="relative isolate flex min-h-screen items-center overflow-hidden bg-[radial-gradient(ellipse_at_50%_-8%,#7a3bab70_0,transparent_38%),radial-gradient(ellipse_at_8%_48%,#4a267044_0,transparent_34%),radial-gradient(ellipse_at_92%_75%,#62368a40_0,transparent_34%),#090711] font-sans text-white">
+    <StarField/>
+    <section className="relative z-10 mx-auto w-[min(1700px,calc(100%_-_13.4vw))] py-[70px] max-[850px]:w-[calc(100%_-_56px)] max-[560px]:w-[calc(100%_-_32px)] max-[560px]:py-[42px]">
       <div className="relative flex min-h-[92px] items-center justify-between gap-9 max-[850px]:flex-col max-[850px]:items-start">
         <div className="max-[850px]:pr-0 min-[851px]:pr-[520px]">
           <h1 id="events-title" className="m-0 bg-gradient-to-r from-white via-violet-100 to-quest-lavender bg-clip-text text-[clamp(38px,4vw,66px)] font-extrabold leading-[1.04] tracking-[-.065em] text-transparent drop-shadow-[0_0_30px_#a879e633] max-[560px]:text-[37px]">A Search Within.</h1>

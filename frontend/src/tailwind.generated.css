@@ -963,11 +963,11 @@
   .bg-\[\#171120\]\/80 {
     background-color: color-mix(in oklab, #171120 80%, transparent);
   }
-  .bg-\[radial-gradient\(circle_at_13\%_17\%\,\#ffffffaa_0_1px\,transparent_2px\)\,radial-gradient\(circle_at_72\%_22\%\,\#d9b5ffcc_0_1\.2px\,transparent_2\.5px\)\,radial-gradient\(circle_at_42\%_78\%\,\#ffffff99_0_1px\,transparent_2px\)\,radial-gradient\(circle_at_88\%_66\%\,\#d9b5ffbb_0_1px\,transparent_2px\)\,radial-gradient\(ellipse_at_50\%_-8\%\,\#7a3bab70_0\,transparent_38\%\)\,radial-gradient\(ellipse_at_8\%_48\%\,\#4a267044_0\,transparent_34\%\)\,radial-gradient\(ellipse_at_92\%_75\%\,\#62368a40_0\,transparent_34\%\)\,\#090711\] {
-    background-color: radial-gradient(circle at 13% 17%,#ffffffaa 0 1px,transparent 2px),radial-gradient(circle at 72% 22%,#d9b5ffcc 0 1.2px,transparent 2.5px),radial-gradient(circle at 42% 78%,#ffffff99 0 1px,transparent 2px),radial-gradient(circle at 88% 66%,#d9b5ffbb 0 1px,transparent 2px),radial-gradient(ellipse at 50% -8%,#7a3bab70 0,transparent 38%),radial-gradient(ellipse at 8% 48%,#4a267044 0,transparent 34%),radial-gradient(ellipse at 92% 75%,#62368a40 0,transparent 34%),#090711;
-  }
   .bg-\[radial-gradient\(circle_at_18\%_14\%\,\#a879e610_0_1px\,transparent_1\.5px\)\,radial-gradient\(circle_at_72\%_22\%\,\#ffffff12_0_1px\,transparent_1\.5px\)\,radial-gradient\(circle_at_48\%_62\%\,\#a879e612_0_1px\,transparent_1\.5px\)\,radial-gradient\(ellipse_at_70\%_0\%\,\#51287255_0\,transparent_42\%\)\,radial-gradient\(ellipse_at_8\%_70\%\,\#32195430_0\,transparent_35\%\)\,\#090711\] {
     background-color: radial-gradient(circle at 18% 14%,#a879e610 0 1px,transparent 1.5px),radial-gradient(circle at 72% 22%,#ffffff12 0 1px,transparent 1.5px),radial-gradient(circle at 48% 62%,#a879e612 0 1px,transparent 1.5px),radial-gradient(ellipse at 70% 0%,#51287255 0,transparent 42%),radial-gradient(ellipse at 8% 70%,#32195430 0,transparent 35%),#090711;
+  }
+  .bg-\[radial-gradient\(ellipse_at_50\%_-8\%\,\#7a3bab70_0\,transparent_38\%\)\,radial-gradient\(ellipse_at_8\%_48\%\,\#4a267044_0\,transparent_34\%\)\,radial-gradient\(ellipse_at_92\%_75\%\,\#62368a40_0\,transparent_34\%\)\,\#090711\] {
+    background-color: radial-gradient(ellipse at 50% -8%,#7a3bab70 0,transparent 38%),radial-gradient(ellipse at 8% 48%,#4a267044 0,transparent 34%),radial-gradient(ellipse at 92% 75%,#62368a40 0,transparent 34%),#090711;
   }
   .bg-quest-lavender {
     background-color: var(--color-quest-lavender);
@@ -1123,9 +1123,6 @@
   }
   .\[background-size\:34px_34px\] {
     background-size: 34px 34px;
-  }
-  .bg-\[length\:137px_151px\,197px_183px\,241px_217px\,283px_263px\,auto\,auto\,auto\,auto\] {
-    background-size: 137px 151px,197px 183px,241px 217px,283px 263px,auto,auto,auto,auto;
   }
   .bg-\[length\:170px_170px\,230px_230px\,290px_290px\,auto\,auto\,auto\] {
     background-size: 170px 170px,230px 230px,290px 290px,auto,auto,auto;
@@ -1548,6 +1545,10 @@
     --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .blur {
+    --tw-blur: blur(8px);
+    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
+  }
   .blur-\[3px\] {
     --tw-blur: blur(3px);
     filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
@@ -1569,6 +1570,9 @@
   }
   .saturate-\[\.65\] {
     --tw-saturate: saturate(.65);
+    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
+  }
+  .filter {
     filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
   }
   .backdrop-blur-\[9px\] {
