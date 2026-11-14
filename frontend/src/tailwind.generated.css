@@ -59,9 +59,7 @@
     --animate-gentle-rise: gentle-rise 5.8s ease-in-out infinite;
     --animate-gentle-wave: gentle-wave 4.2s ease-in-out infinite alternate;
     --animate-sparkle: sparkle 4.8s ease-in-out infinite;
-    --animate-stellar-twinkle: stellar-twinkle 7s ease-in-out infinite;
-    --animate-nebula-drift: nebula-drift 46s ease-in-out infinite alternate;
-    --animate-nebula-drift-reverse: nebula-drift-reverse 52s ease-in-out infinite alternate;
+    --animate-galaxy-drift: galaxy-drift 90s ease-in-out infinite alternate;
     --animate-speaker: speaker 4.8s cubic-bezier(.4,0,.2,1) infinite;
     --animate-signal: signal 3.2s ease-in-out infinite;
     --animate-roadmap: roadmap 5s linear infinite;
@@ -236,6 +234,9 @@
   }
   .inset-0 {
     inset: 0px;
+  }
+  .inset-\[-3\%\] {
+    inset: -3%;
   }
   .top-1\/2 {
     top: calc(1 / 2 * 100%);
@@ -1062,6 +1063,9 @@
   .bg-\[linear-gradient\(\#5039680b_1px\,transparent_1px\)\,linear-gradient\(90deg\,\#5039680b_1px\,transparent_1px\)\] {
     background-image: linear-gradient(#5039680b 1px,transparent 1px),linear-gradient(90deg,#5039680b 1px,transparent 1px);
   }
+  .bg-\[linear-gradient\(180deg\,\#090711b8_0\%\,\#09071182_46\%\,\#090711d9_100\%\)\,radial-gradient\(ellipse_at_50\%_42\%\,\#09071122_0\%\,\#090711a6_100\%\)\] {
+    background-image: linear-gradient(180deg,#090711b8 0%,#09071182 46%,#090711d9 100%),radial-gradient(ellipse at 50% 42%,#09071122 0%,#090711a6 100%);
+  }
   .bg-\[radial-gradient\(ellipse_at_50\%_0\%\,\#8244b322\,transparent_65\%\)\] {
     background-image: radial-gradient(ellipse at 50% 0%,#8244b322,transparent 65%);
   }
@@ -1079,6 +1083,9 @@
   }
   .bg-\[radial-gradient\(ellipse_at_100\%_0\%\,\#8244b32a\,transparent_42\%\)\,linear-gradient\(145deg\,\#21162e\,\#100d18\)\] {
     background-image: radial-gradient(ellipse at 100% 0%,#8244b32a,transparent 42%),linear-gradient(145deg,#21162e,#100d18);
+  }
+  .bg-\[url\(\'\/quest-hubble-starfield\.jpg\'\)\] {
+    background-image: url('/quest-hubble-starfield.jpg');
   }
   .from-\[\#1b1226\]\/90 {
     --tw-gradient-from: color-mix(in oklab, #1b1226 90%, transparent);
@@ -1146,8 +1153,14 @@
   .\[background-size\:34px_34px\] {
     background-size: 34px 34px;
   }
+  .bg-cover {
+    background-size: cover;
+  }
   .bg-clip-text {
     background-clip: text;
+  }
+  .bg-center {
+    background-position: center;
   }
   .fill-none {
     fill: none;
@@ -1490,11 +1503,17 @@
   .opacity-100 {
     opacity: 100%;
   }
+  .opacity-\[\.23\] {
+    opacity: .23;
+  }
   .opacity-\[\.65\] {
     opacity: .65;
   }
   .\[mix-blend-mode\:lighten\] {
     mix-blend-mode: lighten;
+  }
+  .mix-blend-screen {
+    mix-blend-mode: screen;
   }
   .shadow-\[0_0_11px_\#b78fdf\] {
     --tw-shadow: 0 0 11px var(--tw-shadow-color, #b78fdf);
@@ -1568,10 +1587,6 @@
     --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
-  .blur {
-    --tw-blur: blur(8px);
-    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
-  }
   .blur-\[3px\] {
     --tw-blur: blur(3px);
     filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
@@ -1593,9 +1608,6 @@
   }
   .saturate-\[\.65\] {
     --tw-saturate: saturate(.65);
-    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
-  }
-  .filter {
     filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
   }
   .backdrop-blur-\[9px\] {
@@ -1773,14 +1785,8 @@
     outline-color: var(--color-quest-lavender);
   }
   @media (prefers-reduced-motion: no-preference) {
-    .motion-safe\:animate-nebula-drift {
-      animation: var(--animate-nebula-drift);
-    }
-    .motion-safe\:animate-nebula-drift-reverse {
-      animation: var(--animate-nebula-drift-reverse);
-    }
-    .motion-safe\:animate-stellar-twinkle {
-      animation: var(--animate-stellar-twinkle);
+    .motion-safe\:animate-galaxy-drift {
+      animation: var(--animate-galaxy-drift);
     }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -2529,32 +2535,12 @@
     transform: scale(1.02);
   }
 }
-@keyframes stellar-twinkle {
-  0%, 100% {
-    opacity: .32;
-  }
-  48% {
-    opacity: .86;
-  }
-}
-@keyframes nebula-drift {
+@keyframes galaxy-drift {
   from {
-    transform: translate(-12px, 4px) scale(.98);
-    opacity: .65;
+    transform: scale(1.02) translate3d(-.4%, .2%, 0);
   }
   to {
-    transform: translate(18px, -8px) scale(1.04);
-    opacity: 1;
-  }
-}
-@keyframes nebula-drift-reverse {
-  from {
-    transform: translate(14px, -6px) scale(1.03);
-    opacity: .58;
-  }
-  to {
-    transform: translate(-16px, 10px) scale(.97);
-    opacity: .92;
+    transform: scale(1.08) translate3d(.5%, -.3%, 0);
   }
 }
 @keyframes speaker {

@@ -15,9 +15,7 @@
   --animate-gentle-rise: gentle-rise 5.8s ease-in-out infinite;
   --animate-gentle-wave: gentle-wave 4.2s ease-in-out infinite alternate;
   --animate-sparkle: sparkle 4.8s ease-in-out infinite;
-  --animate-stellar-twinkle: stellar-twinkle 7s ease-in-out infinite;
-  --animate-nebula-drift: nebula-drift 46s ease-in-out infinite alternate;
-  --animate-nebula-drift-reverse: nebula-drift-reverse 52s ease-in-out infinite alternate;
+  --animate-galaxy-drift: galaxy-drift 90s ease-in-out infinite alternate;
   --animate-speaker: speaker 4.8s cubic-bezier(.4,0,.2,1) infinite;
   --animate-signal: signal 3.2s ease-in-out infinite;
   --animate-roadmap: roadmap 5s linear infinite;
@@ -53,17 +51,9 @@
     0%,100% { opacity: .3; transform: scale(.96); }
     50% { opacity: .78; transform: scale(1.02); }
   }
-  @keyframes stellar-twinkle {
-    0%, 100% { opacity: .32; }
-    48% { opacity: .86; }
-  }
-  @keyframes nebula-drift {
-    from { transform: translate(-12px, 4px) scale(.98); opacity: .65; }
-    to { transform: translate(18px, -8px) scale(1.04); opacity: 1; }
-  }
-  @keyframes nebula-drift-reverse {
-    from { transform: translate(14px, -6px) scale(1.03); opacity: .58; }
-    to { transform: translate(-16px, 10px) scale(.97); opacity: .92; }
+  @keyframes galaxy-drift {
+    from { transform: scale(1.02) translate3d(-.4%, .2%, 0); }
+    to { transform: scale(1.08) translate3d(.5%, -.3%, 0); }
   }
   @keyframes speaker {
     0%,100% { transform: translateY(0); }
