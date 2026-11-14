@@ -15,7 +15,6 @@
   --animate-gentle-rise: gentle-rise 5.8s ease-in-out infinite;
   --animate-gentle-wave: gentle-wave 4.2s ease-in-out infinite alternate;
   --animate-sparkle: sparkle 4.8s ease-in-out infinite;
-  --animate-galaxy-drift: galaxy-drift 90s ease-in-out infinite alternate;
   --animate-speaker: speaker 4.8s cubic-bezier(.4,0,.2,1) infinite;
   --animate-signal: signal 3.2s ease-in-out infinite;
   --animate-roadmap: roadmap 5s linear infinite;
@@ -50,10 +49,6 @@
   @keyframes sparkle {
     0%,100% { opacity: .3; transform: scale(.96); }
     50% { opacity: .78; transform: scale(1.02); }
-  }
-  @keyframes galaxy-drift {
-    from { transform: scale(1.02) translate3d(-.4%, .2%, 0); }
-    to { transform: scale(1.08) translate3d(.5%, -.3%, 0); }
   }
   @keyframes speaker {
     0%,100% { transform: translateY(0); }

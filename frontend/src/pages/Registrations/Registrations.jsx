@@ -39,8 +39,7 @@ function cardTransform(position) {
 
 function StarField() {
   return <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-    <div className="absolute inset-[-3%] bg-[url('/quest-hubble-starfield.jpg')] bg-cover bg-center opacity-[.48] motion-safe:animate-galaxy-drift motion-reduce:animate-none" />
-    <div className="absolute inset-0 bg-[linear-gradient(180deg,#09071170_0%,#0907115c_46%,#09071195_100%)]" />
+    <div className="absolute inset-0 bg-[url('/quest-stars.jpg')] bg-cover bg-center opacity-80" />
   </div>
 }
 function EventList({ onSelect }) {

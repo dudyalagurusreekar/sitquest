@@ -59,7 +59,6 @@
     --animate-gentle-rise: gentle-rise 5.8s ease-in-out infinite;
     --animate-gentle-wave: gentle-wave 4.2s ease-in-out infinite alternate;
     --animate-sparkle: sparkle 4.8s ease-in-out infinite;
-    --animate-galaxy-drift: galaxy-drift 90s ease-in-out infinite alternate;
     --animate-speaker: speaker 4.8s cubic-bezier(.4,0,.2,1) infinite;
     --animate-signal: signal 3.2s ease-in-out infinite;
     --animate-roadmap: roadmap 5s linear infinite;
@@ -234,9 +233,6 @@
   }
   .inset-0 {
     inset: 0px;
-  }
-  .inset-\[-3\%\] {
-    inset: -3%;
   }
   .top-1\/2 {
     top: calc(1 / 2 * 100%);
@@ -1063,9 +1059,6 @@
   .bg-\[linear-gradient\(\#5039680b_1px\,transparent_1px\)\,linear-gradient\(90deg\,\#5039680b_1px\,transparent_1px\)\] {
     background-image: linear-gradient(#5039680b 1px,transparent 1px),linear-gradient(90deg,#5039680b 1px,transparent 1px);
   }
-  .bg-\[linear-gradient\(180deg\,\#09071170_0\%\,\#0907115c_46\%\,\#09071195_100\%\)\] {
-    background-image: linear-gradient(180deg,#09071170 0%,#0907115c 46%,#09071195 100%);
-  }
   .bg-\[radial-gradient\(ellipse_at_50\%_0\%\,\#8244b322\,transparent_65\%\)\] {
     background-image: radial-gradient(ellipse at 50% 0%,#8244b322,transparent 65%);
   }
@@ -1084,8 +1077,8 @@
   .bg-\[radial-gradient\(ellipse_at_100\%_0\%\,\#8244b32a\,transparent_42\%\)\,linear-gradient\(145deg\,\#21162e\,\#100d18\)\] {
     background-image: radial-gradient(ellipse at 100% 0%,#8244b32a,transparent 42%),linear-gradient(145deg,#21162e,#100d18);
   }
-  .bg-\[url\(\'\/quest-hubble-starfield\.jpg\'\)\] {
-    background-image: url('/quest-hubble-starfield.jpg');
+  .bg-\[url\(\'\/quest-stars\.jpg\'\)\] {
+    background-image: url('/quest-stars.jpg');
   }
   .from-\[\#1b1226\]\/90 {
     --tw-gradient-from: color-mix(in oklab, #1b1226 90%, transparent);
@@ -1500,11 +1493,11 @@
   .opacity-0 {
     opacity: 0%;
   }
+  .opacity-80 {
+    opacity: 80%;
+  }
   .opacity-100 {
     opacity: 100%;
-  }
-  .opacity-\[\.48\] {
-    opacity: .48;
   }
   .opacity-\[\.65\] {
     opacity: .65;
@@ -1780,11 +1773,6 @@
   }
   .focus-visible\:outline-quest-lavender:focus-visible {
     outline-color: var(--color-quest-lavender);
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .motion-safe\:animate-galaxy-drift {
-      animation: var(--animate-galaxy-drift);
-    }
   }
   @media (prefers-reduced-motion: reduce) {
     .motion-reduce\:animate-none {
@@ -2530,14 +2518,6 @@
   50% {
     opacity: .78;
     transform: scale(1.02);
-  }
-}
-@keyframes galaxy-drift {
-  from {
-    transform: scale(1.02) translate3d(-.4%, .2%, 0);
-  }
-  to {
-    transform: scale(1.08) translate3d(.5%, -.3%, 0);
   }
 }
 @keyframes speaker {
