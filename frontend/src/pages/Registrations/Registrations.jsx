@@ -38,18 +38,18 @@ function cardTransform(position) {
 }
 
 function StarField() {
-  const stars = Array.from({ length: 120 }, (_, index) => ({
+  const stars = Array.from({ length: 170 }, (_, index) => ({
     x: (index * 137.51 + 11) % 1000,
     y: (index * 83.17 + (index % 7) * 19) % 700,
-    radius: index % 5 === 0 ? 5.5 : index % 3 === 0 ? 4.2 : 3.2,
+    radius: index % 19 === 0 ? 2.1 : index % 4 === 0 ? 1.45 : 0.9,
     delay: `${(index % 9) * -0.55}s`,
   }))
 
   const starPath = ({ x, y, radius }) => `M ${x} ${y - radius} L ${x + radius * 0.28} ${y - radius * 0.28} L ${x + radius} ${y} L ${x + radius * 0.28} ${y + radius * 0.28} L ${x} ${y + radius} L ${x - radius * 0.28} ${y + radius * 0.28} L ${x - radius} ${y} L ${x - radius * 0.28} ${y - radius * 0.28} Z`
 
   return <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs><filter id="quest-star-glow" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="1.8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-    {stars.map((star, index) => <path key={index} d={starPath(star)} fill={index % 3 === 0 ? '#d8b4fe' : '#ffffff'} opacity={index % 5 === 0 ? '.98' : '.8'} filter="url(#quest-star-glow)" className="animate-sparkle" style={{ animationDelay: star.delay }}/>) }
+    <defs><filter id="quest-star-glow" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="0.65" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    {stars.map((star, index) => <path key={index} d={starPath(star)} fill={index % 11 === 0 ? '#d8c6ff' : '#ffffff'} opacity={index % 19 === 0 ? '.88' : index % 3 === 0 ? '.58' : '.38'} filter="url(#quest-star-glow)" className="animate-sparkle" style={{ animationDelay: star.delay }}/>) }
   </svg>
 }
 
