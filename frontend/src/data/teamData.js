@@ -45,24 +45,25 @@ export const DOMAIN_INFO = {
 };
 
 /**
- * Returns 4th Year Team separated into two layers:
- * Layer 1: SHARATH, ANUSHKA, RISHABH (Top podium speakers in requested order)
- * Layer 2: All remaining 4th year members in the exact requested order
+ * Returns 4th Year Team separated into three tiers:
+ * 1. Podium Speakers (Top tier: Sharath, Anushka, Rishabh)
+ * 2. Leads (Domain Leads & Treasurer: Darshan, Amoghavarsha, Dhruthi, Navya, Shivakumar, Sanith, Pavithra, Haradeep, Varun, Tanush, Venkatkarthikeyan)
+ * 3. Core Members (Members who are not leads: J Chetan Rao, Lenkalapelli Arun Subramanyam, Sai Venkatesh R N, Prathiksha, Preena, Shreeya, Tanushka, Kushi)
  */
 export function getFourthYearTeam() {
   const fourthYears = teamMembers.filter((m) => m.academicYear === 'Fourth Year');
 
-  // Layer 1 targets in exact requested order: Sharath -> Anushka -> Rishabh
-  const layer1Usns = ['1SI23IS097', '1SI23AD007', '1SI23EC091'];
-  const layer1 = [];
+  // Tier 1: Podium Speakers in requested order (Sharath -> Anushka -> Rishabh)
+  const podiumSpeakerUsns = ['1SI23IS097', '1SI23AD007', '1SI23EC091'];
+  const podiumSpeakers = [];
 
-  layer1Usns.forEach((usn) => {
+  podiumSpeakerUsns.forEach((usn) => {
     const found = fourthYears.find((m) => (m.usn || '').toUpperCase() === usn);
-    if (found) layer1.push(found);
+    if (found) podiumSpeakers.push(found);
   });
 
-  // Layer 2: Exact order specified by user
-  const layer2UsnOrder = [
+  // Tier 2: Domain Leads & Executive Council in exact requested order
+  const leadUsnOrder = [
     '1SI23EC029', // Darshan (Treasurer)
     '1SI23AD005', // Amoghavarsha N (Video Editing Lead)
     '1SI23EI015', // Dhruthi P (Video Editing Lead)
@@ -74,6 +75,18 @@ export function getFourthYearTeam() {
     'QUEST-VARUN', // Varun (Database Lead)
     '1SI23AD059', // Tanush Datta V (Content Lead)
     '1SI23CS205', // Venkatkarthikeyan (Content Lead)
+  ];
+
+  const leads = [];
+  leadUsnOrder.forEach((usn) => {
+    const found = fourthYears.find((m) => (m.usn || '').toUpperCase() === usn);
+    if (found && !podiumSpeakers.some((p) => p.usn === found.usn)) {
+      leads.push(found);
+    }
+  });
+
+  // Tier 3: Core Members (who are not leads) in exact requested order
+  const coreUsnOrder = [
     '1SI23AD019', // J Chetan Rao (Core Member)
     '1SI23AD024', // Lenkalapelli Arun Subramanyam (Core Member)
     '1SI23CI046', // Sai Venkatesh R N (Core Member)
@@ -84,24 +97,36 @@ export function getFourthYearTeam() {
     'QUEST-KUSHI', // Kushi (Core Member)
   ];
 
-  const layer2 = [];
-
-  // Add members in exact order
-  layer2UsnOrder.forEach((usn) => {
+  const coreMembers = [];
+  coreUsnOrder.forEach((usn) => {
     const found = fourthYears.find((m) => (m.usn || '').toUpperCase() === usn);
-    if (found && !layer1.some((l1) => l1.usn === found.usn)) {
-      layer2.push(found);
+    if (
+      found &&
+      !podiumSpeakers.some((p) => p.usn === found.usn) &&
+      !leads.some((l) => l.usn === found.usn)
+    ) {
+      coreMembers.push(found);
     }
   });
 
-  // Include any remaining fourth year member not explicitly listed (fallback)
+  // Include any remaining fourth year member not explicitly listed (fallback to core)
   fourthYears.forEach((m) => {
-    if (!layer1.some((l1) => l1.usn === m.usn) && !layer2.some((l2) => l2.usn === m.usn)) {
-      layer2.push(m);
+    if (
+      !podiumSpeakers.some((p) => p.usn === m.usn) &&
+      !leads.some((l) => l.usn === m.usn) &&
+      !coreMembers.some((c) => c.usn === m.usn)
+    ) {
+      coreMembers.push(m);
     }
   });
 
-  return { layer1, layer2 };
+  return {
+    podiumSpeakers,
+    leads,
+    coreMembers,
+    layer1: podiumSpeakers,
+    layer2: [...leads, ...coreMembers],
+  };
 }
 
 /**

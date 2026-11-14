@@ -200,12 +200,20 @@ export default function PresentTeam() {
             />
           </div>
 
-          {/* 1st Layer: SHARATH, RISHABH, ANUSHKA */}
+          {/* 1st Tier: PODIUM SPEAKERS */}
           <div className="mx-auto w-full max-w-4xl mb-12">
+            <div className="mb-6 flex items-center justify-center gap-3">
+              <span className="h-px w-12 sm:w-20 bg-gradient-to-r from-transparent via-[rgba(251,191,36,0.35)] to-transparent" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[rgba(251,191,36,0.3)] bg-[rgba(251,191,36,0.08)] text-[12px] font-bold text-[#FDE68A] uppercase tracking-wider backdrop-blur-md">
+                <span className="h-2 w-2 rounded-full bg-[#FBBF24] shadow-[0_0_6px_#FBBF24]" />
+                <span>PODIUM SPEAKERS</span>
+              </div>
+              <span className="h-px w-12 sm:w-20 bg-gradient-to-l from-transparent via-[rgba(251,191,36,0.35)] to-transparent" />
+            </div>
             <div className="grid grid-cols-3 gap-6 sm:gap-8 max-[820px]:grid-cols-2 max-[560px]:grid-cols-1">
-              {fourthYearTeam.layer1.map((member) => (
+              {fourthYearTeam.podiumSpeakers.map((member) => (
                 <TeamCard
-                  key={`fourth-year-l1-${member.usn}`}
+                  key={`fourth-year-podium-${member.usn}`}
                   member={member}
                   showPosition={true}
                 />
@@ -213,21 +221,40 @@ export default function PresentTeam() {
             </div>
           </div>
 
-          {/* Layer Separator */}
+          {/* 2nd Tier: DOMAIN LEADS */}
           <div className="my-10 flex items-center justify-center gap-3">
-            <span className="h-px w-16 sm:w-32 bg-gradient-to-r from-transparent via-[rgba(251,191,36,0.4)] to-transparent" />
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[rgba(251,191,36,0.3)] bg-[rgba(251,191,36,0.08)] text-[12px] font-bold text-[#FDE68A] uppercase tracking-wider backdrop-blur-md">
-              <span className="h-2 w-2 rounded-full bg-[#FBBF24] shadow-[0_0_6px_#FBBF24]" />
-              <span>CORE TEAM</span>
+            <span className="h-px w-16 sm:w-32 bg-gradient-to-r from-transparent via-[rgba(0,229,195,0.4)] to-transparent" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[rgba(0,229,195,0.35)] bg-[rgba(0,229,195,0.08)] text-[12px] font-bold text-[#00e5c3] uppercase tracking-wider backdrop-blur-md shadow-[0_0_15px_rgba(0,229,195,0.2)]">
+              <span className="h-2 w-2 rounded-full bg-[#00e5c3] shadow-[0_0_6px_#00e5c3]" />
+              <span>DOMAIN LEADS</span>
             </div>
-            <span className="h-px w-16 sm:w-32 bg-gradient-to-l from-transparent via-[rgba(251,191,36,0.4)] to-transparent" />
+            <span className="h-px w-16 sm:w-32 bg-gradient-to-l from-transparent via-[rgba(0,229,195,0.4)] to-transparent" />
           </div>
 
-          {/* 2nd Layer: Remaining Fourth Year Members */}
-          <div className="grid w-full grid-cols-4 gap-[25px] max-[1050px]:grid-cols-3 max-[1050px]:gap-5 max-[760px]:grid-cols-2 max-[760px]:gap-4 max-[480px]:gap-3">
-            {fourthYearTeam.layer2.map((member) => (
+          <div className="grid w-full grid-cols-4 gap-[25px] max-[1050px]:grid-cols-3 max-[1050px]:gap-5 max-[760px]:grid-cols-2 max-[760px]:gap-4 max-[480px]:gap-3 mb-14">
+            {fourthYearTeam.leads.map((member) => (
               <TeamCard
-                key={`fourth-year-l2-${member.usn}`}
+                key={`fourth-year-lead-${member.usn}`}
+                member={member}
+                showPosition={true}
+              />
+            ))}
+          </div>
+
+          {/* 3rd Tier: CORE TEAM (Who are not leads) */}
+          <div className="my-10 flex items-center justify-center gap-3">
+            <span className="h-px w-16 sm:w-32 bg-gradient-to-r from-transparent via-[rgba(180,145,230,0.4)] to-transparent" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[rgba(180,145,230,0.35)] bg-[rgba(130,68,179,0.12)] text-[12px] font-bold text-[#C084FC] uppercase tracking-wider backdrop-blur-md shadow-[0_0_15px_rgba(130,68,179,0.25)]">
+              <span className="h-2 w-2 rounded-full bg-[#C084FC] shadow-[0_0_6px_#C084FC]" />
+              <span>CORE TEAM</span>
+            </div>
+            <span className="h-px w-16 sm:w-32 bg-gradient-to-l from-transparent via-[rgba(180,145,230,0.4)] to-transparent" />
+          </div>
+
+          <div className="grid w-full grid-cols-4 gap-[25px] max-[1050px]:grid-cols-3 max-[1050px]:gap-5 max-[760px]:grid-cols-2 max-[760px]:gap-4 max-[480px]:gap-3">
+            {fourthYearTeam.coreMembers.map((member) => (
+              <TeamCard
+                key={`fourth-year-core-${member.usn}`}
                 member={member}
                 showPosition={true}
               />
