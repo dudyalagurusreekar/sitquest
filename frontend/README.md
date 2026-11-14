@@ -1,19 +1,16 @@
-# React + Vite
+# QUEST Events frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Run locally
 
-Currently, two official plugins are available:
+Open PowerShell in `D:\quest\Quest_web\frontend`, then run:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```powershell
+npm install
+npm run dev
+```
 
-## React Compiler
+Open the local address printed by Vite. The app contains the event browser and event registration interface; it does not include a server or database.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Registration sheet integration
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The registration form validates the fields in the browser and emits a `quest:registration-submit` window event. The event detail contains `eventKey`, `eventTitle`, `fullName`, `email`, `phone`, `usn`, `year`, `department`, and `paymentSnapshot` (a `File` or `null`). Connect the form to the club's approved sheet integration from the app layer; until then, the success notice only confirms that the form was completed in the demo and does not claim that details were stored.

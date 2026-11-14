@@ -1,4 +1,114 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+
+const events = [
+  { eventKey: 'freshers-event', title: 'Freshers Event', category: 'Community', description: 'Start your college journey with the QUEST community.', detail: 'Meet the QUEST community and find your place in the club. Share your details to complete your registration.', tag: 'WELCOME TO QUEST', tone: 'purple', dateLabel: 'Registration open', requiresPayment: false, requiresYear: false, number: '01' },
+  { eventKey: 'placement-iq', title: 'Placement IQ', category: 'Career', description: 'Campus to Corporate: career strategy, high-CTC opportunities, resume and LinkedIn skills, and interview preparation.', detail: 'A practical workshop led by Sahana Shanbhag, Senior Analyst at Target Corporation.', tag: 'CAMPUS TO CORPORATE', tone: 'teal', dateLabel: '16 Nov 2026 · 5:15 PM', requiresPayment: false, requiresYear: true, number: '02' },
+  { eventKey: 'quest-test-series', title: 'Quest Test Series (QTS)', category: 'Learning', description: 'Practice and challenge yourself with QTS.', detail: 'Join the Quest Test Series and take the next step in your learning journey. Submit your details and payment proof to complete your registration.', tag: 'LEARN BY DOING', tone: 'blue', dateLabel: 'Registration open', requiresPayment: true, requiresYear: true, number: '03' },
+]
+
+const categories = ['All events', ...new Set(events.map((event) => event.category))]
+
+function EventArtwork({ eventKey }) {
+  if (eventKey === 'freshers-event') return <svg className="absolute inset-0 z-[2] h-full w-full overflow-visible" viewBox="0 0 640 300" aria-hidden="true">
+    <g className="animate-confetti fill-violet-300 motion-reduce:animate-none"><path d="M84 54l10 16-10 16-10-16z"/><path d="M520 40l7 12-7 12-7-12z"/><circle cx="150" cy="46" r="5"/><circle cx="475" cy="91" r="4"/><path d="M563 160h13m-6-7v14M74 192h13m-6-7v14"/></g>
+    <g className="origin-center [transform-box:fill-box] animate-float-slow motion-reduce:animate-none"><path d="M131 127c-21-34-5-73 21-73s42 39 21 73c-10 16-32 16-42 0z" fill="#bd8bff"/><path d="M152 144q10 24 2 54" fill="none" stroke="#d5b7ff" strokeWidth="2"/><path d="M477 139c-21-34-5-73 21-73s42 39 21 73c-10 16-32 16-42 0z" fill="#a879e6"/><path d="M498 156q-10 18-3 40" fill="none" stroke="#c9a8ef" strokeWidth="2"/></g>
+    <g className="origin-bottom [transform-box:fill-box] animate-gentle-rise motion-reduce:animate-none"><circle cx="250" cy="153" r="24" fill="#f4c9a6"/><path d="M210 245q3-66 40-66t40 66" fill="#8244b3"/><circle cx="320" cy="128" r="28" fill="#d7a985"/><path d="M271 245q3-82 49-82t49 82" fill="#a879e6"/><circle cx="390" cy="153" r="24" fill="#f2c7a3"/><path d="M350 245q3-66 40-66t40 66" fill="#7c6aa2"/><path className="origin-center [transform-box:fill-box] animate-gentle-wave motion-reduce:animate-none" d="M290 188l-28-37m70 37l26-38" fill="none" stroke="#f4c9a6" strokeWidth="12" strokeLinecap="round"/></g>
+    <g className="animate-sparkle fill-violet-500 motion-reduce:animate-none"><path d="M208 100v22m-11-11h22M427 84v18m-9-9h18M320 48v18m-9-9h18"/></g>
+  </svg>
+
+  if (eventKey === 'placement-iq') return <svg className="absolute inset-0 z-[2] h-full w-full overflow-visible" viewBox="0 0 640 300" aria-hidden="true">
+    <rect x="371" y="46" width="190" height="139" rx="13" fill="#fff" stroke="#a879e6" strokeOpacity=".85" strokeWidth="3"/><text x="466" y="82" textAnchor="middle" className="fill-violet-950 font-mono text-[12px] font-bold tracking-[2px]">PLACEMENT READY?</text><path d="M401 145h27v-19h27v19h26v-39h27v39h26" fill="none" stroke="#8244b3" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/><path d="M466 185v22m-50 0h100" stroke="#7d68ad" strokeWidth="5" strokeLinecap="round"/>
+    <g className="origin-center [transform-box:fill-box] animate-speaker motion-reduce:animate-none"><circle cx="285" cy="103" r="27" fill="#e8b995"/><path d="M258 101q2-43 31-38 22 5 22 38-12-14-53 0" fill="#26202f"/><path d="M245 232q2-94 40-94t43 94" fill="#a879e6"/><path d="M285 152l47-34 28 5" fill="none" stroke="#e8b995" strokeWidth="12" strokeLinecap="round"/><path d="M286 169l-35 27" stroke="#e8b995" strokeWidth="11" strokeLinecap="round"/></g>
+    <g className="animate-gentle-rise motion-reduce:animate-none"><circle cx="102" cy="224" r="22" fill="#e7bd9f"/><path d="M66 300q2-53 36-53t37 53" fill="#aa8ec8"/><circle cx="177" cy="235" r="18" fill="#c78f71"/><path d="M146 300q2-45 31-45t31 45" fill="#7c6aa2"/><circle cx="235" cy="231" r="20" fill="#f1c9a6"/><path d="M201 300q2-48 34-48t35 48" fill="#9c6ac5"/></g>
+    <path className="animate-signal fill-none stroke-violet-600 [stroke-dasharray:5_7] motion-reduce:animate-none" d="M330 89q22 15 0 30m13-42q35 27 0 54" strokeWidth="4" strokeLinecap="round"/>
+  </svg>
+
+  return <svg className="absolute inset-0 z-[2] h-full w-full overflow-visible" viewBox="0 0 640 300" aria-hidden="true">
+    <path className="animate-roadmap fill-none stroke-violet-400/70 [stroke-dasharray:7_12] motion-reduce:animate-none" d="M102 151h433" strokeWidth="5"/><path d="M521 137l18 14-18 14" fill="none" stroke="#a879e6" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"/>
+    <g className="animate-node origin-center [transform-box:fill-box] motion-reduce:animate-none"><circle cx="145" cy="151" r="48" fill="#f1e5ff" stroke="#a879e6" strokeWidth="3"/><text x="145" y="161" textAnchor="middle" className="fill-violet-900 font-mono text-[20px] font-bold">&lt;/&gt;</text><text x="145" y="232" textAnchor="middle" className="fill-slate-700 font-mono text-[9px] font-bold tracking-[1px]">CODING + APTITUDE</text></g>
+    <g className="animate-node origin-center [transform-box:fill-box] [animation-delay:1.1s] motion-reduce:animate-none"><circle cx="320" cy="151" r="48" fill="#f1e7fa" stroke="#a879e6" strokeWidth="3"/><path d="M296 139h47v28h-23l-15 12v-12h-9z" fill="none" stroke="#8f69b5" strokeWidth="4" strokeLinejoin="round"/><text x="320" y="232" textAnchor="middle" className="fill-slate-700 font-mono text-[9px] font-bold tracking-[1px]">GROUP DISCUSSION</text></g>
+    <g className="animate-node origin-center [transform-box:fill-box] [animation-delay:2.2s] motion-reduce:animate-none"><circle cx="495" cy="151" r="48" fill="#e7ecff" stroke="#a879e6" strokeWidth="3"/><circle cx="495" cy="139" r="12" fill="none" stroke="#8068ae" strokeWidth="4"/><path d="M471 178q2-25 24-25t24 25" fill="none" stroke="#8068ae" strokeWidth="4" strokeLinecap="round"/><text x="495" y="232" textAnchor="middle" className="fill-slate-700 font-mono text-[9px] font-bold tracking-[1px]">PERSONAL INTERVIEW</text></g>
+  </svg>
+}
+
+function cardTransform(position) {
+  if (position === 'center') return 'translateX(-50%) translateZ(75px)'
+  const direction = position === 'next' ? '+' : '-'
+  return `translateX(calc(-50% ${direction} var(--card-side, min(39vw, 580px)))) translateZ(var(--card-depth, -220px)) rotateY(var(--card-rotation)) scale(var(--card-scale, .79))`
+}
+
+function EventList({ onSelect }) {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [query, setQuery] = useState('')
+  const [category, setCategory] = useState('All events')
+  const filteredEvents = useMemo(() => events.filter((event) => (category === 'All events' || event.category === category) && `${event.title} ${event.description} ${event.category}`.toLowerCase().includes(query.toLowerCase())), [query, category])
+  const currentEvent = filteredEvents[activeIndex]
+
+  useEffect(() => {
+    if (filteredEvents.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const timer = window.setInterval(() => setActiveIndex((index) => (index + 1) % filteredEvents.length), 2000)
+    return () => window.clearInterval(timer)
+  }, [filteredEvents.length])
+
+  function move(direction) {
+    setActiveIndex((index) => (index + direction + filteredEvents.length) % filteredEvents.length)
+  }
+  function changeCategory(value) {
+    setCategory(value)
+    setActiveIndex(0)
+  }
+
+  return <main id="events" className="flex min-h-screen items-center overflow-hidden bg-[radial-gradient(ellipse_at_50%_0%,#281437_0,transparent_48%),#090711] font-sans text-white">
+    <section className="mx-auto w-[min(1700px,calc(100%_-_13.4vw))] py-[70px] max-[850px]:w-[calc(100%_-_56px)] max-[560px]:w-[calc(100%_-_32px)] max-[560px]:py-[42px]">
+      <div className="flex items-end justify-between gap-9 max-[850px]:flex-col max-[850px]:items-start">
+        <div>
+          <p className="mb-[21px] font-mono text-[10px] font-bold tracking-[.17em] text-quest-lavender max-[560px]:mb-[15px]">YOUR NEXT OPPORTUNITY</p>
+          <h1 id="events-title" className="m-0 text-[clamp(46px,4.2vw,72px)] font-extrabold leading-[.98] tracking-[-.075em] max-[560px]:text-[43px]">Events at QUEST<span className="text-quest-lavender">.</span></h1>
+          <p className="mt-[17px] text-[clamp(13px,1vw,17px)] text-slate-300 max-[560px]:mt-[11px] max-[560px]:text-xs">Find the one that feels like your next step.</p>
+        </div>
+        <div className="mb-0.5 flex items-center gap-3 max-[850px]:mt-6 max-[850px]:w-full max-[560px]:gap-2">
+          <label className="flex h-[54px] w-[clamp(220px,22vw,360px)] items-center gap-3 rounded-[10px] border border-white/15 bg-white/[.035] px-[17px] focus-within:border-quest-lavender/60 focus-within:ring-2 focus-within:ring-quest-lavender/15 max-[850px]:w-auto max-[850px]:flex-1 max-[560px]:h-[46px] max-[560px]:gap-2 max-[560px]:px-[11px]">
+            <span aria-hidden="true" className="-rotate-12 font-mono text-[27px] text-quest-lavender">⌕</span><input aria-label="Search events" placeholder="Search events" value={query} onChange={(e) => { setQuery(e.target.value); setActiveIndex(0) }} className="w-full border-0 bg-transparent text-[13px] text-white outline-none placeholder:text-slate-500 max-[560px]:text-[10px]"/>
+          </label>
+          <label className="flex h-[54px] items-center gap-3 rounded-[10px] border border-white/15 bg-white/[.035] px-4 font-mono text-[9px] tracking-[.13em] text-slate-400 max-[560px]:h-[46px] max-[560px]:gap-1 max-[560px]:px-[11px] max-[560px]:text-[7px]">
+            <span>SHOW</span><select value={category} onChange={(e) => changeCategory(e.target.value)} className="max-w-none cursor-pointer border-0 bg-transparent font-sans text-xs text-white outline-none max-[560px]:max-w-[96px] max-[560px]:text-[10px]">{categories.map((item) => <option className="bg-violet-950" key={item}>{item}</option>)}</select>
+          </label>
+        </div>
+      </div>
+
+      {filteredEvents.length ? <>
+        <div className="relative mt-[34px] h-[clamp(500px,45vw,635px)] [perspective:1600px] [perspective-origin:50%_46%] [--card-side:min(39vw,580px)] [--card-depth:-220px] [--card-scale:.79] max-[850px]:h-[550px] max-[850px]:[--card-side:min(38vw,400px)] max-[850px]:[--card-scale:.76] max-[560px]:mt-[14px] max-[560px]:h-[470px] max-[560px]:[perspective:1000px] max-[560px]:[--card-side:43vw] max-[560px]:[--card-depth:-200px] max-[560px]:[--card-scale:.71]" aria-label="Event carousel" onKeyDown={(e) => { if (e.key === 'ArrowRight') { e.preventDefault(); move(1) } if (e.key === 'ArrowLeft') { e.preventDefault(); move(-1) } }} tabIndex="0">
+          {filteredEvents.map((event, index) => {
+            const offset = (index - activeIndex + filteredEvents.length) % filteredEvents.length
+            const position = offset === 0 ? 'center' : offset === 1 ? 'next' : 'previous'
+            const center = position === 'center'
+            const artBackground = event.tone === 'purple' ? 'bg-[radial-gradient(ellipse_at_50%_105%,#d9b5ffb0,transparent_68%),linear-gradient(145deg,#fff7ff,#f1e8fa)]' : event.tone === 'teal' ? 'bg-[radial-gradient(ellipse_at_50%_105%,#d9c4f8b8,transparent_68%),linear-gradient(145deg,#fff8ff,#eee5f8)]' : 'bg-[radial-gradient(ellipse_at_50%_105%,#c8b5eab8,transparent_68%),linear-gradient(145deg,#fbf7ff,#eee8f7)]'
+            const rotationClass = position === 'next' ? '[--card-rotation:-24deg] max-[560px]:[--card-rotation:-28deg]' : position === 'previous' ? '[--card-rotation:24deg] max-[560px]:[--card-rotation:28deg]' : ''
+            return <button type="button" className={`absolute left-1/2 top-[13px] flex h-[calc(100%_-_22px)] w-[min(680px,54vw)] flex-col overflow-hidden rounded-[17px] border border-white/15 bg-gradient-to-br from-[#171020] to-[#0f0d15] p-0 text-left text-white shadow-[0_24px_70px_#0008] transition-[transform,opacity,filter,box-shadow,border-color] duration-[900ms] ease-[cubic-bezier(.18,.72,.22,1)] will-change-transform max-[850px]:w-[min(610px,70vw)] max-[560px]:top-2 max-[560px]:h-[calc(100%_-_34px)] max-[560px]:w-[min(400px,84vw)] max-[560px]:rounded-[13px] ${rotationClass} ${center ? 'z-20 border-quest-lavender/50 opacity-100 shadow-[0_32px_90px_#000a,0_0_55px_#8244b32c]' : 'z-10 border-white/10 opacity-[.65] blur-[3px] saturate-[.65] hover:opacity-[.83] hover:blur-[1.5px] max-[560px]:opacity-50'} focus-visible:outline-2 focus-visible:outline-quest-lavender`} style={{ transform: cardTransform(position) }} data-position={position} aria-label={`Open ${event.title}`} aria-current={center ? 'true' : undefined} key={event.eventKey} onClick={() => onSelect(event)}>
+              <div className={`relative isolate grid h-[56%] shrink-0 place-items-center overflow-hidden max-[560px]:h-[51%] ${artBackground}`}>
+                <div className="absolute inset-0 z-0 bg-[linear-gradient(#5039680b_1px,transparent_1px),linear-gradient(90deg,#5039680b_1px,transparent_1px)] [background-size:34px_34px] [mask-image:linear-gradient(transparent,#000)]"/>
+                <div className="pointer-events-none absolute left-1/2 top-[49%] z-[1] aspect-square w-[min(68%,390px)] -translate-x-1/2 -translate-y-1/2 rotate-[-16deg] scale-y-[.52] rounded-full border border-violet-900/15 animate-art-orbit motion-reduce:animate-none"/>
+                <div className="pointer-events-none absolute left-1/2 top-[49%] z-[1] aspect-square w-[min(54%,310px)] -translate-x-1/2 -translate-y-1/2 rotate-[34deg] scale-y-[.48] rounded-full border border-quest-lavender/20 animate-art-orbit-reverse motion-reduce:animate-none"/>
+                <EventArtwork eventKey={event.eventKey}/>
+                <span className="absolute bottom-[19px] left-6 z-[3] font-mono text-[9px] tracking-[.16em] text-violet-950 max-[560px]:left-4 max-[560px]:text-[7px]">{event.tag}</span><span aria-hidden="true" className="absolute bottom-[14px] right-6 z-[3] font-mono text-[21px] text-violet-950 max-[560px]:bottom-[11px] max-[560px]:right-4 max-[560px]:text-[17px]">↗</span>
+              </div>
+              <div className="flex h-[44%] flex-col p-[clamp(20px,2.1vw,32px)] max-[560px]:h-[49%] max-[560px]:p-[17px]">
+                <div className="flex justify-between gap-2 font-mono text-[10px] text-violet-200 max-[560px]:text-[8px]"><span>{event.category}</span></div>
+                <h2 className="mb-[10px] mt-[17px] text-[clamp(25px,2.4vw,37px)] font-bold tracking-[-.05em] max-[560px]:mb-[7px] max-[560px]:mt-[13px] max-[560px]:text-[23px]">{event.title}</h2>
+                <p className="m-0 text-[clamp(13px,1.1vw,16px)] leading-[1.7] text-slate-300 max-[560px]:text-[11px]">{event.description}</p>
+                <span className="mt-auto block border-t border-white/15 pt-[17px] text-xs font-bold max-[560px]:pt-3 max-[560px]:text-[10px]">View event details <i className="float-right font-mono text-[19px] not-italic text-quest-lavender">↗</i></span>
+              </div>
+            </button>
+          })}
+          {filteredEvents.length > 1 && <><button type="button" className="absolute left-0 top-[46%] z-30 grid h-14 w-14 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-[#11101add] font-mono text-[27px] text-white shadow-lg transition hover:scale-105 hover:border-quest-lavender hover:bg-quest-purple focus-visible:outline-2 focus-visible:outline-quest-lavender max-[560px]:-left-2 max-[560px]:h-[41px] max-[560px]:w-[41px] max-[560px]:text-xl" aria-label="Previous event" onClick={() => move(-1)}>←</button><button type="button" className="absolute right-0 top-[46%] z-30 grid h-14 w-14 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-[#11101add] font-mono text-[27px] text-white shadow-lg transition hover:scale-105 hover:border-quest-lavender hover:bg-quest-purple focus-visible:outline-2 focus-visible:outline-quest-lavender max-[560px]:-right-2 max-[560px]:h-[41px] max-[560px]:w-[41px] max-[560px]:text-xl" aria-label="Next event" onClick={() => move(1)}>→</button></>}
+        </div>
+        <div className="mx-auto mt-[-2px] flex w-[min(680px,54vw)] items-center gap-[11px] font-mono text-[9px] tracking-[.06em] text-slate-400 max-[850px]:w-[min(610px,70vw)] max-[560px]:w-[calc(100%_-_14px)] max-[560px]:gap-2 max-[560px]:text-[8px]">
+          <span className="text-quest-lavender">{currentEvent?.title}</span><span className="flex-1"/>{filteredEvents.map((event, index) => <button type="button" key={event.eventKey} className={`h-[7px] rounded-full p-0 transition-all ${index === activeIndex ? 'w-[23px] bg-quest-lavender shadow-[0_0_11px_#b78fdf]' : 'w-[7px] bg-white/25'}`} aria-label={`Show ${event.title}`} aria-pressed={index === activeIndex} onClick={() => setActiveIndex(index)}/>)}</div>
+      </> : <div className="mt-6 rounded-xl border border-dashed border-white/20 p-14 text-center text-slate-400"><span className="text-4xl text-quest-lavender">⌕</span><h2 className="text-white">No events found</h2><p>Try a different search or category.</p><button className="text-quest-lavender" onClick={() => { setQuery(''); changeCategory('All events') }}>Reset filters</button></div>}
+    </section>
+  </main>
+}
+
 
 const fakeQr = Array.from({ length: 441 }, (_, index) => ((index * 17 + Math.floor(index / 7) * 11 + (index % 9) * (index % 5)) % 13) < 6)
 
@@ -8,7 +118,7 @@ function TextField({ label, name, value, onChange, ...props }) {
   return <label className="flex flex-col gap-2 text-xs font-semibold text-violet-100">{label}<input className={inputClass} name={name} value={value} onChange={onChange} {...props}/></label>
 }
 
-export default function Registrations({ event, onBack, onRegistrationSubmit }) {
+function EventRegistration({ event, onBack, onRegistrationSubmit }) {
   const [form, setForm] = useState({ fullName: '', email: '', phone: '', usn: '', year: '', department: '' })
   const [snapshot, setSnapshot] = useState(null)
   const [formOpen, setFormOpen] = useState(false)
@@ -126,4 +236,11 @@ export default function Registrations({ event, onBack, onRegistrationSubmit }) {
       </section>
     </div>}
   </main>
+}
+
+
+export default function Registrations() {
+  const [selectedEvent, setSelectedEvent] = useState(null)
+  if (selectedEvent) return <EventRegistration event={selectedEvent} onBack={() => setSelectedEvent(null)} />
+  return <EventList onSelect={setSelectedEvent} />
 }
