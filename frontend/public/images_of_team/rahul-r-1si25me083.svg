@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="grad-37" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#632B94" />
+      <stop offset="100%" stop-color="#1A0F2E" />
+    </linearGradient>
+    <radialGradient id="aura-37" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#A879E6" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#1A0F2E" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" rx="36" fill="url(#grad-37)" />
+  <circle cx="200" cy="170" r="130" fill="url(#aura-37)" />
+  <!-- Abstract user silhouette outline -->
+  <circle cx="200" cy="150" r="55" fill="none" stroke="#A879E6" stroke-width="3" stroke-opacity="0.4" />
+  <path d="M 120 280 Q 200 220, 280 280" fill="none" stroke="#A879E6" stroke-width="3" stroke-opacity="0.4" />
+  <!-- Initials -->
+  <text x="200" y="170" font-family="'Space Grotesk', system-ui, -apple-system, sans-serif" font-size="54" font-weight="700" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle" letter-spacing="2">
+    RR
+  </text>
+  <text x="200" y="325" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#A879E6" text-anchor="middle" letter-spacing="3" opacity="0.85">
+    QUEST TEAM
+  </text>
+</svg>
