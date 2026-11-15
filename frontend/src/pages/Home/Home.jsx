@@ -127,9 +127,9 @@ export default function Home({ introReady = true }) {
       {/* ==================== HERO SECTION ==================== */}
       <section
         id="quest-hero"
-        className="relative z-10 flex min-h-dvh flex-col justify-between pt-16 pb-0 sm:pt-20"
+        className="relative z-10 flex min-h-[calc(100dvh-160px)] flex-col justify-between pt-6 pb-0 sm:pt-8"
       >
-        <div className="mx-auto flex w-full max-w-7xl flex-1 items-center px-4 py-5 sm:px-6 sm:py-8 lg:px-8">
+        <div className="mx-auto flex w-full max-w-7xl flex-1 items-center px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
           <div className="grid w-full grid-cols-1 items-center gap-7 sm:gap-10 lg:grid-cols-12 lg:gap-8">
             {/* LEFT SIDE: Centered QUEST Title + "A SEARCH WITHIN" Motto + CTAs */}
             <div ref={heroLeftRef} className="lg:col-span-6 flex flex-col items-center text-center">
