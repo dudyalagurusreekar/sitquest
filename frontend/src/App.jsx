@@ -4,6 +4,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 // Common components
 import * as NavbarMod from './components/Navbar';
 import * as FooterMod from './components/Footer';
+import Coordinator from './components/coordinator';
 import QuestLoader from './components/QuestLoader';
 
 // Pages
@@ -78,6 +79,24 @@ function App() {
           <Route path="/alumni" element={Alumni ? <Alumni /> : null} />
 
           <Route path="/registrations" element={Registrations ? <Registrations /> : null} />
+
+          <Route
+            path="/coordinator"
+            element={
+              <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-28">
+                <Coordinator />
+              </div>
+            }
+          />
+
+          <Route
+            path="/coordinators"
+            element={
+              <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-28">
+                <Coordinator />
+              </div>
+            }
+          />
 
           {/* 404 Page */}
           <Route

@@ -1,5 +1,6 @@
 import { Link, useInRouterContext } from 'react-router-dom';
 import { intro, whoWeAre, mission, impact } from './aboutData';
+import Coordinator from '../../components/coordinator';
 
 // Fonts used across the QUEST site. React 19 moves this <link> into <head>
 // and loads it only once, even if another page requests the same file.
@@ -91,8 +92,9 @@ export default function About() {
           <p className="mx-auto my-0 max-w-[680px] text-[clamp(18px,2.2vw,21px)] leading-[1.6]">
             {intro.lead}
           </p>
+          <hr className="my-6 h-px border-0 bg-white/12 sm:my-8" />
         </header>
-
+        <Coordinator  />
         <Divider />
 
         {/* Who we are */}
