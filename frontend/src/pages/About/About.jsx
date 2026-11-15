@@ -72,13 +72,16 @@ export default function About() {
     <main className="min-h-screen w-full bg-[#0c0816] text-left font-['Plus_Jakarta_Sans',system-ui,sans-serif] text-[#c9c4d8]">
       <link rel="stylesheet" href={FONTS_URL} precedence="default" />
 
-      <div className="mx-auto w-full max-w-[840px] px-4 pt-14 pb-20 sm:px-6 sm:pt-[88px] sm:pb-28">
+      <div className="mx-auto w-full max-w-[840px] px-4 pt-10 pb-20 sm:px-6 sm:pt-16 sm:pb-28">
         {/* Intro */}
         <header className="text-center">
           <p
             className={`${headingFont} m-0 mb-5 text-[clamp(20px,2.6vw,26px)] font-bold uppercase tracking-[0.18em] text-[#b78fdf]`}
           >
             {intro.eyebrow}
+          </p>
+          <p className={`${headingFont} m-0 mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-yellow-400`}>
+            Our Motto
           </p>
           <h1
             className={`${headingFont} m-0 mb-6 text-[clamp(44px,7vw,72px)] font-bold leading-[1.02] tracking-[-0.035em] text-white`}
