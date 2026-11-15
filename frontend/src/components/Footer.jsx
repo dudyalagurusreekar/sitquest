@@ -346,7 +346,7 @@ const Footer = ({
       />
 
       {/* ----------------- COMPACT MAIN CONTENT CONTAINER (FLEXBOX ONLY) ----------------- */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 pt-9 pb-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 pt-10 pb-7">
         
         {/* Three main horizontal sections matching the reference composition */}
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-8 lg:gap-12">

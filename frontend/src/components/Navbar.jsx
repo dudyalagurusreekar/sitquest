@@ -5,10 +5,10 @@ import './Navbar.css';
 const links = [
   { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
-  { label: 'Team', to: '/team' },
   { label: 'Events', to: '/events' },
-  { label: 'Gallery', to: '/gallery' },
+  { label: 'Team', to: '/team' },
   { label: 'Alumni', to: '/alumni' },
+  { label: 'Gallery', to: '/gallery' },
   { label: 'Registrations', to: '/registrations', highlight: true },
 ];
 
