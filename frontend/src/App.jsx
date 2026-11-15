@@ -13,6 +13,8 @@ import * as EventsMod from './pages/Events/Events';
 import * as GalleryMod from './pages/Gallery/Gallery';
 import * as AlumniMod from './pages/Alumni/Alumni';
 import * as RegistrationsMod from './pages/Registrations/Registrations';
+import * as TeamMod from './pages/About/PresentTeam';
+
 
 const Navbar = NavbarMod['default'];
 const Footer = FooterMod['default'];
@@ -21,6 +23,7 @@ const Events = EventsMod['default'];
 const Gallery = GalleryMod['default'];
 const Alumni = AlumniMod['default'];
 const Registrations = RegistrationsMod['default'];
+const Team = TeamMod['default'];
 
 function App() {
   const location = useLocation();
@@ -65,6 +68,10 @@ function App() {
           <Route path="/about" element={About ? <About /> : null} />
 
           <Route path="/events" element={Events ? <Events /> : null} />
+
+          <Route path="/team" element={Team ? <Team /> : null} />
+
+          <Route path="/teams" element={Team ? <Team /> : null} />
 
           <Route path="/gallery" element={Gallery ? <Gallery /> : null} />
 
