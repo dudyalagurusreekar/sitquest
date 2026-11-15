@@ -1,0 +1,245 @@
+
+[
+  {
+    "id": 1,
+    "name": "Shashank Udagatti",
+    "image": "/images/shashank.jpeg",
+    "year": 2025,
+    "role": "Software Developer",
+    "company": "Syncron",
+    "linkedin": "https://www.linkedin.com/in/shashank-udagatti-a0b40324b?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    "theme": "alumni-card--purple"
+  },
+  {
+    "id": 2,
+    "name": "Priya S N",
+    "image": "/images/priya.jpeg",
+    "year": 2025,
+    "role": "Quality Control",
+    "company": "VJ Biosciences",
+    "linkedin": "https://www.linkedin.com/in/priyasn?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    "theme": "alumni-card--teal"
+  },
+  {
+    "id": 3,
+    "name": "Krish U",
+    "image": "/images/krish.jpeg",
+    "year": 2025,
+    "role": "Mobile App Developer",
+    "company": "redBus",
+    "linkedin": "https://www.linkedin.com/in/krish-u-77b3a024b/",
+    "theme": "alumni-card--purple"
+  },
+  {
+    "id": 4,
+    "name": "Nidhi LK",
+    "image": "/images/nidhi.jpeg",
+    "year": 2025,
+    "role": "Data Engineer",
+    "company": "Ujjivan Small Finance Bank",
+    "linkedin": "https://www.linkedin.com/in/nidhi-lk?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+    "theme": "alumni-card--teal"
+  },
+  {
+    "id": 5,
+    "name": "Chetana Bamandi",
+    "image": "/images/chetaana.jpeg",
+    "year": 2025,
+    "role": "Development",
+    "company": "Siemens Healthineers",
+    "linkedin": "https://www.linkedin.com/in/chetana-bamandi-17757624b?trk=contact-info",
+    "theme": "alumni-card--purple"
+  },
+  {
+    "id": 6,
+    "name": "Keerthana B M",
+    "image": "/images/keerthana.jpeg",
+    "year": 2025,
+    "role": "Associate Software Engineer",
+    "company": "BNP Paribas India Solutions Private Limited",
+    "linkedin": "https://www.linkedin.com/in/keerthana-b-m-589aba241",
+    "theme": "alumni-card--teal"
+  },
+  {
+    "id": 7,
+    "name": "Nachiket",
+    "image": "/images/nachiket.jpeg",
+    "year": 2025,
+    "role": "Graduate Trainee Engineer",
+    "company": "Siemens Technology and Services Private Limited",
+    "linkedin": "https://www.linkedin.com/me?trk=p_mwlite_profile_view-secondary_nav",
+    "theme": "alumni-card--purple"
+  },
+  {
+    "id": 8,
+    "name": "Prathiksha C P",
+    "image": "/images/prathiksha.jpeg",
+    "year": 2025,
+    "role": "Advanced Service Engineer",
+    "company": "Oracle",
+    "linkedin": "https://www.linkedin.com/in/prathiksha-cp/",
+    "theme": "alumni-card--teal"
+  },
+  {
+    "id": 9,
+    "name": "Prajwal R",
+    "image": "/images/prajwal.jpeg",
+    "year": 2025,
+    "role": "Associate Engineer",
+    "company": "Oracle",
+    "linkedin": "https://www.linkedin.com/in/prajwal-r-010a82313?trk=contact-info",
+    "theme": "alumni-card--purple"
+  },
+  {
+    "id": 10,
+    "name": "Soumya Shetty S",
+    "image": "/images/soumya.jpeg",
+    "year": 2025,
+    "role": "Associate Software Engineer",
+    "company": "Syncron",
+    "linkedin": "https://www.linkedin.com/in/soumya-shetty-1a7b8b249?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+    "theme": "alumni-card--teal"
+  },
+  {
+    "id": 11,
+    "name": "Vasundhara M",
+    "image": "/images/vasundhara.jpeg",
+    "year": 2025,
+    "role": "SAP Consultant",
+    "company": "Daimler Truck",
+    "linkedin": "https://www.linkedin.com/in/vasundhara-manohara-32263224b",
+    "theme": "alumni-card--purple"
+  },
+  {
+    "id": 12,
+    "name": "Vinayak B Sannatangiyavar",
+    "image": "/images/vinayaak.jpeg",
+    "year": 2026,
+    "role": "Senior Associate",
+    "company": "WFS Bengaluru Private Limited",
+    "linkedin": "https://www.linkedin.com/in/vinayak-sannatangiyavar/",
+    "theme": "alumni-card--teal"
+  },
+  {
+    "id": 13,
+    "name": "Ananya M S",
+    "image": "/images/ananya.jpeg",
+    "year": 2026,
+    "role": "Software Analyst",
+    "company": "Morgan Stanley",
+    "linkedin": "https://www.linkedin.com/in/ananyamahendrakar",
+    "theme": "alumni-card--purple"
+  },
+  {
+    "id": 14,
+    "name": "Basavaraj Revani",
+    "image": "/images/basu.jpeg",
+    "year": 2026,
+    "role": "SDE",
+    "company": "HSBC",
+    "linkedin": "https://www.linkedin.com/in/basavarajrevani",
+    "theme": "alumni-card--teal"
+  },
+  {
+    "id": 15,
+    "name": "Jeevan Kumar P S",
+    "image": "/images/jeevan.jpeg",
+    "year": 2026,
+    "role": "Quality Engineer",
+    "company": "Alstom Group",
+    "linkedin": "https://www.linkedin.com/in/jeevan-kumar-p-s-0aa7861b4?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    "theme": "alumni-card--purple"
+  },
+  {
+    "id": 16,
+    "name": "Sumanth Gowda S L",
+    "image": "/images/sumanth.jpeg",
+    "year": 2026,
+    "role": "Logistics Operations",
+    "company": "Transport Corporation of India Limited",
+    "linkedin": "https://www.linkedin.com/in/sumanth-gowda-s-l-a23b5b200",
+    "theme": "alumni-card--teal"
+  },
+  {
+    "id": 17,
+    "name": "Ananthakrishnan H",
+    "image": "/images/ananthakrishnan.jpeg",
+    "year": 2026,
+    "role": "ASE",
+    "company": "TCS",
+    "linkedin": "https://www.linkedin.com/in/akh2003/",
+    "theme": "alumni-card--purple"
+  },
+  {
+    "id": 18,
+    "name": "Chaithra K V",
+    "image": "/images/chaithra.jpeg",
+    "year": 2026,
+    "role": "Associate Software Engineer",
+    "company": "NOKIA",
+    "linkedin": "https://www.linkedin.com/in/chaithra-k-v-679228267/",
+    "theme": "alumni-card--teal"
+  },
+  {
+    "id": 19,
+    "name": "Harika Reddy S N",
+    "image": "/images/harika.jpeg",
+    "year": 2026,
+    "role": "Associate Consultant",
+    "company": "Relanto Global Private Limited",
+    "linkedin": "https://www.linkedin.com/in/harika-reddy-s-n-a7269b27b?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+    "theme": "alumni-card--purple"
+  },
+  {
+    "id": 20,
+    "name": "Harsh Patil",
+    "image": "/images/harsh.jpeg",
+    "year": 2026,
+    "role": "GET",
+    "company": "LTM",
+    "linkedin": "https://www.linkedin.com/in/harsh-patil-456476255?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    "theme": "alumni-card--teal"
+  },
+  {
+    "id": 21,
+    "name": "Shalmala G Nadig",
+    "image": "/images/shalmala.jpeg",
+    "year": 2026,
+    "role": "Research Associate ",
+    "company": "IIIT Dharwad Research Park",
+    "linkedin": "https://www.linkedin.com/in/shalmala-nadig-052948353?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    "theme": "alumni-card--purple"
+  },
+  {
+    "id": 22,
+    "name": "Vijetha Maheshgowda",
+    "image": "/images/vijetha.jpeg",
+    "year": 2026,
+    "role": "Test Engineer",
+    "company": "Applogic Networks",
+    "linkedin": "https://www.linkedin.com/in/vijetha-maheshgowda-368a39262?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    "theme": "alumni-card--teal"
+  },
+  {
+    "id": 23,
+    "name": "Ketaki Jojane",
+    "image": "/images/ketaki.jpeg",
+    "year": 2026,
+    "role": "Platform and Product Associate",
+    "company": "ZS Associates",
+    "linkedin": "https://www.linkedin.com/in/ketaki-jojane?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    "theme": "alumni-card--purple"
+  },
+  {
+    "id": 24,
+    "name": "Vaibhavi S Maganur",
+    "image": "/images/vaibhavi.jpeg",
+    "year": 2026,
+    "role": "SMT Engineer",
+    "company": "TATA Electronics System Solutions",
+    "linkedin": "https://www.linkedin.com/in/vaibhavi-maganur-692538374?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    "theme": "alumni-card--teal"
+  }
+
+
+]
