@@ -130,17 +130,17 @@ function standardizePosition(pos, usn) {
   if (u === '1SI24IS409') return 'Social Media Lead'; // Sanith H N
   if (u === '1SI23BT017') return 'Social Media Lead'; // Pavithra
   if (u === 'QUEST-HARADEEP') return 'Database Lead'; // Haradeep Reddy Yeddula
-  if (u === 'QUEST-VARUN') return 'Database Lead'; // Varun
+  if (u === '1SI23EI061' || u === 'QUEST-VARUN') return 'Database Lead'; // Varun N V
   if (u === '1SI23AD059') return 'Content Lead'; // Tanush Datta V
   if (u === '1SI23CS205') return 'Content Lead'; // Venkatkarthikeyan
   if (u === '1SI23CI046') return 'Core Member'; // Sai Venkatesh R N
   if (u === '1SI23AD024') return 'Core Member'; // Lenkalapelli Arun Subramanyam
   if (u === '1SI23AD019') return 'Core Member'; // J Chetan Rao
   if (u === 'QUEST-PRATHIKSHA') return 'Core Member';
-  if (u === 'QUEST-PREENA') return 'Core Member';
-  if (u === 'QUEST-SHREEYA') return 'Core Member';
-  if (u === 'QUEST-TANUSHKA' || u === '1SI23CS182') return 'Core Member';
-  if (u === 'QUEST-KUSHI') return 'Core Member';
+  if (u === '1SI23ET039' || u === 'QUEST-PREENA') return 'Core Member'; // Prerana Rathore
+  if (u === '1SI23AD047' || u === 'QUEST-SHREEYA') return 'Core Member'; // Shreya S
+  if (u === '1SI23CS182' || u === 'QUEST-TANUSHKA') return 'Core Member'; // Tanushka
+  if (u === '1SI23EE021' || u === 'QUEST-KUSHI') return 'Core Member'; // Khushi A
 
   if (!pos) return '';
   const p = pos.trim();
@@ -191,8 +191,12 @@ dataRows.forEach(r => {
   if (usn === '1SI23AD024') linkedIn = 'https://www.linkedin.com/in/arun-subramanyam-lenkalapelli-a480412a5';
   if (usn === 'QUEST-HARADEEP') linkedIn = 'https://www.linkedin.com/in/haradeep-reddy-yeddula-52033729a';
   if (usn === '1SI23CS182') linkedIn = 'https://www.linkedin.com/in/tanushka-rani-521506342';
+  if (usn === '1SI23EI061') linkedIn = 'https://www.linkedin.com/in/varun-n-v-a92a702b3';
+  if (usn === '1SI23ET039') linkedIn = 'https://www.linkedin.com/in/prerana-rathore-449427326';
+  if (usn === '1SI23AD047') linkedIn = 'https://www.linkedin.com/in/shreya-s-682723354';
+  if (usn === 'QUEST-PRATHIKSHA') linkedIn = 'https://www.linkedin.com/in/prathiksha-siddartha-b418aa356';
   if (usn === 'QUEST-VARUN') linkedIn = '#';
-  if (['QUEST-PRATHIKSHA', 'QUEST-PREENA', 'QUEST-SHREEYA', 'QUEST-TANUSHKA', 'QUEST-KUSHI'].includes(usn)) {
+  if (['QUEST-PRATHIKSHA', 'QUEST-PREENA', 'QUEST-SHREEYA', 'QUEST-TANUSHKA', 'QUEST-KUSHI', '1SI23EE021'].includes(usn) && !linkedIn) {
     linkedIn = '#';
   }
   const driveId = extractDriveId(photoUrl);

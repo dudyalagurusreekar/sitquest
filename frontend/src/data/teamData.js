@@ -72,7 +72,8 @@ export function getFourthYearTeam() {
     '1SI24IS409', // Sanith H N (Social Media Lead)
     '1SI23BT017', // Pavithra (Social Media Lead)
     'QUEST-HARADEEP', // Haradeep Reddy Yeddula (Database Lead)
-    'QUEST-VARUN', // Varun (Database Lead)
+    '1SI23EI061', // Varun N V (Database Lead)
+    'QUEST-VARUN', // Varun fallback
     '1SI23AD059', // Tanush Datta V (Content Lead)
     '1SI23CS205', // Venkatkarthikeyan (Content Lead)
   ];
@@ -91,11 +92,14 @@ export function getFourthYearTeam() {
     '1SI23AD024', // Lenkalapelli Arun Subramanyam (Core Member)
     '1SI23CI046', // Sai Venkatesh R N (Core Member)
     'QUEST-PRATHIKSHA', // Prathiksha (Core Member)
-    'QUEST-PREENA', // Preena (Core Member)
-    'QUEST-SHREEYA', // Shreeya (Core Member)
+    '1SI23ET039', // Prerana Rathore (Core Member)
+    'QUEST-PREENA', // Prerana fallback
+    '1SI23AD047', // Shreya S (Core Member)
+    'QUEST-SHREEYA', // Shreya fallback
     '1SI23CS182', // Tanushka (Core Member)
     'QUEST-TANUSHKA', // Tanushka fallback
-    'QUEST-KUSHI', // Kushi (Core Member)
+    '1SI23EE021', // Khushi A (Core Member)
+    'QUEST-KUSHI', // Khushi fallback
   ];
 
   const coreMembers = [];
