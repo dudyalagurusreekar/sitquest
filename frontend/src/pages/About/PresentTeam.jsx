@@ -74,13 +74,13 @@ export default function PresentTeam() {
       />
 
       {/* Main Content Area - Generous top padding reserved for future floating/fixed Navbar */}
-      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 lg:pt-36 pb-24">
+      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-24">
 
         {/* ================= PAGE HERO HEADER ================= */}
         <header className="relative mx-auto mb-14 flex w-full max-w-3xl flex-col items-center text-center">
 
           {/* Primary Page Heading: Bold, crisp white Outfit display */}
-          <h1 className="!m-0 !mb-2 font-['Outfit',sans-serif] text-[clamp(44px,6vw,72px)] font-black leading-[1.05] tracking-tight text-white drop-shadow-[0_4px_30px_rgba(130,68,179,0.5)]">
+          <h1 className="!m-0 !mb-2 font-['Outfit',sans-serif] text-[clamp(36px,5vw,60px)] font-black leading-[1.05] tracking-tight text-white drop-shadow-[0_4px_30px_rgba(130,68,179,0.5)]">
             OUR TEAM
           </h1>
 
