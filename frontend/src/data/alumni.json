@@ -208,7 +208,7 @@
     "role": "Research Associate ",
     "company": "IIIT Dharwad Research Park",
     "linkedin": "https://www.linkedin.com/in/shalmala-nadig-052948353?utm_source=share_via&utm_content=profile&utm_medium=member_android",
-    "theme": "alumni-card--teal"
+    "theme": "alumni-card--purple"
   },
   {
     "id": 22,
@@ -218,7 +218,7 @@
     "role": "Test Engineer",
     "company": "Applogic Networks",
     "linkedin": "https://www.linkedin.com/in/vijetha-maheshgowda-368a39262?utm_source=share_via&utm_content=profile&utm_medium=member_android",
-    "theme": "alumni-card--purple"
+    "theme": "alumni-card--teal"
   },
   {
     "id": 23,
@@ -229,6 +229,16 @@
     "company": "ZS Associates",
     "linkedin": "https://www.linkedin.com/in/ketaki-jojane?utm_source=share_via&utm_content=profile&utm_medium=member_android",
     "theme": "alumni-card--purple"
+  },
+  {
+    "id": 24,
+    "name": "Vaibhavi S Maganur",
+    "image": "/images/vaibhavi.jpeg",
+    "year": 2026,
+    "role": "SMT Engineer",
+    "company": "TATA Electronics System Solutions",
+    "linkedin": "https://www.linkedin.com/in/vaibhavi-maganur-692538374?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    "theme": "alumni-card--teal"
   }
 
 
