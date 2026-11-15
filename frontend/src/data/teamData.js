@@ -125,13 +125,74 @@ export function getFourthYearTeam() {
     }
   });
 
+  const remaining = [...leads, ...coreMembers];
+
   return {
     podiumSpeakers,
+    remaining,
     leads,
     coreMembers,
     layer1: podiumSpeakers,
-    layer2: [...leads, ...coreMembers],
+    layer2: remaining,
   };
+}
+
+/**
+ * Returns 3rd Year Team in requested order:
+ * 1. GURU SREEKAR (1SI24AD016)
+ * 2. UDAY (1SI24CS197)
+ * 3. AKSHATHA (1SI24IS004)
+ * Remaining all in continuation (alphabetical)
+ */
+export function getThirdYearTeam() {
+  const thirdYears = teamMembers.filter((m) => m.academicYear === 'Third Year');
+  const priorityUsns = ['1SI24AD016', '1SI24CS197', '1SI24IS004'];
+
+  return [...thirdYears].sort((a, b) => {
+    const uA = (a.usn || '').toUpperCase();
+    const uB = (b.usn || '').toUpperCase();
+    const idxA = priorityUsns.indexOf(uA);
+    const idxB = priorityUsns.indexOf(uB);
+
+    if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+    if (idxA !== -1) return -1;
+    if (idxB !== -1) return 1;
+
+    return a.name.localeCompare(b.name);
+  });
+}
+
+/**
+ * Returns 2nd Year Team in requested order:
+ * 1. Srimanth sanisetty (1SI25CS243)
+ * 2. Shreyas Gowda M (1SI25ET043)
+ * 3. K C Spoorthi (1SI25IS038)
+ * 4. H M Greeshma (1SI25IS033)
+ * 5. Poojitha S (1SI25IS068)
+ * Remaining all in continuation (alphabetical)
+ */
+export function getSecondYearTeam() {
+  const secondYears = teamMembers.filter((m) => m.academicYear === 'Second Year');
+  const priorityUsns = [
+    '1SI25CS243', // Srimanth sanisetty
+    '1SI25ET043', // Shreyas Gowda M
+    '1SI25IS038', // K C Spoorthi
+    '1SI25IS033', // H M Greeshma
+    '1SI25IS068', // Poojitha S
+  ];
+
+  return [...secondYears].sort((a, b) => {
+    const uA = (a.usn || '').toUpperCase();
+    const uB = (b.usn || '').toUpperCase();
+    const idxA = priorityUsns.indexOf(uA);
+    const idxB = priorityUsns.indexOf(uB);
+
+    if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+    if (idxA !== -1) return -1;
+    if (idxB !== -1) return 1;
+
+    return a.name.localeCompare(b.name);
+  });
 }
 
 /**

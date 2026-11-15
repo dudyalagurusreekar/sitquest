@@ -195,6 +195,7 @@ dataRows.forEach(r => {
   if (usn === '1SI23ET039') linkedIn = 'https://www.linkedin.com/in/prerana-rathore-449427326';
   if (usn === '1SI23AD047') linkedIn = 'https://www.linkedin.com/in/shreya-s-682723354';
   if (usn === 'QUEST-PRATHIKSHA') linkedIn = 'https://www.linkedin.com/in/prathiksha-siddartha-b418aa356';
+  if (usn === '1SI24CS197') linkedIn = 'https://www.linkedin.com/in/uday-n-p-2a7403387/';
   if (usn === 'QUEST-VARUN') linkedIn = '#';
   if (['QUEST-PRATHIKSHA', 'QUEST-PREENA', 'QUEST-SHREEYA', 'QUEST-TANUSHKA', 'QUEST-KUSHI', '1SI23EE021'].includes(usn) && !linkedIn) {
     linkedIn = '#';
@@ -257,20 +258,7 @@ dataRows.forEach(r => {
 });
 
 // EXPLICIT REQUIREMENT:
-// Add these members to WEB DEVELOPMENT:
-// 1. Guru Sreekar
-// 2. Amoghavarsha N
-// 3. Rahul P
-// 4. Rishabh Singh
-// 5. Sharath S Kirasur
-// 6. Anjali T M
-// 7. Anusha Patil
-// 8. H M Greeshma
-// 9. K C Spoorthi
-// 10. Poojitha S
-// 11. Ramyashree H M
-// 12. Komal R Aradhya
-// (Plus any from form: Aadil Majeed, Monish K C, Srimanth sanisetty, Yashas B K)
+// Add these 27 members to WEB DEVELOPMENT:
 const webDevAdditions = [
   'guru sreekar',
   'amoghavarsha n',
@@ -284,6 +272,21 @@ const webDevAdditions = [
   'poojitha s',
   'ramyashree h m',
   'komal r aradhya',
+  'padmashree v',
+  'dhanashree',
+  'keerthana',
+  'lalitha shree s',
+  'badagi lokamurthy',
+  'modithya',
+  'monish k c',
+  'priya',
+  'venkatkarthikeyan',
+  'aadil majeed',
+  'adarsh',
+  'aman g shetti',
+  'rahul r',
+  'srimanth sanisetty',
+  'uday n p',
 ];
 
 function normalizeNameForCompare(name) {
@@ -293,7 +296,7 @@ function normalizeNameForCompare(name) {
 for (const member of membersByUsn.values()) {
   const norm = normalizeNameForCompare(member.name);
   for (const target of webDevAdditions) {
-    if (norm === normalizeNameForCompare(target)) {
+    if (norm === normalizeNameForCompare(target) || norm.includes(normalizeNameForCompare(target)) || normalizeNameForCompare(target).includes(norm)) {
       member.domains.add('WEB DEVELOPMENT');
       console.log(`Added ${member.name} (${member.usn}, ${member.academicYear}) to WEB DEVELOPMENT!`);
       break;
@@ -301,10 +304,25 @@ for (const member of membersByUsn.values()) {
   }
 }
 
-const membersList = Array.from(membersByUsn.values()).map(m => ({
-  ...m,
-  domains: Array.from(m.domains).sort(),
-}));
+// STRICT USER REQUIREMENT:
+// For each person keep ONLY 2 domains maximum.
+// For Uday N P: explicitly keep ['VIDEO EDITING', 'WEB DEVELOPMENT'].
+const membersList = Array.from(membersByUsn.values()).map(m => {
+  let doms = Array.from(m.domains).sort();
+  if (m.usn && m.usn.toUpperCase() === '1SI24CS197') {
+    doms = ['VIDEO EDITING', 'WEB DEVELOPMENT'];
+  } else if (doms.length > 2) {
+    if (doms.includes('WEB DEVELOPMENT') && !doms.slice(0, 2).includes('WEB DEVELOPMENT')) {
+      doms = [doms[0], 'WEB DEVELOPMENT'];
+    } else {
+      doms = doms.slice(0, 2);
+    }
+  }
+  return {
+    ...m,
+    domains: doms,
+  };
+});
 
 // Sort by yearOrder (Fourth Year -> Third Year -> Second Year), then name
 membersList.sort((a, b) => {

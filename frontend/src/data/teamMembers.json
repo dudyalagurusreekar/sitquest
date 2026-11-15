@@ -475,7 +475,8 @@
     "academicYear": "Fourth Year",
     "yearOrder": 1,
     "domains": [
-      "MULTIMEDIA"
+      "MULTIMEDIA",
+      "WEB DEVELOPMENT"
     ],
     "linkedin": "https://www.linkedin.com/in/yemula-venkatkarthikeyan-587a1b272",
     "position": "Content Lead",
@@ -589,7 +590,8 @@
     "academicYear": "Third Year",
     "yearOrder": 2,
     "domains": [
-      "MULTIMEDIA"
+      "MULTIMEDIA",
+      "WEB DEVELOPMENT"
     ],
     "linkedin": "https://linkedin.com/in/badagi-lokamurthy-3ab3a2402",
     "position": "",
@@ -658,7 +660,7 @@
     "yearOrder": 2,
     "domains": [
       "DATABASE",
-      "VIDEO EDITING"
+      "WEB DEVELOPMENT"
     ],
     "linkedin": "https://www.linkedin.com/in/lalitha-shree-sathyanarayanan",
     "position": "",
@@ -702,7 +704,8 @@
     "academicYear": "Third Year",
     "yearOrder": 2,
     "domains": [
-      "VIDEO EDITING"
+      "VIDEO EDITING",
+      "WEB DEVELOPMENT"
     ],
     "linkedin": "https://www.linkedin.com/in/modithya-r-32a392338",
     "position": "",
@@ -725,7 +728,6 @@
     "yearOrder": 2,
     "domains": [
       "DATABASE",
-      "VIDEO EDITING",
       "WEB DEVELOPMENT"
     ],
     "linkedin": "https://www.linkedin.com/in/monish-kc-63110331b",
@@ -794,7 +796,6 @@
     "yearOrder": 2,
     "domains": [
       "CONTENT WRITING",
-      "DATABASE",
       "WEB DEVELOPMENT"
     ],
     "linkedin": "https://www.linkedin.com/in/ramyashree4112005",
@@ -839,10 +840,10 @@
     "academicYear": "Third Year",
     "yearOrder": 2,
     "domains": [
-      "PPT",
-      "VIDEO EDITING"
+      "VIDEO EDITING",
+      "WEB DEVELOPMENT"
     ],
-    "linkedin": null,
+    "linkedin": "https://www.linkedin.com/in/uday-n-p-2a7403387/",
     "position": "",
     "instagram": "np_uday",
     "photoUrl": "https://drive.google.com/open?id=1sQfzHx80ueGT1xpERfm4GP_uAXGydQWM",
@@ -886,7 +887,7 @@
     "yearOrder": 3,
     "domains": [
       "CONTENT WRITING",
-      "DATABASE"
+      "WEB DEVELOPMENT"
     ],
     "linkedin": "https://www.linkedin.com/in/aman-shetti-991771414",
     "position": "",
@@ -1135,7 +1136,7 @@
     "yearOrder": 3,
     "domains": [
       "CONTENT WRITING",
-      "PPT"
+      "WEB DEVELOPMENT"
     ],
     "linkedin": null,
     "position": "",
@@ -1180,7 +1181,8 @@
     "academicYear": "Second Year",
     "yearOrder": 3,
     "domains": [
-      "MULTIMEDIA"
+      "MULTIMEDIA",
+      "WEB DEVELOPMENT"
     ],
     "linkedin": null,
     "position": "",

@@ -17,6 +17,104 @@ function LinkedInIcon() {
   );
 }
 
+/* Distinct color palettes per technical domain */
+const DOMAIN_THEMES = {
+  'MULTIMEDIA': {
+    text: 'text-[#C084FC]',
+    border: 'border-[rgba(192,132,252,0.35)]',
+    bg: 'bg-[rgba(192,132,252,0.12)]',
+    dot: 'bg-[#C084FC]',
+    dotShadow: 'shadow-[0_0_6px_#C084FC]',
+    badgeShadow: 'shadow-[0_0_10px_rgba(192,132,252,0.2)]',
+    cardBorderHover: 'hover:border-[#C084FC]/60',
+    cardGlowHover: 'hover:shadow-[0_14px_40px_rgba(192,132,252,0.25)]',
+    accentColor: '#C084FC',
+  },
+  'VIDEO EDITING': {
+    text: 'text-[#00E5C3]',
+    border: 'border-[rgba(0,229,195,0.35)]',
+    bg: 'bg-[rgba(0,229,195,0.12)]',
+    dot: 'bg-[#00E5C3]',
+    dotShadow: 'shadow-[0_0_6px_#00E5C3]',
+    badgeShadow: 'shadow-[0_0_10px_rgba(0,229,195,0.2)]',
+    cardBorderHover: 'hover:border-[#00E5C3]/60',
+    cardGlowHover: 'hover:shadow-[0_14px_40px_rgba(0,229,195,0.25)]',
+    accentColor: '#00E5C3',
+  },
+  'WEB DEVELOPMENT': {
+    text: 'text-[#34D399]',
+    border: 'border-[rgba(52,211,153,0.35)]',
+    bg: 'bg-[rgba(52,211,153,0.12)]',
+    dot: 'bg-[#34D399]',
+    dotShadow: 'shadow-[0_0_6px_#34D399]',
+    badgeShadow: 'shadow-[0_0_10px_rgba(52,211,153,0.2)]',
+    cardBorderHover: 'hover:border-[#34D399]/60',
+    cardGlowHover: 'hover:shadow-[0_14px_40px_rgba(52,211,153,0.25)]',
+    accentColor: '#34D399',
+  },
+  'DATABASE': {
+    text: 'text-[#60A5FA]',
+    border: 'border-[rgba(96,165,250,0.35)]',
+    bg: 'bg-[rgba(96,165,250,0.12)]',
+    dot: 'bg-[#60A5FA]',
+    dotShadow: 'shadow-[0_0_6px_#60A5FA]',
+    badgeShadow: 'shadow-[0_0_10px_rgba(96,165,250,0.2)]',
+    cardBorderHover: 'hover:border-[#60A5FA]/60',
+    cardGlowHover: 'hover:shadow-[0_14px_40px_rgba(96,165,250,0.25)]',
+    accentColor: '#60A5FA',
+  },
+  'CONTENT WRITING': {
+    text: 'text-[#F472B6]',
+    border: 'border-[rgba(244,114,182,0.35)]',
+    bg: 'bg-[rgba(244,114,182,0.12)]',
+    dot: 'bg-[#F472B6]',
+    dotShadow: 'shadow-[0_0_6px_#F472B6]',
+    badgeShadow: 'shadow-[0_0_10px_rgba(244,114,182,0.2)]',
+    cardBorderHover: 'hover:border-[#F472B6]/60',
+    cardGlowHover: 'hover:shadow-[0_14px_40px_rgba(244,114,182,0.25)]',
+    accentColor: '#F472B6',
+  },
+  'CONTENT': {
+    text: 'text-[#F472B6]',
+    border: 'border-[rgba(244,114,182,0.35)]',
+    bg: 'bg-[rgba(244,114,182,0.12)]',
+    dot: 'bg-[#F472B6]',
+    dotShadow: 'shadow-[0_0_6px_#F472B6]',
+    badgeShadow: 'shadow-[0_0_10px_rgba(244,114,182,0.2)]',
+    cardBorderHover: 'hover:border-[#F472B6]/60',
+    cardGlowHover: 'hover:shadow-[0_14px_40px_rgba(244,114,182,0.25)]',
+    accentColor: '#F472B6',
+  },
+  'PPT': {
+    text: 'text-[#FBBF24]',
+    border: 'border-[rgba(251,191,36,0.35)]',
+    bg: 'bg-[rgba(251,191,36,0.12)]',
+    dot: 'bg-[#FBBF24]',
+    dotShadow: 'shadow-[0_0_6px_#FBBF24]',
+    badgeShadow: 'shadow-[0_0_10px_rgba(251,191,36,0.2)]',
+    cardBorderHover: 'hover:border-[#FBBF24]/60',
+    cardGlowHover: 'hover:shadow-[0_14px_40px_rgba(251,191,36,0.25)]',
+    accentColor: '#FBBF24',
+  },
+};
+
+const DEFAULT_THEME = {
+  text: 'text-[#C084FC]',
+  border: 'border-[rgba(192,132,252,0.35)]',
+  bg: 'bg-[rgba(192,132,252,0.12)]',
+  dot: 'bg-[#C084FC]',
+  dotShadow: 'shadow-[0_0_6px_#C084FC]',
+  badgeShadow: 'shadow-[0_0_10px_rgba(192,132,252,0.2)]',
+  cardBorderHover: 'hover:border-[#C084FC]/60',
+  cardGlowHover: 'hover:shadow-[0_14px_40px_rgba(192,132,252,0.25)]',
+  accentColor: '#C084FC',
+};
+
+function getDomainTheme(dom = '') {
+  const key = dom.toUpperCase().trim();
+  return DOMAIN_THEMES[key] || DEFAULT_THEME;
+}
+
 /* Dynamic font sizing so text never clips or overflows */
 function nameSize(text = '') {
   if (text.length > 24) return 'text-[13px]';
@@ -39,7 +137,8 @@ function branchSize(text = '') {
  * 3. Fallbacks: Local JPG/PNG by USN or name slug.
  * 4. Graceful cosmic vector avatar only when an image genuinely does not exist.
  * 5. Visual appearance: Identical dimensions, proportions, rounded corners, and hover lift as AlumniCard.
- * 6. Under photo: Member Name, Branch / Department, and LinkedIn link ONLY (no redundant year/sem tags).
+ * 6. Under photo: Member Name, Position (if applicable), Branch / Department, Domain badges, and LinkedIn link.
+ * 7. Domain Styling: Distinct vibrant palette colors per domain with glowing jewel dots.
  */
 export default function TeamCard({ member, showPosition = false }) {
   const usnLower = (member.usn || '').toLowerCase();
@@ -93,11 +192,33 @@ export default function TeamCard({ member, showPosition = false }) {
     .map((w) => w[0].toUpperCase())
     .join('');
 
+  const isFourthYear = member.academicYear === 'Fourth Year' || showPosition;
+
+  // Primary styling for card hover accent
+  const primaryDomain = !isFourthYear && member.domains && member.domains.length > 0 ? member.domains[0] : '';
+  const primaryTheme = isFourthYear
+    ? {
+        accentColor: '#FBBF24',
+        cardBorderHover: 'hover:border-[#FBBF24]/60',
+        cardGlowHover: 'hover:shadow-[0_14px_40px_rgba(251,191,36,0.25)]',
+      }
+    : getDomainTheme(primaryDomain);
+
   return (
-    <article className="group relative flex h-full min-w-0 flex-col rounded-[25px] border border-[rgba(180,145,230,0.18)] bg-[rgba(35,21,58,0.55)] p-4 shadow-[0_8px_30px_rgba(0,0,0,0.22)] backdrop-blur-sm transition-all duration-300 ease-in-out hover:-translate-y-2 hover:border-[rgba(0,229,195,0.45)] hover:bg-[rgba(50,30,80,0.75)] hover:shadow-[0_14px_40px_rgba(130,68,179,0.35)]">
+    <article
+      className={`group relative flex h-full min-w-0 flex-col rounded-[25px] border border-[rgba(180,145,230,0.18)] bg-[rgba(35,21,58,0.55)] p-4 shadow-[0_8px_30px_rgba(0,0,0,0.22)] backdrop-blur-sm transition-all duration-300 ease-in-out hover:-translate-y-2 hover:bg-[rgba(48,28,78,0.85)] ${primaryTheme.cardBorderHover} ${primaryTheme.cardGlowHover}`}
+    >
+      {/* Subtle top edge glow beam in primary domain color */}
+      <div
+        className="pointer-events-none absolute -top-px left-8 right-8 h-[2px] rounded-full opacity-60 transition-opacity duration-300 group-hover:opacity-100"
+        style={{
+          background: `linear-gradient(90deg, transparent, ${primaryTheme.accentColor}, transparent)`,
+        }}
+        aria-hidden="true"
+      />
 
       {/* Photo Container: aspect-square rounded-[19px] matching AlumniCard */}
-      <div className="aspect-square w-full shrink-0 overflow-hidden rounded-[19px] bg-[#1a102c] relative border border-white/[0.08] shadow-inner">
+      <div className="aspect-square w-full shrink-0 overflow-hidden rounded-[19px] bg-[#1a102c] relative border border-white/[0.08] shadow-inner transition-colors duration-300 group-hover:border-white/[0.18]">
         {!hasAllFailed ? (
           <img
             src={imageCandidates[candidateIdx]}
@@ -155,6 +276,24 @@ export default function TeamCard({ member, showPosition = false }) {
             {member.branch}
           </p>
         </div>
+
+        {/* Domain Badges: Rendered for Third and Second Year only; strictly in ONE line */}
+        {!isFourthYear && member.domains && member.domains.length > 0 && (
+          <div className="mt-2 flex flex-nowrap items-center justify-center gap-1 sm:gap-1.5 min-h-[24px] max-w-full overflow-hidden px-0.5">
+            {member.domains.slice(0, 2).map((dom) => {
+              const theme = getDomainTheme(dom);
+              return (
+                <span
+                  key={dom}
+                  className={`inline-flex shrink-0 items-center gap-1 rounded-full ${theme.bg} ${theme.border} px-1.5 min-[400px]:px-2 py-0.5 font-['Space_Grotesk',sans-serif] text-[8px] min-[400px]:text-[8.5px] sm:text-[9.5px] font-bold uppercase tracking-wider ${theme.text} whitespace-nowrap ${theme.badgeShadow} transition-all duration-200 hover:scale-105`}
+                >
+                  <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${theme.dot} ${theme.dotShadow}`} />
+                  <span>{dom}</span>
+                </span>
+              );
+            })}
+          </div>
+        )}
 
         {/* LinkedIn: Blue Brand Icon */}
         <div className="mt-auto flex h-10 items-end justify-center pt-2">
