@@ -9,8 +9,8 @@
 
 .quest-loader-burst {
   position: absolute;
-  width: 240px;
-  height: 240px;
+  width: min(240px, 58vw);
+  height: min(240px, 58vw);
   border-radius: 9999px;
   background: radial-gradient(
     circle,

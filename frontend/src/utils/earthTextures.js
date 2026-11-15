@@ -1,29 +1,51 @@
 import * as THREE from 'three';
 
+const TEXTURE_PATHS = {
+  dayMap: '/textures/earth_day.jpg',
+  normalMap: '/textures/earth_normal.jpg',
+  specularMap: '/textures/earth_specular.jpg',
+  cloudMap: '/textures/earth_clouds.png',
+  lightsMap: '/textures/earth_lights.png',
+};
+
+const imageCache = {};
 const loader = new THREE.TextureLoader();
 
-/**
- * Loads high-resolution 2K NASA Blue Marble satellite textures from /textures/
- * for realistic terrain relief, specular ocean reflections, clouds, and night lights.
- */
-export function loadSatelliteEarthTextures(renderer) {
+function loadCachedTexture(url, renderer, isSRGB) {
   const maxAniso = renderer ? Math.min(8, renderer.capabilities.getMaxAnisotropy()) : 4;
 
-  const configure = (tex, isSRGB = false) => {
-    if (isSRGB) {
-      tex.colorSpace = THREE.SRGBColorSpace;
-    }
+  if (imageCache[url]?.complete && imageCache[url].naturalWidth > 0) {
+    const tex = new THREE.Texture(imageCache[url]);
+    if (isSRGB) tex.colorSpace = THREE.SRGBColorSpace;
     tex.anisotropy = maxAniso;
     tex.wrapS = THREE.RepeatWrapping;
     tex.wrapT = THREE.ClampToEdgeWrapping;
+    tex.needsUpdate = true;
     return tex;
+  }
+
+  const tex = loader.load(url, (loaded) => {
+    if (loaded.image) {
+      imageCache[url] = loaded.image;
+    }
+  });
+  if (isSRGB) tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = maxAniso;
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.ClampToEdgeWrapping;
+  return tex;
+}
+
+/**
+ * Loads high-resolution 2K NASA Blue Marble satellite textures from /textures/
+ * using cached decoded images so Loader and Home globes initialize instantaneously.
+ */
+export function loadSatelliteEarthTextures(renderer) {
+  return {
+    dayMap: loadCachedTexture(TEXTURE_PATHS.dayMap, renderer, true),
+    normalMap: loadCachedTexture(TEXTURE_PATHS.normalMap, renderer, false),
+    specularMap: loadCachedTexture(TEXTURE_PATHS.specularMap, renderer, false),
+    cloudMap: loadCachedTexture(TEXTURE_PATHS.cloudMap, renderer, true),
+    lightsMap: loadCachedTexture(TEXTURE_PATHS.lightsMap, renderer, true),
   };
-
-  const dayMap = configure(loader.load('/textures/earth_day.jpg'), true);
-  const normalMap = configure(loader.load('/textures/earth_normal.jpg'), false);
-  const specularMap = configure(loader.load('/textures/earth_specular.jpg'), false);
-  const cloudMap = configure(loader.load('/textures/earth_clouds.png'), true);
-  const lightsMap = configure(loader.load('/textures/earth_lights.png'), true);
-
-  return { dayMap, normalMap, specularMap, cloudMap, lightsMap };
 }

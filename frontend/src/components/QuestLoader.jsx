@@ -4,14 +4,13 @@ import gsap from 'gsap';
 import { loadSatelliteEarthTextures } from '../utils/earthTextures';
 import {
   createAsteroidField,
-  createGalaxyNebula,
+  createDeepSpaceNebulaShader,
   createGlowSpriteTexture,
-  createPixelParticleTexture,
   sampleQuestTextParticles,
 } from '../utils/spaceEffects';
 import './QuestLoader.css';
 
-export default function QuestLoader({ onComplete }) {
+export default function QuestLoader({ onRevealHome, onComplete }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const hudRef = useRef(null);
@@ -20,16 +19,26 @@ export default function QuestLoader({ onComplete }) {
   const statusRef = useRef(null);
   const burstRef = useRef(null);
   const completedRef = useRef(false);
+  const revealedRef = useRef(false);
   const onCompleteRef = useRef(onComplete);
+  const onRevealHomeRef = useRef(onRevealHome);
   const tlRef = useRef(null);
 
   useEffect(() => {
     onCompleteRef.current = onComplete;
-  }, [onComplete]);
+    onRevealHomeRef.current = onRevealHome;
+  }, [onComplete, onRevealHome]);
 
   const [skipped, setSkipped] = useState(false);
 
+  const triggerReveal = () => {
+    if (revealedRef.current) return;
+    revealedRef.current = true;
+    onRevealHomeRef.current?.();
+  };
+
   const finishLoader = () => {
+    triggerReveal();
     if (completedRef.current) return;
     completedRef.current = true;
     onCompleteRef.current?.();
@@ -39,6 +48,7 @@ export default function QuestLoader({ onComplete }) {
     if (completedRef.current) return;
     setSkipped(true);
     if (tlRef.current) tlRef.current.kill();
+    triggerReveal();
     gsap.to(containerRef.current, {
       opacity: 0,
       scale: 1.04,
@@ -53,11 +63,11 @@ export default function QuestLoader({ onComplete }) {
     if (!canvas) return;
 
     let isUnmounted = false;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0b0b14, 0.032);
+    scene.fog = new THREE.FogExp2(0x0b0b14, 0.028);
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
     camera.position.set(0, 0, 5.1);
@@ -73,43 +83,42 @@ export default function QuestLoader({ onComplete }) {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.32;
 
-    // Orbital & asteroid lighting
-    const ambient = new THREE.AmbientLight(0x8aa8d6, 0.5);
+    // Orbital & rim lighting
+    const ambient = new THREE.AmbientLight(0x3a4870, 0.42);
     scene.add(ambient);
 
     const sunPos = new THREE.Vector3(5.2, 2.1, 4.4);
-    const sunLight = new THREE.DirectionalLight(0xfffaf0, 2.9);
+    const sunLight = new THREE.DirectionalLight(0xfffaf0, 3.0);
     sunLight.position.copy(sunPos);
     scene.add(sunLight);
 
-    const earthshineLight = new THREE.DirectionalLight(0x6c8cff, 0.55);
-    earthshineLight.position.set(-4.0, -1.5, 2.0);
-    scene.add(earthshineLight);
-
-    const rimPurple = new THREE.PointLight(0xa879e6, 2.2, 18);
-    rimPurple.position.set(-3.8, -1.8, -1.2);
+    const rimPurple = new THREE.DirectionalLight(0xa879e6, 1.35);
+    rimPurple.position.set(-5.0, -2.5, -1.5);
     scene.add(rimPurple);
 
-    // 1. Galaxy Nebula Backdrop
-    const nebula = createGalaxyNebula(12);
-    scene.add(nebula.group);
+    // 1. Silky GLSL Deep-Space Nebula Backdrop
+    const nebula = createDeepSpaceNebulaShader();
+    scene.add(nebula.mesh);
 
-    // 2. Drifting 3D Rocky Asteroids in Galaxy Space
-    const asteroidField = createAsteroidField(9, {
-      spreadX: 9.5,
-      spreadY: 5.5,
+    // 2. Realistic Cratered 3D Asteroids drifting through galaxy space
+    const asteroidField = createAsteroidField(8, {
+      spreadX: 10.5,
+      spreadY: 6.0,
       minZ: -9,
       maxZ: 1.5,
       minScale: 0.09,
       maxScale: 0.28,
-      speedMultiplier: 0.85,
+      speedMultiplier: 0.78,
     });
     scene.add(asteroidField.group);
 
-    // 3. Earth Group
+    // 3. Stage Group wrapping Earth & Rings for responsive portrait/mobile/desktop framing
+    const globeStageGroup = new THREE.Group();
+    scene.add(globeStageGroup);
+
     const earthGroup = new THREE.Group();
     earthGroup.rotation.z = THREE.MathUtils.degToRad(23.5);
-    scene.add(earthGroup);
+    globeStageGroup.add(earthGroup);
 
     const textures = loadSatelliteEarthTextures(renderer);
 
@@ -120,7 +129,7 @@ export default function QuestLoader({ onComplete }) {
       normalScale: new THREE.Vector2(1.45, 1.45),
       specularMap: textures.specularMap,
       specular: new THREE.Color(0xb8e6ff),
-      shininess: 36,
+      shininess: 38,
       transparent: true,
       opacity: 1,
     });
@@ -128,7 +137,7 @@ export default function QuestLoader({ onComplete }) {
     earthMesh.rotation.y = -Math.PI * 0.6;
     earthGroup.add(earthMesh);
 
-    // Night-Side City Lights Shader Shell
+    // Night-Side City Lights + Warm Sunset Twilight Terminator Shader Shell
     const sunDirWorld = sunPos.clone().normalize();
     const lightsGeo = new THREE.SphereGeometry(1.153, 96, 96);
     const lightsMat = new THREE.ShaderMaterial({
@@ -157,10 +166,14 @@ export default function QuestLoader({ onComplete }) {
         varying vec3 vWorldNormal;
         void main() {
           float sunDot = dot(normalize(vWorldNormal), normalize(uSunDir));
-          float nightMask = smoothstep(0.12, -0.22, sunDot);
+          float nightMask = smoothstep(0.10, -0.22, sunDot);
+          // Warm sunset glow right along the day-night terminator
+          float twilight = exp(-pow(sunDot / 0.11, 2.0));
           vec3 lights = texture2D(uLightsMap, vUv).rgb;
           float intensity = max(lights.r, max(lights.g, lights.b));
-          gl_FragColor = vec4(lights * vec3(1.15, 0.96, 0.72), intensity * nightMask * uOpacity);
+          vec3 cityCol = lights * vec3(1.15, 0.96, 0.72) * intensity * nightMask;
+          vec3 sunsetCol = vec3(1.0, 0.46, 0.22) * twilight * 0.24;
+          gl_FragColor = vec4(cityCol + sunsetCol, (intensity * nightMask + twilight * 0.24) * uOpacity);
         }
       `,
     });
@@ -221,9 +234,9 @@ export default function QuestLoader({ onComplete }) {
     });
     earthGroup.add(new THREE.Mesh(atmoGeo, atmoMat));
 
-    // 4. Cleanly Opposed 2-Axis Orbital Gyroscope Rings (Symmetric X-crossed, non-merging)
+    // 4. Opposing 2-Axis Orbital Gyroscope Rings
     const ringGroup = new THREE.Group();
-    scene.add(ringGroup);
+    globeStageGroup.add(ringGroup);
 
     const ring1Holder = new THREE.Group();
     ring1Holder.rotation.x = THREE.MathUtils.degToRad(62);
@@ -236,8 +249,7 @@ export default function QuestLoader({ onComplete }) {
       transparent: true,
       opacity: 0.5,
     });
-    const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
-    ring1Holder.add(ring1);
+    ring1Holder.add(new THREE.Mesh(ring1Geo, ring1Mat));
 
     const node1Geo = new THREE.SphereGeometry(0.032, 16, 16);
     const node1Mat = new THREE.MeshBasicMaterial({ color: 0xa879e6 });
@@ -256,8 +268,7 @@ export default function QuestLoader({ onComplete }) {
       transparent: true,
       opacity: 0.34,
     });
-    const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-    ring2Holder.add(ring2);
+    ring2Holder.add(new THREE.Mesh(ring2Geo, ring2Mat));
 
     const node2Geo = new THREE.SphereGeometry(0.03, 16, 16);
     const node2Mat = new THREE.MeshBasicMaterial({ color: 0x2eeed0 });
@@ -267,7 +278,7 @@ export default function QuestLoader({ onComplete }) {
 
     // 5. Galaxy Starfield
     const starTex = createGlowSpriteTexture(1.0, 0.35);
-    const starCount = 1300;
+    const starCount = 1100;
     const starPositions = new Float32Array(starCount * 3);
     const starColors = new Float32Array(starCount * 3);
     const palette = [
@@ -298,7 +309,7 @@ export default function QuestLoader({ onComplete }) {
     starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
 
     const starMat = new THREE.PointsMaterial({
-      size: 0.085,
+      size: 0.08,
       map: starTex,
       vertexColors: true,
       transparent: true,
@@ -309,33 +320,112 @@ export default function QuestLoader({ onComplete }) {
     const stars = new THREE.Points(starGeo, starMat);
     scene.add(stars);
 
-    // 6. Pixel Particle Typography ("QUEST" + "A SEARCH WITHIN")
-    const pixelTex = createPixelParticleTexture();
-    let textParticleData = null;
+    // 6. GPU GLSL Particle Typography ("QUEST" + "A SEARCH WITHIN") with Curl Noise & Cursor Repulsion
     let textGeo = null;
     let textMat = null;
     let textPoints = null;
 
     const buildTextParticles = () => {
       if (isUnmounted || textPoints) return;
-      textParticleData = sampleQuestTextParticles();
-      const { startPositions, colors } = textParticleData;
+      const { startPositions, targetPositions, dispersePositions, colors, seeds } =
+        sampleQuestTextParticles();
 
       textGeo = new THREE.BufferGeometry();
-      textGeo.setAttribute(
-        'position',
-        new THREE.BufferAttribute(new Float32Array(startPositions), 3)
-      );
-      textGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      textGeo.setAttribute('position', new THREE.BufferAttribute(targetPositions, 3));
+      textGeo.setAttribute('aStartPos', new THREE.BufferAttribute(startPositions, 3));
+      textGeo.setAttribute('aDispersePos', new THREE.BufferAttribute(dispersePositions, 3));
+      textGeo.setAttribute('aColor', new THREE.BufferAttribute(colors, 3));
+      textGeo.setAttribute('aSeed', new THREE.BufferAttribute(seeds, 1));
 
-      textMat = new THREE.PointsMaterial({
-        size: 0.045,
-        map: pixelTex,
-        vertexColors: true,
+      textMat = new THREE.ShaderMaterial({
         transparent: true,
-        opacity: 0,
         blending: THREE.AdditiveBlending,
         depthWrite: false,
+        uniforms: {
+          uTime: { value: 0 },
+          uAssemble: { value: 0 },
+          uDisperse: { value: 0 },
+          uOpacity: { value: 0 },
+          uMouseLocal: { value: new THREE.Vector2(99, 99) },
+          uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+          uScaleFactor: { value: 1 },
+        },
+        vertexShader: `
+          attribute vec3 aStartPos;
+          attribute vec3 aDispersePos;
+          attribute vec3 aColor;
+          attribute float aSeed;
+
+          uniform float uTime;
+          uniform float uAssemble;
+          uniform float uDisperse;
+          uniform vec2 uMouseLocal;
+          uniform float uPixelRatio;
+          uniform float uScaleFactor;
+
+          varying vec3 vColor;
+          varying float vAlpha;
+
+          void main() {
+            vColor = aColor;
+
+            // Smooth assembly interpolation
+            vec3 pos = mix(aStartPos, position, uAssemble);
+
+            // Swirling vortex curve during assembly
+            float swirl = (1.0 - uAssemble) * (1.0 + mod(aSeed, 5.0) * 0.16);
+            float cs = cos(swirl);
+            float sn = sin(swirl);
+            pos.xy = mat2(cs, -sn, sn, cs) * pos.xy;
+
+            // GPU 3D curl-like shimmer & wind during dispersion
+            if (uDisperse > 0.001) {
+              vec3 curlOffset = vec3(
+                sin(uTime * 2.5 + aSeed + pos.y * 1.6),
+                cos(uTime * 2.2 + aSeed + pos.x * 1.4),
+                sin(uTime * 1.9 + aSeed * 0.7)
+              ) * (0.35 * sin(uDisperse * 3.14159));
+              pos = mix(pos, aDispersePos + curlOffset, uDisperse);
+            } else if (uAssemble > 0.90) {
+              // Subtle living shimmer on formed pixels
+              pos.z += sin(uTime * 3.4 + aSeed) * 0.018;
+            }
+
+            // Interactive cursor stardust repulsion while QUEST is visible
+            vec2 toParticle = pos.xy - uMouseLocal;
+            float dist = length(toParticle);
+            float repelRadius = 0.85;
+            if (dist < repelRadius && uAssemble > 0.35) {
+              float push = pow(1.0 - dist / repelRadius, 2.0) * 0.42;
+              vec2 dir = dist > 0.001 ? toParticle / dist : vec2(0.0, 1.0);
+              pos.xy += dir * push;
+              pos.z += push * 0.55;
+            }
+
+            vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+            gl_Position = projectionMatrix * mvPosition;
+
+            float baseSize = 11.5 * uPixelRatio * uScaleFactor;
+            gl_PointSize = clamp(baseSize / max(1.0, -mvPosition.z), 1.5, 12.0);
+            vAlpha = 1.0 - smoothstep(0.55, 1.0, uDisperse);
+          }
+        `,
+        fragmentShader: `
+          uniform float uOpacity;
+          varying vec3 vColor;
+          varying float vAlpha;
+
+          void main() {
+            vec2 uv = gl_PointCoord - vec2(0.5);
+            // Crisp glowing micro-pixel square with soft halo
+            float boxDist = max(abs(uv.x), abs(uv.y));
+            float core = 1.0 - smoothstep(0.18, 0.48, boxDist);
+            float radial = 1.0 - smoothstep(0.15, 0.5, length(uv));
+            float alpha = max(core * 0.95, radial * 0.65) * uOpacity * vAlpha;
+            if (alpha < 0.01) discard;
+            gl_FragColor = vec4(vColor, alpha);
+          }
+        `,
       });
 
       textPoints = new THREE.Points(textGeo, textMat);
@@ -344,22 +434,41 @@ export default function QuestLoader({ onComplete }) {
       scene.add(textPoints);
     };
 
+    const updateStageScale = () => {
+      const visH = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * 5.1;
+      const visW = visH * (width / height);
+      const scaleW = Math.min(1, visW / 4.45);
+      const scaleH = height < 560 ? Math.min(1, (visH * 0.78) / 4.0) : 1;
+      globeStageGroup.scale.setScalar(Math.max(0.42, Math.min(scaleW, scaleH)));
+    };
+    updateStageScale();
+
     const updateTextParticleScale = () => {
       if (!textPoints) return;
       const dist = Math.max(2.5, camera.position.z - textPoints.position.z);
       const visibleH = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * dist;
       const visibleW = visibleH * camera.aspect;
-      // Fit 6.4 world-unit QUEST wordmark cleanly inside ~74% of viewport width
-      const s = Math.min(1.15, (visibleW * 0.74) / 6.4);
+      const fillRatio = width < 640 ? 0.86 : 0.74;
+      const s = Math.min(1.15, (visibleW * fillRatio) / 6.4);
       textPoints.scale.setScalar(s);
+      if (textMat) {
+        textMat.uniforms.uScaleFactor.value = Math.max(0.56, Math.min(1.0, s * 1.45));
+      }
     };
 
-    // Wait briefly for web fonts so canvas samples Plus Jakarta Sans & Space Grotesk
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(buildTextParticles);
     } else {
       buildTextParticles();
     }
+
+    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+
+    const handlePointerMove = (e) => {
+      mouse.targetX = (e.clientX / width - 0.5) * 2;
+      mouse.targetY = -(e.clientY / height - 0.5) * 2;
+    };
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
 
     const state = {
       spinSpeed: 0.52,
@@ -378,15 +487,21 @@ export default function QuestLoader({ onComplete }) {
       const dt = Math.min(clock.getDelta(), 0.05);
       const elapsed = clock.elapsedTime;
 
+      mouse.x += (mouse.targetX - mouse.x) * 0.08;
+      mouse.y += (mouse.targetY - mouse.y) * 0.08;
+
+      // Subtle cursor-parallax orbit around the Earth during Phase 1
+      earthGroup.rotation.y = mouse.x * 0.14;
+      earthGroup.rotation.x = -mouse.y * 0.09;
+
       earthMesh.rotation.y += dt * state.spinSpeed;
       lightsMesh.rotation.y = earthMesh.rotation.y;
       cloudMesh.rotation.y += dt * (state.spinSpeed * 1.16);
 
-      // Opposite counter-rotation of the 2-axis orbital rings
       ring1Holder.rotation.z += dt * 0.65;
       ring2Holder.rotation.z -= dt * 0.55;
 
-      nebula.update(elapsed);
+      nebula.update(elapsed, 0.5 + mouse.x * 0.5, 0.5 + mouse.y * 0.5, 0);
       asteroidField.update(dt);
 
       const posAttr = starGeo.getAttribute('position');
@@ -398,58 +513,27 @@ export default function QuestLoader({ onComplete }) {
       posAttr.needsUpdate = true;
       stars.rotation.z += dt * 0.025;
 
-      // Update pixel-particle assembly & dispersion
-      if (textPoints && textParticleData) {
+      if (textPoints && textMat) {
         updateTextParticleScale();
-        textMat.opacity = state.textOpacity;
+        textMat.uniforms.uTime.value = elapsed;
+        textMat.uniforms.uAssemble.value = state.assembleProgress;
+        textMat.uniforms.uDisperse.value = state.disperseProgress;
+        textMat.uniforms.uOpacity.value = state.textOpacity;
 
-        const { count, startPositions, targetPositions, dispersePositions } = textParticleData;
-        const pAttr = textGeo.getAttribute('position');
-        const arr = pAttr.array;
-
-        const a = state.assembleProgress;
-        const d = state.disperseProgress;
-        const swirl = (1 - a) * 0.85;
-
-        for (let i = 0; i < count; i++) {
-          const i3 = i * 3;
-          // Interpolate start -> formed QUEST text
-          let px = startPositions[i3] + (targetPositions[i3] - startPositions[i3]) * a;
-          let py = startPositions[i3 + 1] + (targetPositions[i3 + 1] - startPositions[i3 + 1]) * a;
-          let pz = startPositions[i3 + 2] + (targetPositions[i3 + 2] - startPositions[i3 + 2]) * a;
-
-          // Swirling galaxy vortex curve while assembling
-          if (swirl > 0.005) {
-            const ang = swirl * (1.2 + (i % 7) * 0.12);
-            const cosA = Math.cos(ang);
-            const sinA = Math.sin(ang);
-            const rx = px * cosA - py * sinA;
-            const ry = px * sinA + py * cosA;
-            px = rx;
-            py = ry;
-          }
-
-          // Subtle shimmering breath when formed, then disperse outward
-          if (d > 0.001) {
-            px = px + (dispersePositions[i3] - px) * d;
-            py = py + (dispersePositions[i3 + 1] - py) * d;
-            pz = pz + (dispersePositions[i3 + 2] - pz) * d;
-          } else if (a > 0.92) {
-            pz += Math.sin(elapsed * 3.2 + i * 0.35) * 0.018;
-          }
-
-          arr[i3] = px;
-          arr[i3 + 1] = py;
-          arr[i3 + 2] = pz;
-        }
-        pAttr.needsUpdate = true;
+        // Project normalized mouse into textPoints local XY plane
+        const dist = Math.max(2.5, camera.position.z - textPoints.position.z);
+        const visH = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * dist;
+        const visW = visH * camera.aspect;
+        const localX = (mouse.x * (visW * 0.5)) / textPoints.scale.x;
+        const localY = (mouse.y * (visH * 0.5)) / textPoints.scale.y;
+        textMat.uniforms.uMouseLocal.value.set(localX, localY);
       }
 
       renderer.render(scene, camera);
     };
     animate();
 
-    // GSAP Master Choreography
+    // GSAP Master Choreography (brisk ~4.5s total)
     const tl = gsap.timeline({
       onComplete: () => {
         if (completedRef.current) return;
@@ -461,10 +545,10 @@ export default function QuestLoader({ onComplete }) {
 
     gsap.set(burstRef.current, { scale: 0.1, opacity: 0 });
 
-    // Phase 1: Satellite Earth spins with opposing 2-axis orbital rings & drifting asteroids
+    // Phase 1: Satellite Earth spins with opposing 2-axis rings & asteroids
     tl.to(state, {
       progress: 100,
-      duration: 1.9,
+      duration: 1.75,
       ease: 'power2.inOut',
       onUpdate: () => {
         const val = Math.round(state.progress);
@@ -478,13 +562,13 @@ export default function QuestLoader({ onComplete }) {
       },
     });
 
-    // Phase 2: Zoom into Earth & transition into particle space
+    // Phase 2: Zoom into Earth & transition into GPU particle space
     tl.to(
       hudRef.current,
       {
         opacity: 0,
         y: 16,
-        duration: 0.35,
+        duration: 0.3,
         ease: 'power2.in',
       },
       '+=0.05'
@@ -494,7 +578,7 @@ export default function QuestLoader({ onComplete }) {
         {
           spinSpeed: 4.5,
           warpSpeed: 0.38,
-          duration: 0.9,
+          duration: 0.8,
           ease: 'power3.in',
         },
         '<'
@@ -503,7 +587,7 @@ export default function QuestLoader({ onComplete }) {
         camera.position,
         {
           z: 0.85,
-          duration: 1.0,
+          duration: 0.9,
           ease: 'power3.in',
         },
         '<'
@@ -514,7 +598,7 @@ export default function QuestLoader({ onComplete }) {
           x: 2.5,
           y: 2.5,
           z: 2.5,
-          duration: 0.85,
+          duration: 0.8,
           ease: 'power2.in',
         },
         '<'
@@ -523,20 +607,20 @@ export default function QuestLoader({ onComplete }) {
         [ring1Mat, ring2Mat, node1Mat, node2Mat],
         {
           opacity: 0,
-          duration: 0.6,
+          duration: 0.55,
           ease: 'power2.in',
         },
-        '-=0.55'
+        '-=0.5'
       )
       .to(
         burstRef.current,
         {
-          opacity: 0.9,
+          opacity: 0.85,
           scale: 2.8,
-          duration: 0.8,
+          duration: 0.75,
           ease: 'power3.out',
         },
-        '-=0.35'
+        '-=0.3'
       )
       .to(
         earthGroup.scale,
@@ -544,7 +628,7 @@ export default function QuestLoader({ onComplete }) {
           x: 2.3,
           y: 2.3,
           z: 2.3,
-          duration: 0.65,
+          duration: 0.6,
           ease: 'power2.in',
         },
         '<'
@@ -553,7 +637,7 @@ export default function QuestLoader({ onComplete }) {
         earthMat,
         {
           opacity: 0,
-          duration: 0.45,
+          duration: 0.4,
           ease: 'power2.out',
         },
         '-=0.3'
@@ -562,7 +646,7 @@ export default function QuestLoader({ onComplete }) {
         lightsMat.uniforms.uOpacity,
         {
           value: 0,
-          duration: 0.35,
+          duration: 0.32,
         },
         '<'
       )
@@ -570,7 +654,7 @@ export default function QuestLoader({ onComplete }) {
         cloudMat,
         {
           opacity: 0,
-          duration: 0.35,
+          duration: 0.32,
         },
         '<'
       )
@@ -578,7 +662,7 @@ export default function QuestLoader({ onComplete }) {
         atmoMat.uniforms.uOpacity,
         {
           value: 0,
-          duration: 0.45,
+          duration: 0.4,
         },
         '<'
       )
@@ -586,7 +670,7 @@ export default function QuestLoader({ onComplete }) {
         state,
         {
           warpSpeed: 0.02,
-          duration: 0.65,
+          duration: 0.55,
           ease: 'power2.out',
         },
         '-=0.2'
@@ -596,69 +680,72 @@ export default function QuestLoader({ onComplete }) {
         {
           opacity: 0,
           scale: 4.2,
-          duration: 0.7,
+          duration: 0.65,
           ease: 'power2.out',
         },
-        '-=0.35'
+        '-=0.3'
       )
       .call(buildTextParticles);
 
-    // Phase 3: Pixel Particle Assembly -> "QUEST" & "A SEARCH WITHIN" -> Dispersion
+    // Phase 3: GPU Pixel-Particle Assembly -> "QUEST" & "A SEARCH WITHIN" -> Dispersion
     tl.to(
       state,
       {
-        textOpacity: 0.96,
-        duration: 0.35,
+        textOpacity: 0.98,
+        duration: 0.3,
         ease: 'power2.out',
       },
-      '-=0.5'
+      '-=0.45'
     )
       .to(
         state,
         {
           assembleProgress: 1,
-          duration: 1.35,
+          duration: 1.15,
           ease: 'power3.out',
         },
         '<'
       )
-      // Hold formed pixel typography cleanly
       .to(state, {
         assembleProgress: 1,
-        duration: 0.85,
+        duration: 0.7,
       })
-      // Disperse formed pixels outward into galaxy dust
       .to(state, {
         disperseProgress: 1,
-        duration: 1.05,
+        duration: 0.95,
         ease: 'power2.in',
       })
       .to(
         state,
         {
           textOpacity: 0,
-          duration: 0.65,
+          duration: 0.55,
           ease: 'power2.in',
         },
-        '-=0.65'
+        '-=0.55'
       )
-      // Phase 4: Seamless fade into Home Page
+      .call(triggerReveal, null, '-=0.25')
       .to(
         containerRef.current,
         {
           opacity: 0,
-          duration: 0.55,
+          duration: 0.5,
           ease: 'power2.inOut',
         },
-        '-=0.35'
+        '-=0.25'
       );
 
     const handleResize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      camera.aspect = w / h;
+      width = window.innerWidth;
+      height = window.innerHeight;
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      updateStageScale();
+      if (textMat) {
+        textMat.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2);
+      }
       updateTextParticleScale();
     };
     window.addEventListener('resize', handleResize);
@@ -666,6 +753,7 @@ export default function QuestLoader({ onComplete }) {
     return () => {
       isUnmounted = true;
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('pointermove', handlePointerMove);
       cancelAnimationFrame(rafId);
       tl.kill();
       earthGeo.dispose();
@@ -687,7 +775,6 @@ export default function QuestLoader({ onComplete }) {
       starGeo.dispose();
       starMat.dispose();
       starTex.dispose();
-      pixelTex.dispose();
       if (textGeo) textGeo.dispose();
       if (textMat) textMat.dispose();
       nebula.dispose();
@@ -714,16 +801,16 @@ export default function QuestLoader({ onComplete }) {
       {/* Phase 1 HUD */}
       <div
         ref={hudRef}
-        className="pointer-events-none absolute bottom-14 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 px-4"
+        className="pointer-events-none absolute bottom-[calc(4.75rem+env(safe-area-inset-bottom))] left-1/2 flex w-full max-w-[92vw] -translate-x-1/2 flex-col items-center gap-2.5 px-3 sm:bottom-14 sm:gap-3 sm:px-4"
       >
-        <div className="flex items-center gap-3 font-mono-quest text-xs tracking-[0.28em] text-[#CBD5E1]">
-          <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#2EEED0]" />
+        <div className="flex items-center gap-2 whitespace-nowrap font-mono-quest text-[10px] tracking-[0.18em] text-[#CBD5E1] sm:gap-3 sm:text-xs sm:tracking-[0.28em]">
+          <span className="inline-block h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-[#2EEED0]" />
           <span ref={statusRef}>SCANNING HORIZONS</span>
-          <span ref={percentRef} className="text-[#A879E6] font-semibold">
+          <span ref={percentRef} className="font-semibold text-[#A879E6]">
             00%
           </span>
         </div>
-        <div className="h-[2px] w-56 overflow-hidden rounded-full bg-white/10 sm:w-72">
+        <div className="h-[2px] w-48 overflow-hidden rounded-full bg-white/10 sm:w-72">
           <div
             ref={progressFillRef}
             className="h-full w-0 rounded-full"
@@ -736,7 +823,7 @@ export default function QuestLoader({ onComplete }) {
         <button
           type="button"
           onClick={handleSkip}
-          className="quest-glass font-mono-quest absolute right-6 bottom-6 z-20 cursor-pointer rounded-full px-4 py-2 text-[11px] font-medium tracking-[0.2em] text-[#CBD5E1] uppercase transition-all duration-300 hover:border-[#A879E6]/50 hover:text-white"
+          className="quest-glass font-mono-quest absolute right-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-20 cursor-pointer rounded-full px-3.5 py-2 text-[10px] font-medium tracking-[0.16em] text-[#CBD5E1] uppercase transition-all duration-300 hover:border-[#A879E6]/50 hover:text-white sm:right-6 sm:bottom-6 sm:px-4 sm:py-2 sm:text-[11px] sm:tracking-[0.2em]"
         >
           Skip Intro →
         </button>

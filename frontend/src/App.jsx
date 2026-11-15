@@ -34,7 +34,9 @@ function PlaceholderPage({ title }) {
 
 function App() {
   const location = useLocation();
-  const [showLoader, setShowLoader] = useState(location.pathname === '/');
+  const isHome = location.pathname === '/';
+  const [showLoader, setShowLoader] = useState(isHome);
+  const [homeRevealed, setHomeRevealed] = useState(!isHome);
 
   useEffect(() => {
     if (showLoader) {
@@ -50,7 +52,13 @@ function App() {
   return (
     <>
       {showLoader && (
-        <QuestLoader onComplete={() => setShowLoader(false)} />
+        <QuestLoader
+          onRevealHome={() => setHomeRevealed(true)}
+          onComplete={() => {
+            setHomeRevealed(true);
+            setShowLoader(false);
+          }}
+        />
       )}
 
       {/* Common Navbar */}
@@ -61,7 +69,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Home introReady={!showLoader} />}
+            element={<Home introReady={homeRevealed} />}
           />
 
           <Route path="/about" element={<PlaceholderPage title="About QUEST" />} />

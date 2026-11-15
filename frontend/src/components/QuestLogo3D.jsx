@@ -6,7 +6,8 @@ import { loadSatelliteEarthTextures } from '../utils/earthTextures';
 export default function QuestLogo3D({ className = '' }) {
   const wrapperRef = useRef(null);
   const tiltRef = useRef(null);
-  const canvasRef = useRef(null);
+  const outerCanvasRef = useRef(null);
+  const innerCanvasRef = useRef(null);
   const glareRef = useRef(null);
 
   const [isDragging, setIsDragging] = useState(false);
@@ -21,18 +22,20 @@ export default function QuestLogo3D({ className = '' }) {
   });
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const outerCanvas = outerCanvasRef.current;
+    const innerCanvas = innerCanvasRef.current;
+    if (!outerCanvas || !innerCanvas) return;
 
-    // Canvas covers [0..400, 0..400] of the 829x673 SVG coordinate space at 2x resolution
-    const canvasSize = 800;
-    const scale = canvasSize / 400; // 2px per SVG unit
+    const outerCtx = outerCanvas.getContext('2d');
+    const innerCtx = innerCanvas.getContext('2d');
+    const renderSize = 512;
+
+    const offscreenCanvas = document.createElement('canvas');
+    offscreenCanvas.width = renderSize;
+    offscreenCanvas.height = renderSize;
 
     const scene = new THREE.Scene();
 
-    // Two synchronized cameras sharing one scene:
-    // 1. Outer peeking Earth (1x unmagnified view fitting the top-left globe outline)
-    // 2. Inner magnifying glass lens (magnified view inside the bezel)
     const cameraOuter = new THREE.PerspectiveCamera(34, 1, 0.1, 50);
     cameraOuter.position.set(0, 0, 3.68);
 
@@ -40,16 +43,15 @@ export default function QuestLogo3D({ className = '' }) {
     cameraInner.position.set(0, 0, 2.75);
 
     const renderer = new THREE.WebGLRenderer({
-      canvas,
+      canvas: offscreenCanvas,
       antialias: true,
       alpha: true,
       powerPreference: 'high-performance',
     });
-    renderer.setSize(canvasSize, canvasSize, false);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(renderSize, renderSize, false);
+    renderer.setPixelRatio(1);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.48;
-    renderer.setScissorTest(true);
 
     // Orbital deep-sky backdrop behind the globe
     const bgGeo = new THREE.SphereGeometry(8, 32, 32);
@@ -166,63 +168,42 @@ export default function QuestLogo3D({ className = '' }) {
     });
     earthGroup.add(new THREE.Mesh(atmoGeo, atmoMat));
 
-    // Viewport rects in SVG [0..400, 0..400] space (WebGL Y is bottom-up)
-    const outerCx = 111;
-    const outerCy = 111;
-    const outerR = 102;
-    const vpOuter = {
-      x: (outerCx - outerR) * scale,
-      y: (400 - (outerCy + outerR)) * scale,
-      w: outerR * 2 * scale,
-      h: outerR * 2 * scale,
-    };
-
-    const innerCx = 208;
-    const innerCy = 211;
-    const innerR = 138;
-    const vpInner = {
-      x: (innerCx - innerR) * scale,
-      y: (400 - (innerCy + innerR)) * scale,
-      w: innerR * 2 * scale,
-      h: innerR * 2 * scale,
-    };
-
     // GSAP quickTo for 3D logo tilt
     const rotXTo = gsap.quickTo(tiltRef.current, 'rotateX', { duration: 0.55, ease: 'power3.out' });
     const rotYTo = gsap.quickTo(tiltRef.current, 'rotateY', { duration: 0.55, ease: 'power3.out' });
 
     const wrapper = wrapperRef.current;
 
-    const handlePointerMove = (e) => {
-      if (wrapper) {
-        const rect = wrapper.getBoundingClientRect();
-        const nx = (e.clientX - rect.left) / rect.width - 0.5;
-        const ny = (e.clientY - rect.top) / rect.height - 0.5;
-        rotYTo(nx * 14);
-        rotXTo(-ny * 12);
+    const handleWrapperPointerMove = (e) => {
+      if (!wrapper || e.pointerType === 'touch') return;
+      const rect = wrapper.getBoundingClientRect();
+      const nx = (e.clientX - rect.left) / rect.width - 0.5;
+      const ny = (e.clientY - rect.top) / rect.height - 0.5;
+      rotYTo(nx * 14);
+      rotXTo(-ny * 12);
 
-        sunLight.position.x = 2.8 + nx * 2.8;
-        sunLight.position.y = 2.2 - ny * 2.4;
+      sunLight.position.x = 2.8 + nx * 2.8;
+      sunLight.position.y = 2.2 - ny * 2.4;
 
-        if (glareRef.current) {
-          glareRef.current.style.transform = `translate(${nx * 18}px, ${ny * 18}px)`;
-        }
+      if (glareRef.current) {
+        glareRef.current.style.transform = `translate(${nx * 18}px, ${ny * 18}px)`;
       }
+    };
 
-      if (dragStateRef.current.dragging) {
-        const dx = e.clientX - dragStateRef.current.lastX;
-        const dy = e.clientY - dragStateRef.current.lastY;
-        dragStateRef.current.lastX = e.clientX;
-        dragStateRef.current.lastY = e.clientY;
-        dragStateRef.current.velX = dx * 0.012;
-        dragStateRef.current.velY = dy * 0.01;
-        earthGroup.rotation.y += dx * 0.012;
-        earthGroup.rotation.x = THREE.MathUtils.clamp(
-          earthGroup.rotation.x + dy * 0.008,
-          -0.85,
-          0.85
-        );
-      }
+    const handleWindowPointerMove = (e) => {
+      if (!dragStateRef.current.dragging) return;
+      const dx = e.clientX - dragStateRef.current.lastX;
+      const dy = e.clientY - dragStateRef.current.lastY;
+      dragStateRef.current.lastX = e.clientX;
+      dragStateRef.current.lastY = e.clientY;
+      dragStateRef.current.velX = dx * 0.012;
+      dragStateRef.current.velY = dy * 0.01;
+      earthGroup.rotation.y += dx * 0.012;
+      earthGroup.rotation.x = THREE.MathUtils.clamp(
+        earthGroup.rotation.x + dy * 0.008,
+        -0.85,
+        0.85
+      );
     };
 
     const handlePointerLeave = () => {
@@ -240,9 +221,11 @@ export default function QuestLogo3D({ className = '' }) {
       }
     };
 
-    wrapper?.addEventListener('pointermove', handlePointerMove);
+    wrapper?.addEventListener('pointermove', handleWrapperPointerMove);
     wrapper?.addEventListener('pointerleave', handlePointerLeave);
+    window.addEventListener('pointermove', handleWindowPointerMove, { passive: true });
     window.addEventListener('pointerup', handlePointerUp);
+    window.addEventListener('pointercancel', handlePointerUp);
 
     let rafId = 0;
     const clock = new THREE.Clock();
@@ -267,23 +250,25 @@ export default function QuestLogo3D({ className = '' }) {
         cloudMesh.rotation.y += dt * 0.12;
       }
 
-      // Pass 1: Outer peeking Earth (1x unmagnified scale behind the rim)
-      renderer.setViewport(vpOuter.x, vpOuter.y, vpOuter.w, vpOuter.h);
-      renderer.setScissor(vpOuter.x, vpOuter.y, vpOuter.w, vpOuter.h);
+      // Pass 1: Render outer peeking Earth (1x unmagnified) and copy cleanly into circular outer canvas
       renderer.render(scene, cameraOuter);
+      outerCtx?.clearRect(0, 0, renderSize, renderSize);
+      outerCtx?.drawImage(offscreenCanvas, 0, 0);
 
-      // Pass 2: Inner magnifying glass lens (magnified view of the same Earth)
-      renderer.setViewport(vpInner.x, vpInner.y, vpInner.w, vpInner.h);
-      renderer.setScissor(vpInner.x, vpInner.y, vpInner.w, vpInner.h);
+      // Pass 2: Render magnified lens Earth and copy cleanly into circular inner lens canvas
       renderer.render(scene, cameraInner);
+      innerCtx?.clearRect(0, 0, renderSize, renderSize);
+      innerCtx?.drawImage(offscreenCanvas, 0, 0);
     };
     animate();
 
     return () => {
       cancelAnimationFrame(rafId);
-      wrapper?.removeEventListener('pointermove', handlePointerMove);
+      wrapper?.removeEventListener('pointermove', handleWrapperPointerMove);
       wrapper?.removeEventListener('pointerleave', handlePointerLeave);
+      window.removeEventListener('pointermove', handleWindowPointerMove);
       window.removeEventListener('pointerup', handlePointerUp);
+      window.removeEventListener('pointercancel', handlePointerUp);
       bgGeo.dispose();
       bgMat.dispose();
       starGeo.dispose();
@@ -338,28 +323,11 @@ export default function QuestLogo3D({ className = '' }) {
           transformStyle: 'preserve-3d',
         }}
       >
-        {/* UNIFIED DUAL-VIEWPORT 3D SATELLITE EARTH CANVAS (Outer Peek + Inner Magnified Lens) */}
-        <div
-          className="pointer-events-none absolute top-0 left-0 z-10 overflow-hidden"
-          style={{
-            width: '48.2509%', // 400 / 829
-            height: '59.4354%', // 400 / 673
-            clipPath: 'url(#quest-earth-canvas-clip)',
-          }}
-        >
-          <canvas
-            ref={canvasRef}
-            width={800}
-            height={800}
-            className="block h-full w-full"
-          />
-        </div>
-
-        {/* Interactive Drag Hit-Zone: Outer Globe Peek */}
+        {/* 1. OUTER GLOBE PEEK (Circular clip, 1x scale, zero scissor overlap) */}
         <div
           onPointerDown={handleGlobePointerDown}
           title="Drag to rotate Earth"
-          className={`absolute z-15 rounded-full ${
+          className={`absolute z-10 touch-none overflow-hidden rounded-full ${
             isDragging ? 'cursor-grabbing' : 'cursor-grab'
           }`}
           style={{
@@ -368,13 +336,20 @@ export default function QuestLogo3D({ className = '' }) {
             width: '24.6080%', // 204 / 829
             height: '30.3120%', // 204 / 673
           }}
-        />
+        >
+          <canvas
+            ref={outerCanvasRef}
+            width={512}
+            height={512}
+            className="block h-full w-full"
+          />
+        </div>
 
-        {/* Interactive Drag Hit-Zone + Convex Optical Lens Overlay: Inner Magnifying Glass */}
+        {/* 2. INNER MAGNIFYING GLASS LENS GLOBE + CONVEX OPTICAL OVERLAY */}
         <div
           onPointerDown={handleGlobePointerDown}
           title="Drag to rotate Earth inside the magnifying glass"
-          className={`absolute z-15 overflow-hidden rounded-full ${
+          className={`absolute z-15 touch-none overflow-hidden rounded-full ${
             isDragging ? 'cursor-grabbing' : 'cursor-grab'
           }`}
           style={{
@@ -386,6 +361,13 @@ export default function QuestLogo3D({ className = '' }) {
               'inset 0 0 18px rgba(14, 34, 62, 0.55), inset 0 0 10px rgba(125, 211, 252, 0.35)',
           }}
         >
+          <canvas
+            ref={innerCanvasRef}
+            width={512}
+            height={512}
+            className="block h-full w-full"
+          />
+
           {/* Convex Magnifying Glass Optical Specular Overlay */}
           <div
             ref={glareRef}
@@ -412,12 +394,6 @@ export default function QuestLogo3D({ className = '' }) {
           aria-label="QUEST — A Search Within Official Logo with Interactive Satellite Earth"
         >
           <defs>
-            {/* Clip canvas strictly inside the white sticker boundaries */}
-            <clipPath id="quest-earth-canvas-clip" clipPathUnits="objectBoundingBox">
-              <circle cx="0.2775" cy="0.2775" r="0.2525" />
-              <circle cx="0.52" cy="0.5275" r="0.34" />
-            </clipPath>
-
             {/* Expose live 3D Earth in both outer globe peek & inner magnifying lens while keeping bezel + white border untouched */}
             <mask id="quest-lens-window-mask">
               <rect x="0" y="0" width="829" height="673" fill="white" />
@@ -439,7 +415,7 @@ export default function QuestLogo3D({ className = '' }) {
 
         {/* Subtle Interactive Prompt Pill */}
         <div
-          className={`pointer-events-none absolute z-30 flex items-center gap-1.5 rounded-full border border-white/15 bg-[#1A0F2E]/80 px-2.5 py-1 text-[10px] font-medium tracking-wider text-[#CBD5E1] backdrop-blur-md transition-all duration-500 ${
+          className={`pointer-events-none absolute z-30 flex items-center gap-1.5 rounded-full border border-white/15 bg-[#1A0F2E]/80 px-2 py-0.5 text-[8px] font-medium tracking-wider text-[#CBD5E1] backdrop-blur-md transition-all duration-500 sm:px-2.5 sm:py-1 sm:text-[10px] ${
             hasInteracted ? 'opacity-40' : 'opacity-90'
           }`}
           style={{
