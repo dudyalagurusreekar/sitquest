@@ -41,7 +41,7 @@ function Navbar() {
         onClick={() => setIsOpen(false)}
       >
         <img
-          src="/quest-logo.png"
+          src={`${import.meta.env.BASE_URL}quest-logo.png`}
           alt="QUEST logo"
           className="site-brand__logo"
         />
