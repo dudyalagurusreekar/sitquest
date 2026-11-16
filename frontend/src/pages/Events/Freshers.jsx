@@ -12,7 +12,7 @@ const EVENT = {
 };
 
 /* Public assets must include Vite BASE_URL for GitHub Pages subpath hosting. */
-const assetUrl = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\\/+/, "")}`;
+const assetUrl = (path) => `${import.meta.env.BASE_URL}${path}`;
 const PHOTOS = [
   { src: assetUrl("images_events/freshers/1ea02787-2b62-40d3-b5e6-e132048cc209.jpg"), alt: "Quest Freshers poster", art: "a1" },
   { src: assetUrl("images_events/freshers/c9575510-f6b4-4258-800f-5059fca87eaf.jpg"), alt: "Welcome session", art: "a2" },
