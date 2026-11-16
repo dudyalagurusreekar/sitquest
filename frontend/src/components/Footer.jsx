@@ -121,7 +121,7 @@ const DiagonalArrowIcon = () => (
 );
 
 const DEFAULT_EVENTS = [
-  { name: 'Freshers Day', href: '/events/freshers-day', icon: <FreshersIcon /> },
+  { name: 'Freshers Day', href: '/events/freshers', icon: <FreshersIcon /> },
   { name: 'Placement IQ', href: '/events/placement-iq', icon: <PlacementIQIcon /> },
   { name: 'QUEST Test Series', href: '/events/quest-test-series', icon: <TestSeriesIcon /> },
 ];

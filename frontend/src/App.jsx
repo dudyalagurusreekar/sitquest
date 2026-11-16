@@ -11,6 +11,9 @@ import QuestLoader from './components/QuestLoader';
 import Home from './pages/Home/Home';
 import * as AboutMod from './pages/About/About';
 import * as EventsMod from './pages/Events/Events';
+import QuestFreshers from './pages/Events/Freshers';
+import PlacementIQ from './pages/Events/PIQ';
+import QuestTestSeries from './pages/Events/QTS';
 import * as GalleryMod from './pages/Gallery/Gallery';
 import * as AlumniMod from './pages/Alumni/Alumni';
 import * as RegistrationsMod from './pages/Registrations/Registrations';
@@ -69,6 +72,12 @@ function App() {
           <Route path="/about" element={About ? <About /> : null} />
 
           <Route path="/events" element={Events ? <Events /> : null} />
+
+          <Route path="/events/freshers" element={<QuestFreshers />} />
+
+          <Route path="/events/placement-iq" element={<PlacementIQ />} />
+
+          <Route path="/events/quest-test-series" element={<QuestTestSeries />} />
 
           <Route path="/team" element={Team ? <Team /> : null} />
 
