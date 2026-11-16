@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 /* Public assets must include Vite BASE_URL for GitHub Pages subpath hosting. */
-const assetUrl = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\\/+/, "")}`;
+const assetUrl = (path) => `${import.meta.env.BASE_URL}${path}`;
 const PHOTOS = [
   { src: assetUrl("images_events/placement_iq/bpnoosoxtp6tvtozortc.webp"), name: "", sub: "Round 1", art: "a1" },
   { src: assetUrl("images_events/placement_iq/IMG_2135.JPG"), name: "", sub: "Round 2", art: "a2" },
