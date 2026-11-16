@@ -1964,9 +1964,6 @@
   .bg-\[radial-gradient\(ellipse_at_100\%_0\%\,\#8244b32a\,transparent_42\%\)\,linear-gradient\(145deg\,\#21162e\,\#100d18\)\] {
     background-image: radial-gradient(ellipse at 100% 0%,#8244b32a,transparent 42%),linear-gradient(145deg,#21162e,#100d18);
   }
-  .bg-\[url\(\'\/quest-stars\.jpg\'\)\] {
-    background-image: url('/quest-stars.jpg');
-  }
   .from-\[\#1b1226\]\/90 {
     --tw-gradient-from: color-mix(in oklab, #1b1226 90%, transparent);
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));

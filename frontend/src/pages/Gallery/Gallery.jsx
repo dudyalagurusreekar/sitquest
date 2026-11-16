@@ -58,8 +58,10 @@ const PHOTOS_BY_YEAR = {
   ],
 };
 
+const publicAsset = (path) => `${import.meta.env.BASE_URL}${String(path || '').replace(/^\/+/, '')}`;
+
 function photoSrc(year, filename) {
-  return encodeURI(`/assets/images/${year}/${filename}`);
+  return encodeURI(publicAsset(`assets/images/${year}/${filename}`));
 }
 
 function shufflePhotos(photos) {

@@ -33,6 +33,8 @@ function roleSize(text = "") {
   return "text-[12px]";
 }
 
+const publicAsset = (path) => `${import.meta.env.BASE_URL}${String(path || '').replace(/^\/+/, '')}`;
+
 function AlumniCard({ alumni }) {
   return (
     <article className="group relative flex h-full min-w-0 flex-col rounded-[25px] border border-[rgba(180,145,230,0.13)] bg-[rgba(43,29,68,0.42)] p-4 shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 ease-in-out hover:-translate-y-[6px] hover:border-[rgba(180,145,230,0.35)] hover:bg-[rgba(55,37,83,0.60)]">
@@ -40,7 +42,7 @@ function AlumniCard({ alumni }) {
       {/* Photo */}
       <div className="aspect-square w-full shrink-0 overflow-hidden rounded-[19px] bg-[#211b30]">
         <img
-          src={alumni.image}
+          src={publicAsset(alumni.image)}
           alt={`${alumni.name} portrait`}
           loading="lazy"
           className="block h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"

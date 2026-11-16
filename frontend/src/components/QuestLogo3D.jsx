@@ -403,7 +403,7 @@ export default function QuestLogo3D({ className = '' }) {
             </mask>
           </defs>
           <image
-            href="/quest-logo.png"
+            href={`${import.meta.env.BASE_URL}quest-logo.png`}
             x="0"
             y="0"
             width="829"

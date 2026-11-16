@@ -30,12 +30,15 @@ const FACULTY_COORDINATORS = [
 /**
  * Single Faculty Card Component
  */
+const publicAsset = (path) => `${import.meta.env.BASE_URL}${String(path || '').replace(/^\/+/, '')}`;
+
 function FacultyCard({ faculty }) {
-  const [imgSrc, setImgSrc] = useState(faculty.photoWebp);
+  const [imgSrc, setImgSrc] = useState(publicAsset(faculty.photoWebp));
 
   const handleImageError = () => {
-    if (imgSrc !== faculty.photoJpg) {
-      setImgSrc(faculty.photoJpg);
+    const fallback = publicAsset(faculty.photoJpg);
+    if (imgSrc !== fallback) {
+      setImgSrc(fallback);
     }
   };
 

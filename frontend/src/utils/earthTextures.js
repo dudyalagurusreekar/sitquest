@@ -1,11 +1,13 @@
 import * as THREE from 'three';
 
+const publicAsset = (path) => `${import.meta.env.BASE_URL}${String(path || '').replace(/^\/+/, '')}`;
+
 const TEXTURE_PATHS = {
-  dayMap: '/textures/earth_day.jpg',
-  normalMap: '/textures/earth_normal.jpg',
-  specularMap: '/textures/earth_specular.jpg',
-  cloudMap: '/textures/earth_clouds.png',
-  lightsMap: '/textures/earth_lights.png',
+  dayMap: publicAsset('textures/earth_day.jpg'),
+  normalMap: publicAsset('textures/earth_normal.jpg'),
+  specularMap: publicAsset('textures/earth_specular.jpg'),
+  cloudMap: publicAsset('textures/earth_clouds.png'),
+  lightsMap: publicAsset('textures/earth_lights.png'),
 };
 
 const imageCache = {};

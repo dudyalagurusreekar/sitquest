@@ -32,6 +32,8 @@ function EventArtwork({ eventKey }) {
   </svg>
 }
 
+const publicAsset = (path) => `${import.meta.env.BASE_URL}${String(path || '').replace(/^\/+/, '')}`;
+
 function cardTransform(position) {
   if (position === 'center') return 'translateX(-50%) translateZ(75px)'
   const direction = position === 'next' ? '+' : '-'
@@ -40,7 +42,10 @@ function cardTransform(position) {
 
 function StarField() {
   return <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-    <div className="absolute inset-0 bg-[url('/quest-stars.jpg')] bg-cover bg-center opacity-80" />
+    <div
+      className="absolute inset-0 bg-cover bg-center opacity-80"
+      style={{ backgroundImage: `url(${publicAsset('quest-stars.jpg')})` }}
+    />
   </div>
 }
 function EventList({ onSelect }) {
@@ -237,9 +242,9 @@ function EventRegistration({ event, onBack, onRegistrationSubmit }) {
         </div>
       </div>
       <div className="relative order-2 h-[clamp(300px,27vw,430px)] min-h-[300px] overflow-hidden rounded-[18px] border border-white/10 bg-gradient-to-br from-white/[.04] to-white/[.01] shadow-[inset_0_0_55px_#8244b315,0_20px_65px_#0005] max-[680px]:order-1 max-[680px]:h-[clamp(190px,55vw,290px)] max-[680px]:min-h-[190px] max-[680px]:rounded-[13px]">
-        {event.eventKey === 'placement-iq' && <img className="h-full w-full bg-white object-contain" src="/placement-iq-poster.jpeg" alt="Placement IQ workshop poster"/>}
-        {event.eventKey === 'quest-test-series' && <img className="h-full w-full bg-white object-contain" src="/qts-poster.png" alt="Quest Test Series placement readiness poster"/>}
-        {event.eventKey === 'freshers-event' && <img className="h-full w-full bg-white object-contain" src="/freshers-poster.png" alt="Luna Freshers event poster, 5 October 2026 at Birla Auditorium"/>}
+        {event.eventKey === 'placement-iq' && <img className="h-full w-full bg-white object-contain" src={publicAsset('placement-iq-poster.jpeg')} alt="Placement IQ workshop poster"/>}
+        {event.eventKey === 'quest-test-series' && <img className="h-full w-full bg-white object-contain" src={publicAsset('qts-poster.png')} alt="Quest Test Series placement readiness poster"/>}
+        {event.eventKey === 'freshers-event' && <img className="h-full w-full bg-white object-contain" src={publicAsset('freshers-poster.png')} alt="Luna Freshers event poster, 5 October 2026 at Birla Auditorium"/>}
       </div>
     </section>
 
