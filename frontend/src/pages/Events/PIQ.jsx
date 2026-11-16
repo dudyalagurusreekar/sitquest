@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 
-/* Add your real photos: replace src:null with a path like "photos/1.jpg" */
+/* Public assets must include Vite BASE_URL for GitHub Pages subpath hosting. */
+const assetUrl = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\\/+/, "")}`;
 const PHOTOS = [
-  { src:"public/images_events/placement_iq/bpnoosoxtp6tvtozortc.webp", name: "", sub: "Round 1", art: "a1" },
-  { src: "public/images_events/placement_iq/IMG_2135.JPG", name: "", sub: "Round 2", art: "a2" },
-  { src: "public/images_events/placement_iq/ngbf4uy9sqbo6mikii2n.webp", name: "", sub: "Round 3", art: "a3" },
-  { src: "public/images_events/placement_iq/xgsaxebl7oulw9miiob4.webp", name: "", sub: "Results", art: "a1" },
-  { src: "public/images_events/placement_iq/doavnn7isbmprgnpajrz.webp", name: "", sub: "Participants", art: "a2" },
-  { src: "public/images_events/placement_iq/IMG_20260425_143931128.jpg", name: "", sub: "Closing", art: "a3" },
+  { src: assetUrl("images_events/placement_iq/bpnoosoxtp6tvtozortc.webp"), name: "", sub: "Round 1", art: "a1" },
+  { src: assetUrl("images_events/placement_iq/IMG_2135.JPG"), name: "", sub: "Round 2", art: "a2" },
+  { src: assetUrl("images_events/placement_iq/ngbf4uy9sqbo6mikii2n.webp"), name: "", sub: "Round 3", art: "a3" },
+  { src: assetUrl("images_events/placement_iq/xgsaxebl7oulw9miiob4.webp"), name: "", sub: "Results", art: "a1" },
+  { src: assetUrl("images_events/placement_iq/doavnn7isbmprgnpajrz.webp"), name: "", sub: "Participants", art: "a2" },
+  { src: assetUrl("images_events/placement_iq/IMG_20260425_143931128.jpg"), name: "", sub: "Closing", art: "a3" },
 ];
 
 /* ---- EDIT SPEAKER DETAILS HERE ----
@@ -17,7 +18,7 @@ const SPEAKER = {
   name: "Sahana Shanbhag",
   role: "Senior Analyst",
   company: "Target Corporation",
-  photo: "public/images_events/speaker/speaker.jpg",
+  photo: assetUrl("images_events/speaker/speaker.jpg"),
   experience: [],
   topics: [
     "Career planning",
