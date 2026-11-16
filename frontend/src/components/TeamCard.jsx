@@ -140,6 +140,8 @@ function branchSize(text = '') {
  * 6. Under photo: Member Name, Position (if applicable), Branch / Department, Domain badges, and LinkedIn link.
  * 7. Domain Styling: Distinct vibrant palette colors per domain with glowing jewel dots.
  */
+const publicAsset = (path) => `${import.meta.env.BASE_URL}${String(path || '').replace(/^\/+/, '')}`;
+
 export default function TeamCard({ member, showPosition = false }) {
   const usnLower = (member.usn || '').toLowerCase();
   const usnUpper = (member.usn || '').toUpperCase();
@@ -164,10 +166,11 @@ export default function TeamCard({ member, showPosition = false }) {
       `/images_of_team/${slug}-${usnLower}.jpg`,
       `/images_of_team/${cleanName}.jpg`,
       `/images_of_team/${cleanName}.webp`,
-    ];
+    ].map(publicAsset);
 
-    if (member.localPhotoPath && !list.includes(member.localPhotoPath)) {
-      list.push(member.localPhotoPath);
+    if (member.localPhotoPath) {
+      const localPath = publicAsset(member.localPhotoPath);
+      if (!list.includes(localPath)) list.push(localPath);
     }
 
     return Array.from(new Set(list));
