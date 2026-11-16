@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 
-/* Put your photos in public/images_events/quest_test_series/ and edit the names below */
+/* Public assets must include Vite BASE_URL for GitHub Pages subpath hosting. */
+const assetUrl = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\\/+/, "")}`;
 const PHOTOS = [
-  { src: "/images_events/quest_test_series/photo1.jpeg", name: "Quest Test Series photo 1", art: "a1" },
-  { src: "/images_events/quest_test_series/photo2.jpeg", name: "Quest Test Series photo 2", art: "a2" },
-  { src: "/images_events/quest_test_series/photo3.jpeg", name: "Quest Test Series photo 3", art: "a3" },
-  { src: "/images_events/quest_test_series/photo4.jpeg", name: "Quest Test Series photo 4", art: "a1" },
-  { src: "/images_events/quest_test_series/photo5.jpeg", name: "Quest Test Series photo 5", art: "a2" },
-  { src: "/images_events/quest_test_series/photo6.jpeg", name: "Quest Test Series photo 6", art: "a3" },
+  { src: assetUrl("images_events/quest_test_series/photo1.jpeg"), name: "Quest Test Series photo 1", art: "a1" },
+  { src: assetUrl("images_events/quest_test_series/photo2.jpeg"), name: "Quest Test Series photo 2", art: "a2" },
+  { src: assetUrl("images_events/quest_test_series/photo3.jpeg"), name: "Quest Test Series photo 3", art: "a3" },
+  { src: assetUrl("images_events/quest_test_series/photo4.jpeg"), name: "Quest Test Series photo 4", art: "a1" },
+  { src: assetUrl("images_events/quest_test_series/photo5.jpeg"), name: "Quest Test Series photo 5", art: "a2" },
+  { src: assetUrl("images_events/quest_test_series/photo6.jpeg"), name: "Quest Test Series photo 6", art: "a3" },
 ];
 
 /* Edit the text of each day here */
