@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, X, ImageOff, ZoomIn } from "lucide-react";
 
 const YEARS = ["2024", "2025", "2026", "2027"];
 
@@ -58,42 +59,33 @@ const PHOTOS_BY_YEAR = {
   ],
 };
 
-const publicAsset = (path) => `${import.meta.env.BASE_URL}${String(path || '').replace(/^\/+/, '')}`;
+const resolveAsset = (path) => {
+  const base = import.meta.env.BASE_URL || "/";
+  const cleanPath = String(path || "").replace(/^\/+/, "");
+  return `${base}${cleanPath}`;
+};
 
 function photoSrc(year, filename) {
-  return encodeURI(publicAsset(`assets/images/${year}/${filename}`));
-}
-
-function shufflePhotos(photos) {
-  const shuffled = [...photos];
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const randomIndex = Math.floor(Math.random() * (index + 1));
-    [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
-  }
-  return shuffled;
+  return encodeURI(resolveAsset(`assets/images/${year}/${filename}`));
 }
 
 export default function Gallery() {
   const [activeIndex, setActiveIndex] = useState(1);
-  const [galleries, setGalleries] = useState(() => Object.fromEntries(
-    Object.entries(PHOTOS_BY_YEAR).map(([year, photos]) => [year, shufflePhotos(photos)]),
-  ));
+  // Keep photos stable per year; avoid re-shuffling on tab click to prevent unnecessary reloads
+  const [galleries] = useState(PHOTOS_BY_YEAR);
   const [lightbox, setLightbox] = useState(null);
   const [failed, setFailed] = useState({});
   const [loaded, setLoaded] = useState({});
+
+  const touchStartRef = useRef({ x: 0, y: 0 });
 
   const year = YEARS[activeIndex];
   const photos = galleries[year] ?? [];
   const activePhoto = lightbox === null ? null : photos[lightbox];
 
   const selectYear = useCallback((index) => {
-    const selectedYear = YEARS[index];
     setActiveIndex(index);
     setLightbox(null);
-    setGalleries((current) => ({
-      ...current,
-      [selectedYear]: shufflePhotos(current[selectedYear] ?? []),
-    }));
   }, []);
 
   const stepYear = useCallback((delta) => {
@@ -101,13 +93,16 @@ export default function Gallery() {
     setLightbox(null);
   }, []);
 
-  const stepPhoto = useCallback((delta) => {
-    if (!photos.length) return;
-    setLightbox((current) => {
-      if (current === null) return current;
-      return (current + delta + photos.length) % photos.length;
-    });
-  }, [photos.length]);
+  const stepPhoto = useCallback(
+    (delta) => {
+      if (!photos.length) return;
+      setLightbox((current) => {
+        if (current === null) return current;
+        return (current + delta + photos.length) % photos.length;
+      });
+    },
+    [photos.length]
+  );
 
   useEffect(() => {
     function onKey(event) {
@@ -134,23 +129,46 @@ export default function Gallery() {
     };
   }, [lightbox]);
 
+  // Touch swiping in lightbox
+  const handleLightboxTouchStart = (e) => {
+    touchStartRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+    };
+  };
+
+  const handleLightboxTouchEnd = (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartRef.current.x;
+    const dy = e.changedTouches[0].clientY - touchStartRef.current.y;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) {
+        stepPhoto(1);
+      } else {
+        stepPhoto(-1);
+      }
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#090711] px-4 py-12 text-white sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
+        {/* Header */}
         <header className="mx-auto mb-10 max-w-3xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-[#b994e4]">
-            Moments from QUEST
-          </p>
-          <h1 className="font-sans text-5xl font-extrabold tracking-tight sm:text-6xl">
-            Gallery
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#A879E6]/30 bg-[#8244B3]/15 px-3 py-1 text-[11px] font-mono tracking-widest text-[#2EEED0] uppercase mb-4">
+            <span>Official Archive</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#2EEED0] animate-pulse" />
+          </div>
+          <h1 className="font-sans text-5xl font-extrabold tracking-tight sm:text-6xl text-white">
+            Moments of QUEST
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-white/65 sm:text-base">
-            A collection of the people, ideas, and memories that make QUEST.
+            A visual retrospective of workshops, hackathons, speaker sessions, and community memories.
           </p>
         </header>
 
+        {/* Year Tabs */}
         <div
-          className="mx-auto mb-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4"
+          className="mx-auto mb-10 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4"
           role="tablist"
           aria-label="Gallery years"
         >
@@ -163,9 +181,9 @@ export default function Gallery() {
                 role="tab"
                 aria-selected={isActive}
                 aria-controls="gallery-photos"
-                className={`rounded-xl border px-5 py-3 text-sm font-bold transition duration-200 ${
+                className={`rounded-2xl border px-5 py-3.5 text-sm font-bold transition duration-200 cursor-pointer ${
                   isActive
-                    ? "border-[#b994e4]/70 bg-[#8244b3]/30 text-white shadow-[0_0_24px_rgba(130,68,179,0.2)]"
+                    ? "border-[#b994e4]/80 bg-[#8244b3]/30 text-white shadow-[0_0_24px_rgba(130,68,179,0.3)] scale-[1.02]"
                     : "border-white/10 bg-white/[0.03] text-white/60 hover:border-white/25 hover:bg-white/[0.07] hover:text-white"
                 }`}
                 onClick={() => selectYear(index)}
@@ -176,119 +194,171 @@ export default function Gallery() {
           })}
         </div>
 
+        {/* Photos Grid Section */}
         <section
           id="gallery-photos"
           role="tabpanel"
           aria-label={`${year} photographs`}
-          className="rounded-3xl border border-white/10 bg-white/[0.025] p-4 shadow-2xl shadow-black/20 sm:p-6"
+          className="rounded-3xl border border-white/10 bg-white/[0.02] p-5 sm:p-8 shadow-2xl backdrop-blur-md"
         >
-          <div className="mb-6 flex items-end justify-between gap-4 border-b border-white/10 pb-4">
+          <div className="mb-8 flex items-end justify-between gap-4 border-b border-white/10 pb-5">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#b994e4]">
-                Photo archive
+              <p className="text-xs font-mono font-semibold uppercase tracking-[0.24em] text-[#2EEED0]">
+                Photo Archive
               </p>
-              <h2 className="mt-1 text-2xl font-bold">{year}</h2>
+              <h2 className="mt-1 text-3xl font-extrabold text-white">{year}</h2>
             </div>
+            <span className="font-mono text-xs text-[#CBD5E1]/60 tracking-wider">
+              {photos.length} Photographs
+            </span>
           </div>
 
-          <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
+          <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 xl:columns-4">
             {photos.map((filename, index) => {
               const src = photoSrc(year, filename);
               const alt = `QUEST ${year} event photo ${index + 1}`;
+              const isLoaded = loaded[src];
+              const isFailed = failed[src];
+
               return (
-                <button
+                <div
                   key={filename}
-                  type="button"
-                  aria-label={`View ${alt}`}
-                  className="group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left shadow-lg transition duration-300 hover:-translate-y-1 hover:border-[#b994e4]/50 hover:shadow-[0_12px_36px_rgba(0,0,0,0.35)]"
+                  className="group relative mb-5 block w-full break-inside-avoid overflow-hidden rounded-2xl border border-white/10 bg-[#160d26]/80 text-left shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:border-[#b994e4]/60 hover:shadow-[0_16px_40px_rgba(130,68,179,0.25)] cursor-pointer"
                   onClick={() => setLightbox(index)}
                 >
-                  {failed[src] ? (
-                    <span className="flex aspect-[4/3] items-center justify-center px-4 text-center text-sm text-white/50">
-                      Photo could not be loaded
-                    </span>
+                  {isFailed ? (
+                    <div className="flex aspect-[4/3] flex-col items-center justify-center gap-2.5 p-6 text-center bg-gradient-to-br from-[#23143E] via-[#1A0F2E] to-[#0B0B14]">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#A879E6]">
+                        <ImageOff className="h-5 w-5" />
+                      </div>
+                      <span className="text-xs font-medium text-white/75">Photo Unavailable</span>
+                      <span className="text-[10px] text-white/40">{year} Archive</span>
+                    </div>
                   ) : (
                     <>
-                      {!loaded[src] && (
-                        <span className="absolute inset-0 flex min-h-32 items-center justify-center text-xs text-white/35">
-                          Loading photo…
-                        </span>
+                      {!isLoaded && (
+                        <div className="aspect-[4/3] w-full flex items-center justify-center bg-[#170e28] animate-pulse">
+                          <div className="h-6 w-6 rounded-full border-2 border-[#A879E6]/30 border-t-[#2EEED0] animate-spin" />
+                        </div>
                       )}
                       <img
                         src={src}
                         alt={alt}
                         loading="lazy"
                         decoding="async"
-                        className={`block h-auto w-full transition duration-500 group-hover:scale-[1.03] ${
-                          loaded[src] ? "opacity-100" : "opacity-0"
+                        className={`block h-auto w-full object-cover transition-all duration-500 ease-out group-hover:scale-105 ${
+                          isLoaded ? "opacity-100" : "absolute inset-0 opacity-0"
                         }`}
-                        onLoad={() => setLoaded((current) => (
-                          current[src] ? current : { ...current, [src]: true }
-                        ))}
-                        onError={() => setFailed((current) => ({ ...current, [src]: true }))}
+                        onLoad={() =>
+                          setLoaded((current) =>
+                            current[src] ? current : { ...current, [src]: true }
+                          )
+                        }
+                        onError={() =>
+                          setFailed((current) => ({ ...current, [src]: true }))
+                        }
                       />
                     </>
                   )}
-                  <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-3 pb-3 pt-8 text-left text-xs font-medium text-white/90 opacity-0 transition group-hover:opacity-100">
-                    Photo {index + 1}
-                  </span>
-                </button>
+
+                  {/* Hover Zoom Indicator */}
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/35 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
+                    <span className="flex items-center gap-1.5 rounded-full border border-white/25 bg-black/60 px-3.5 py-1.5 text-xs font-medium text-white backdrop-blur-md shadow-lg">
+                      <ZoomIn className="h-4 w-4 text-[#2EEED0]" />
+                      <span>Zoom</span>
+                    </span>
+                  </div>
+                </div>
               );
             })}
           </div>
         </section>
       </div>
 
+      {/* ==================== FULLSCREEN LIGHTBOX ==================== */}
       {activePhoto && (
         <div
-          className="fixed inset-0 z-[100] flex min-h-[100dvh] items-center justify-center bg-black/90 p-4 backdrop-blur-md"
+          className="fixed inset-0 z-[1000] flex min-h-[100dvh] items-center justify-center bg-black/95 p-3 sm:p-6 backdrop-blur-xl animate-in fade-in duration-200"
           role="dialog"
           aria-modal="true"
           aria-label={`QUEST ${year} photo`}
           onClick={() => setLightbox(null)}
+          onTouchStart={handleLightboxTouchStart}
+          onTouchEnd={handleLightboxTouchEnd}
         >
-          <button
-            type="button"
-            className="absolute right-4 top-4 flex size-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-2xl text-white transition hover:bg-white/20"
-            aria-label="Close photo"
-            onClick={() => setLightbox(null)}
+          {/* Top Bar */}
+          <div
+            className="absolute top-0 inset-x-0 z-30 flex items-center justify-between p-4 sm:p-6 bg-gradient-to-b from-black/80 to-transparent pointer-events-auto"
+            onClick={(e) => e.stopPropagation()}
           >
-            ×
-          </button>
+            <div className="flex items-center gap-3">
+              <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-mono text-[#2EEED0]">
+                {(lightbox ?? 0) + 1} / {photos.length}
+              </span>
+              <span className="text-sm font-semibold text-white/90">
+                QUEST {year}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20 hover:scale-105 active:scale-95 cursor-pointer"
+              aria-label="Close photo (Press Escape)"
+              onClick={() => setLightbox(null)}
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+
+          {/* Left Arrow */}
           <button
             type="button"
-            className="absolute left-3 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/50 text-2xl text-white transition hover:bg-white/20 sm:left-6"
-            aria-label="Previous photo"
+            className="absolute left-2 sm:left-6 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white backdrop-blur-md transition hover:bg-[#8244B3]/40 hover:scale-110 active:scale-95 cursor-pointer"
+            aria-label="Previous photo (Press Left Arrow)"
             onClick={(event) => {
               event.stopPropagation();
               stepPhoto(-1);
             }}
           >
-            ‹
+            <ChevronLeft className="h-7 w-7" />
           </button>
+
+          {/* Lightbox Center Image */}
           <figure
-            className="flex max-h-[calc(100dvh-4rem)] w-full max-w-6xl flex-col items-center justify-center gap-3"
+            className="flex max-h-[82dvh] max-w-[92vw] flex-col items-center justify-center gap-3"
             onClick={(event) => event.stopPropagation()}
           >
-            <img
-              src={photoSrc(year, activePhoto)}
-              alt={`QUEST ${year} event photo ${(lightbox ?? 0) + 1}`}
-              className="max-h-[calc(100dvh-120px)] max-w-full rounded-xl object-contain shadow-2xl"
-            />
-            <figcaption className="text-sm text-white/75">
-              QUEST {year}
+            {failed[photoSrc(year, activePhoto)] ? (
+              <div className="flex aspect-[16/10] w-[min(90vw,720px)] flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-[#1A0F2E] p-8 text-center shadow-2xl">
+                <ImageOff className="h-10 w-10 text-[#A879E6]" />
+                <p className="text-lg font-bold text-white">Photo Unavailable</p>
+                <p className="text-xs text-[#CBD5E1]/60">
+                  The image file could not be loaded from the archive.
+                </p>
+              </div>
+            ) : (
+              <img
+                src={photoSrc(year, activePhoto)}
+                alt={`QUEST ${year} event photo ${(lightbox ?? 0) + 1}`}
+                className="max-h-[78dvh] max-w-[90vw] rounded-2xl object-contain shadow-[0_25px_70px_rgba(0,0,0,0.85)] border border-white/10"
+              />
+            )}
+            <figcaption className="text-xs font-mono text-white/70">
+              QUEST {year} · Photo {(lightbox ?? 0) + 1}
             </figcaption>
           </figure>
+
+          {/* Right Arrow */}
           <button
             type="button"
-            className="absolute right-3 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/50 text-2xl text-white transition hover:bg-white/20 sm:right-6"
-            aria-label="Next photo"
+            className="absolute right-2 sm:right-6 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white backdrop-blur-md transition hover:bg-[#8244B3]/40 hover:scale-110 active:scale-95 cursor-pointer"
+            aria-label="Next photo (Press Right Arrow)"
             onClick={(event) => {
               event.stopPropagation();
               stepPhoto(1);
             }}
           >
-            ›
+            <ChevronRight className="h-7 w-7" />
           </button>
         </div>
       )}

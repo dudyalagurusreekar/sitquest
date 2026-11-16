@@ -1,4 +1,5 @@
 import { Link, useInRouterContext } from 'react-router-dom';
+import questLogoSrc from '../assets/quest-logo.png';
 
 /**
  * SafeLink helper component:
@@ -147,7 +148,7 @@ const DEFAULT_SOCIALS = {
 const Footer = ({
   events = DEFAULT_EVENTS,
   socials = DEFAULT_SOCIALS,
-  logoSrc = `${import.meta.env.BASE_URL}quest-logo.png`,
+  logoSrc = questLogoSrc,
   showLogo = true,
   className = '',
 }) => {

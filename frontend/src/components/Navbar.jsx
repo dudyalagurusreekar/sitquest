@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import questLogoSrc from '../assets/quest-logo.png';
 import './Navbar.css';
 
 const links = [
@@ -41,7 +42,7 @@ function Navbar() {
         onClick={() => setIsOpen(false)}
       >
         <img
-          src={`${import.meta.env.BASE_URL}quest-logo.png`}
+          src={questLogoSrc}
           alt="QUEST logo"
           className="site-brand__logo"
         />

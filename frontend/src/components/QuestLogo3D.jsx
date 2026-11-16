@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
+import questLogoSrc from '../assets/quest-logo.png';
 import { loadSatelliteEarthTextures } from '../utils/earthTextures';
 
 export default function QuestLogo3D({ className = '' }) {
@@ -403,7 +404,8 @@ export default function QuestLogo3D({ className = '' }) {
             </mask>
           </defs>
           <image
-            href={`${import.meta.env.BASE_URL}quest-logo.png`}
+            href={questLogoSrc}
+            xlinkHref={questLogoSrc}
             x="0"
             y="0"
             width="829"

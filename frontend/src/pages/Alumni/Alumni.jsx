@@ -1,5 +1,4 @@
 
-import React from "react";
 import alumniData from "../../data/alumniData";
 
 function LinkedInIcon() {
