@@ -25,6 +25,8 @@ function tailwindSourceWatcher() {
 }
 
 export default defineConfig({
+  // Use the repository subpath on GitHub Pages; keep local development at /.
+  base: process.env.GITHUB_ACTIONS === 'true' ? '/sitquest/' : '/',
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] }),
